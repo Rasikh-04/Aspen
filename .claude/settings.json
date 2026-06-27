@@ -1,0 +1,21 @@
+{
+  "//": "Aspen — Claude Code project settings starter. Expand as needed; ECC may also manage parts of this.",
+  "permissions": {
+    "allow": [
+      "Bash(./gradlew *)",
+      "Bash(git status*)",
+      "Bash(git diff*)",
+      "Bash(git log*)",
+      "Bash(git add*)",
+      "Bash(ls*)",
+      "Bash(cat*)",
+      "Bash(grep*)",
+      "Bash(find*)"
+    ],
+    "deny": [
+      "Bash(git push*)",
+      "Bash(rm -rf*)"
+    ]
+  },
+  "//gates": "Crisis content and safety/consent code require human review — see CLAUDE.md. Keep copy-lint + crisis-freshness checks in CI, not just here."
+}

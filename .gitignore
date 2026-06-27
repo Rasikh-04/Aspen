@@ -1,0 +1,15 @@
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+local.properties
+*.iml
+captures/
+.cxx/
+.idea/
+*.hprof
+**/xcuserdata/
+**/.DS_Store
+**/Pods/
+.DS_Store
+Thumbs.db
+redundant/

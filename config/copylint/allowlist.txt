@@ -1,0 +1,4 @@
+# Copy-lint allow-list — reviewed exceptions only.
+# Format:  token|reviewer note (who reviewed, why it is safe in context)
+# A token here is suppressed in EVERY language. Keep this list short and justified.
+# (empty: no exceptions in Phase 1)

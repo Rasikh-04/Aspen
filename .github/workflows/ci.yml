@@ -1,0 +1,87 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+# Cancel superseded runs on the same ref.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # ---------------------------------------------------------------------------
+  # Android + shared logic + the copy-lint safety gate (GitHub-hosted Linux).
+  # ---------------------------------------------------------------------------
+  android:
+    name: Android · shared · copy-lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      # Copy-lint logic unit tests (pure JVM, no device) — the safety gate's own tests.
+      - name: Copy-lint unit tests
+        run: ./gradlew -p buildSrc test --console=plain --stacktrace
+
+      # Copy-lint release gate: forbidden number/shame/appearance tokens, per language.
+      - name: Copy-lint gate (forbidden tokens)
+        run: ./gradlew copyLint --console=plain --stacktrace
+
+      # Shared, device-free logic: LocaleResolver, contrast/no-alarm-red, domain.
+      - name: Shared logic tests (JVM)
+        run: ./gradlew :shared:core-common:jvmTest :shared:domain:jvmTest --console=plain --stacktrace
+
+      # Android app must build to Calm Home.
+      - name: Assemble Android (debug)
+        run: ./gradlew :androidApp:assembleDebug --console=plain --stacktrace
+
+      - name: Android lint
+        run: ./gradlew :androidApp:lintDebug --console=plain --stacktrace
+
+      - name: Upload reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-reports
+          path: |
+            **/build/reports/**
+            **/build/test-results/**
+          if-no-files-found: ignore
+
+  # ---------------------------------------------------------------------------
+  # iOS target compiles + links from day one.
+  # Runs on a GitHub-hosted macOS runner (Apple toolchain required for
+  # Kotlin/Native iOS targets — no Linux cross-compile path).
+  # ---------------------------------------------------------------------------
+  ios:
+    name: iOS framework (Kotlin/Compose)
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      # The "iOS compiles from day one" gate: compile + link the shared framework.
+      - name: Compile + link iOS framework (simulator arm64)
+        run: ./gradlew :shared:ui:linkDebugFrameworkIosSimulatorArm64 --console=plain --stacktrace

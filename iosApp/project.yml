@@ -1,0 +1,25 @@
+name: iosApp
+options:
+  bundleIdPrefix: app.aspen
+  deploymentTarget:
+    iOS: "15.0"
+targets:
+  iosApp:
+    type: application
+    platform: iOS
+    sources:
+      - path: iosApp
+    info:
+      path: iosApp/Info.plist
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: app.aspen.ios
+        GENERATE_INFOPLIST_FILE: NO
+    # The Shared.framework is produced by Gradle:
+    #   ./gradlew :shared:ui:embedAndSignAppleFrameworkForXcode
+    # Add that as a pre-build run-script phase and link Shared.framework when wiring on a Mac.
+    preBuildScripts:
+      - name: Build Shared framework (Kotlin/Compose)
+        script: |
+          cd "$SRCROOT/.."
+          ./gradlew :shared:ui:embedAndSignAppleFrameworkForXcode
