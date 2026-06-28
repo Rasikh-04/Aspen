@@ -6,6 +6,6 @@ import kotlin.test.assertEquals
 class DomainModuleTest {
     @Test
     fun domainModuleCompilesAndReportsPhase() {
-        assertEquals(1, DomainModule.PHASE)
+        assertEquals(2, DomainModule.PHASE)
     }
 }

@@ -1,0 +1,29 @@
+{
+  "_comment": "Canonical forbidden-token lexicon (CLAUDE.md #1/#2/#5/#8, docs/01 §6, docs/09 §2.3). SINGLE SOURCE OF TRUTH. Consumed at build time by the copy-lint (buildSrc ForbiddenTokens) and mirrored at runtime by app.aspen.domain.safety.DefaultForbiddenLexicon; a parity test on each side fails the build if either drifts from this file. Lists are a reviewed STARTER set (en/de/ur); authoritative per-language lists are advisor/translator-supplied trust-and-safety content (docs/12 §3). eating_advice is runtime-only (AI output guard, Phase 4); the copy-lint uses the first three categories.",
+  "languages": {
+    "en": {
+      "numbers_food_body": ["calorie", "calories", "kcal", "bmi", "macro", "macros", "kg", "kgs", "lbs", "pound", "pounds", "weight", "portion", "portions", "goal weight"],
+      "shame": ["fail", "failed", "fails", "failing", "missed", "incomplete", "you didn't"],
+      "appearance": ["you look", "thin", "fat", "skinny", "chubby", "overweight", "underweight", "healthy weight"],
+      "eating_advice": ["you should eat", "eat more", "eat less", "skip the meal", "skip a meal", "restrict", "go on a diet"]
+    },
+    "de": {
+      "numbers_food_body": ["kalorie", "kalorien", "bmi", "gewicht", "kilo", "abnehmen", "zunehmen"],
+      "shame": ["versagt", "gescheitert", "verpasst"],
+      "appearance": ["dünn", "dick", "übergewicht", "untergewicht"],
+      "eating_advice": []
+    },
+    "ur": {
+      "numbers_food_body": ["وزن", "کیلو", "کیلوری"],
+      "shame": [],
+      "appearance": [],
+      "eating_advice": []
+    }
+  },
+  "universal": {
+    "numbers_food_body": ["kcal", "bmi"],
+    "shame": [],
+    "appearance": [],
+    "eating_advice": []
+  }
+}

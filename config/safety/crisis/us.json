@@ -1,0 +1,59 @@
+{
+  "_comment": "United States registry (docs/10 §3) — PRESENT BUT DISABLED until US advisors sign off (see enabledLocales in CrisisRegistry). Primary US ED line is the National Alliance for Eating Disorders (clinician-staffed) — NEVER NEDA (disconnected; CLAUDE.md #7). Every contact value TODO-VERIFY.",
+  "locale": "US",
+  "version": "2026-06-01",
+  "resources": [
+    {
+      "id": "us-alliance",
+      "name": "National Alliance for Eating Disorders",
+      "purpose": "ED_SUPPORT",
+      "contacts": [
+        { "method": "PHONE", "label": "Helpline (licensed clinicians)", "value": "TODO-VERIFY" }
+      ],
+      "hours": null,
+      "languages": ["en"],
+      "notes": "Primary US ED line — staffed by licensed clinicians (the correct US ED line to use).",
+      "verifiedOn": "TODO-VERIFY",
+      "verifiedBy": "TODO-VERIFY"
+    },
+    {
+      "id": "us-anad",
+      "name": "ANAD",
+      "purpose": "ED_SUPPORT",
+      "contacts": [
+        { "method": "PHONE", "label": "Helpline (peer support + referrals)", "value": "TODO-VERIFY" }
+      ],
+      "hours": null,
+      "languages": ["en", "es"],
+      "notes": "Peer support and referrals.",
+      "verifiedOn": "TODO-VERIFY",
+      "verifiedBy": "TODO-VERIFY"
+    },
+    {
+      "id": "us-988",
+      "name": "988 Suicide & Crisis Lifeline",
+      "purpose": "ACUTE_CRISIS",
+      "contacts": [
+        { "method": "PHONE", "label": "988 (call or text)", "value": "TODO-VERIFY" }
+      ],
+      "hours": null,
+      "languages": ["en", "es"],
+      "notes": "General acute crisis, 24/7.",
+      "verifiedOn": "TODO-VERIFY",
+      "verifiedBy": "TODO-VERIFY"
+    },
+    {
+      "id": "us-emergency",
+      "name": "Emergency services",
+      "purpose": "ACUTE_CRISIS",
+      "contacts": [
+        { "method": "PHONE", "label": "Emergency (life-threatening only)", "value": "TODO-VERIFY" }
+      ],
+      "hours": null,
+      "languages": ["en", "es"],
+      "notes": "Life-threatening situations only.",
+      "verifiedOn": "TODO-VERIFY",
+      "verifiedBy": "TODO-VERIFY"
+    }
+  ]
+}

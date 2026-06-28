@@ -1,0 +1,59 @@
+{
+  "_comment": "Pakistan launch registry (docs/10 §4). Honest caveat: dedicated ED-specific helplines are essentially absent; lean on general MH support + advisor network + treatment-finder + international fallback. Crisis copy in Urdu (RTL, docs/12). Anchor NAMES only; every contact value TODO-VERIFY. Never NEDA (CLAUDE.md #7).",
+  "locale": "PK",
+  "version": "2026-06-01",
+  "resources": [
+    {
+      "id": "pk-partner-clinicians",
+      "name": "Partner clinicians",
+      "purpose": "ED_SUPPORT",
+      "contacts": [
+        { "method": "IN_APP", "label": "Aspen partner clinical contacts", "value": "TODO-VERIFY" }
+      ],
+      "hours": null,
+      "languages": ["ur", "en"],
+      "notes": "Most reliable ED-specific route locally; supplied by the advisor network.",
+      "verifiedOn": "2026-06-28",
+      "verifiedBy": "PROVISIONAL-UNVERIFIED"
+    },
+    {
+      "id": "pk-umang",
+      "name": "Umang Helpline",
+      "purpose": "ACUTE_CRISIS",
+      "contacts": [
+        { "method": "PHONE", "label": "Umang (emotional support)", "value": "TODO-VERIFY" }
+      ],
+      "hours": null,
+      "languages": ["ur", "en"],
+      "notes": "General emotional / mental-health support; advisor to confirm currently operating.",
+      "verifiedOn": "2026-06-28",
+      "verifiedBy": "PROVISIONAL-UNVERIFIED"
+    },
+    {
+      "id": "pk-findahelpline",
+      "name": "Find A Helpline — Pakistan",
+      "purpose": "ED_SUPPORT",
+      "contacts": [
+        { "method": "URL", "label": "Find a verified helpline", "value": "TODO-VERIFY" }
+      ],
+      "hours": null,
+      "languages": ["ur", "en"],
+      "notes": "Verified cross-check / fallback while the local registry is thin.",
+      "verifiedOn": "2026-06-28",
+      "verifiedBy": "PROVISIONAL-UNVERIFIED"
+    },
+    {
+      "id": "pk-emergency",
+      "name": "Emergency services",
+      "purpose": "ACUTE_CRISIS",
+      "contacts": [
+        { "method": "PHONE", "label": "Emergency (life-threatening only)", "value": "TODO-VERIFY" }
+      ],
+      "hours": null,
+      "languages": ["ur", "en"],
+      "notes": "Life-threatening situations only.",
+      "verifiedOn": "2026-06-28",
+      "verifiedBy": "PROVISIONAL-UNVERIFIED"
+    }
+  ]
+}

@@ -43,6 +43,7 @@ kotlin {
 
 dependencies {
     implementation(project(":shared:ui"))
+    implementation(project(":shared:data"))
     implementation(libs.androidx.activity.compose)
     implementation(compose.runtime)
     implementation(compose.foundation)

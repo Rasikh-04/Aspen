@@ -20,9 +20,14 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(project(":shared:core-common"))
+            api(libs.kotlinx.datetime)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
+        }
+        jvmTest.dependencies {
+            // Parity test parses the canonical config/safety/forbidden_tokens.json (decision #3).
+            implementation(libs.kotlinx.serialization.json)
         }
     }
 }

@@ -1,13 +1,15 @@
 package app.aspen.lint
 
+import groovy.json.JsonSlurper
+import java.io.File
+
 /** A category of banned copy, tied to the non-negotiables (CLAUDE.md #1/#2/#5, docs/01 §6). */
 enum class TokenCategory { NUMBERS_FOOD_BODY, SHAME, APPEARANCE }
 
 /**
  * Forbidden tokens for one language. Per docs/09 §2.3 these are detection heuristics for the
  * build-time copy lint, and per docs/12 §3 the lists are PER LANGUAGE — a numberless app must be
- * numberless in every language. The lists here are a STARTER set (en/de/ur); the authoritative,
- * complete per-language lists are advisor/translator-supplied trust-and-safety content.
+ * numberless in every language.
  */
 data class TokenSet(
     val language: String,
@@ -22,42 +24,62 @@ data class TokenSet(
     }
 }
 
+/**
+ * Loads the forbidden-token lexicon from the canonical `config/safety/forbidden_tokens.json` — the
+ * SINGLE SOURCE OF TRUTH shared with the runtime (app.aspen.domain.safety.DefaultForbiddenLexicon).
+ * buildSrc can't depend on :shared:domain, so the source is shared via this file, not a class
+ * (decision #3). The runtime mirror is pinned to the same file by a parity test.
+ *
+ * The lexicon's `eating_advice` category is ignored here — it is a runtime-only AI-output concern;
+ * the copy-lint scans numbers/shame/appearance.
+ */
 object ForbiddenTokens {
 
-    /** Starter token sets. Language code "*" applies to every language (script-neutral loanwords). */
-    fun defaults(): Map<String, TokenSet> = mapOf(
-        "en" to TokenSet(
-            language = "en",
-            numbersFoodBody = listOf(
-                "calorie", "calories", "kcal", "bmi", "macro", "macros",
-                "kg", "kgs", "lbs", "pound", "pounds", "weight", "portion", "portions",
-                "goal weight",
-            ),
-            shame = listOf("fail", "failed", "fails", "failing", "missed", "incomplete", "you didn't"),
-            appearance = listOf(
-                "you look", "thin", "fat", "skinny", "chubby", "overweight", "underweight", "healthy weight",
-            ),
-        ),
-        "de" to TokenSet(
-            language = "de",
-            numbersFoodBody = listOf("kalorie", "kalorien", "bmi", "gewicht", "kilo", "abnehmen", "zunehmen"),
-            shame = listOf("versagt", "gescheitert", "verpasst"),
-            appearance = listOf("dünn", "dick", "übergewicht", "untergewicht"),
-        ),
-        "ur" to TokenSet(
-            // Starter only — authoritative Urdu list requires native, ED-informed review (docs/12 §3).
-            language = "ur",
-            numbersFoodBody = listOf("وزن", "کیلو", "کیلوری"),
-            shame = emptyList(),
-            appearance = emptyList(),
-        ),
-    )
+    private val lexicon: Lexicon by lazy { load(findCanonicalFile()) }
 
-    /** Tokens that are banned in EVERY language (NEDA deny is crisis-data and lands in Phase 2). */
-    fun universal(): TokenSet = TokenSet(
-        language = "*",
-        numbersFoodBody = listOf("kcal", "bmi"),
-        shame = emptyList(),
-        appearance = emptyList(),
-    )
+    private data class Lexicon(val byLanguage: Map<String, TokenSet>, val universal: TokenSet)
+
+    /** Per-language token sets, from the canonical JSON. */
+    fun defaults(): Map<String, TokenSet> = lexicon.byLanguage
+
+    /** Tokens banned in EVERY language (language code "*"), from the canonical JSON. */
+    fun universal(): TokenSet = lexicon.universal
+
+    /** Walk up from the working directory to locate the repo's canonical lexicon file. */
+    private fun findCanonicalFile(): File {
+        var dir: File? = File(System.getProperty("user.dir")).absoluteFile
+        while (dir != null) {
+            val candidate = File(dir, "config/safety/forbidden_tokens.json")
+            if (candidate.isFile) return candidate
+            dir = dir.parentFile
+        }
+        error("Canonical lexicon config/safety/forbidden_tokens.json not found from ${System.getProperty("user.dir")}")
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    private fun load(file: File): Lexicon {
+        val root = JsonSlurper().parse(file) as Map<String, Any?>
+        val languages = (root["languages"] as Map<String, Any?>)
+        val byLanguage = languages.mapValues { (lang, node) ->
+            val cats = node as Map<String, Any?>
+            TokenSet(
+                language = lang,
+                numbersFoodBody = strList(cats["numbers_food_body"]),
+                shame = strList(cats["shame"]),
+                appearance = strList(cats["appearance"]),
+            )
+        }
+        val u = root["universal"] as Map<String, Any?>
+        val universal = TokenSet(
+            language = "*",
+            numbersFoodBody = strList(u["numbers_food_body"]),
+            shame = strList(u["shame"]),
+            appearance = strList(u["appearance"]),
+        )
+        return Lexicon(byLanguage, universal)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    private fun strList(node: Any?): List<String> =
+        (node as? List<Any?>).orEmpty().map { it.toString() }
 }

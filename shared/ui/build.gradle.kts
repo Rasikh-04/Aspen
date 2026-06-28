@@ -10,6 +10,15 @@ kotlin {
         namespace = "app.aspen.ui"
         compileSdk = libs.versions.compileSdk.get().toInt()
         minSdk = libs.versions.minSdk.get().toInt()
+
+        // The new AGP KMP library plugin makes Android resources opt-in (off by
+        // default), unlike com.android.library. Compose Multiplatform packs its
+        // composeResources (strings.*.cvr) into Android assets, so without this the
+        // assets never enter the AAR/APK and stringResource() crashes at first
+        // composition with MissingResourceException. See JetBrains CMP-9547.
+        androidResources {
+            enable = true
+        }
     }
 
     val frameworkName = "Shared"

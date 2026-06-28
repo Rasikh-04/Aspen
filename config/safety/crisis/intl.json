@@ -1,0 +1,33 @@
+{
+  "_comment": "International fallback registry — ALWAYS present for any region without a curated registry (docs/10 §6). Not in the SR-2 launch-gate set (PK/DE/UK), but advisors still verify before relying on it. Never NEDA (CLAUDE.md #7). All contact values stay TODO-VERIFY until advisor sign-off.",
+  "locale": "INTL",
+  "version": "2026-06-01",
+  "resources": [
+    {
+      "id": "intl-findahelpline",
+      "name": "Find A Helpline",
+      "purpose": "ED_SUPPORT",
+      "contacts": [
+        { "method": "URL", "label": "Find a verified helpline near you", "value": "TODO-VERIFY" }
+      ],
+      "hours": null,
+      "languages": ["en"],
+      "notes": "ThroughLine — verified crisis helplines across 175+ countries with an eating/body-image topic filter; the international backbone (docs/10 §6).",
+      "verifiedOn": "TODO-VERIFY",
+      "verifiedBy": "TODO-VERIFY"
+    },
+    {
+      "id": "intl-findahelpline-finder",
+      "name": "Find local eating-disorder help",
+      "purpose": "TREATMENT_FINDER",
+      "contacts": [
+        { "method": "URL", "label": "Ways to find support near you", "value": "TODO-VERIFY" }
+      ],
+      "hours": null,
+      "languages": ["en"],
+      "notes": "Honest fallback: Aspen does not yet have a verified local ED registry for every country; route users to vetted ways to find support.",
+      "verifiedOn": "TODO-VERIFY",
+      "verifiedBy": "TODO-VERIFY"
+    }
+  ]
+}

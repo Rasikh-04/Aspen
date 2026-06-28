@@ -1,0 +1,73 @@
+{
+  "_comment": "Germany launch registry (docs/10 §2). Crisis copy MUST be in German (advisor + native-speaker review, docs/12). Anchor org NAMES from research; every contact value is TODO-VERIFY until advisor confirmation. Never NEDA (CLAUDE.md #7).",
+  "locale": "DE",
+  "version": "2026-06-01",
+  "resources": [
+    {
+      "id": "de-bzga",
+      "name": "BZgA — Essstörungen",
+      "purpose": "ED_SUPPORT",
+      "contacts": [
+        { "method": "PHONE", "label": "Beratungstelefon", "value": "TODO-VERIFY" },
+        { "method": "URL", "label": "Beratung online", "value": "TODO-VERIFY" }
+      ],
+      "hours": null,
+      "languages": ["de"],
+      "notes": "Federal anchor; maintains the national counselling-centre directory.",
+      "verifiedOn": "2026-06-28",
+      "verifiedBy": "PROVISIONAL-UNVERIFIED"
+    },
+    {
+      "id": "de-anad",
+      "name": "ANAD e.V.",
+      "purpose": "ED_SUPPORT",
+      "contacts": [
+        { "method": "PHONE", "label": "Beratung", "value": "TODO-VERIFY" }
+      ],
+      "hours": null,
+      "languages": ["de"],
+      "notes": "Munich specialist ED organisation (distinct from the US 'ANAD').",
+      "verifiedOn": "2026-06-28",
+      "verifiedBy": "PROVISIONAL-UNVERIFIED"
+    },
+    {
+      "id": "de-treatment-finder",
+      "name": "Spezialisierte Behandlung finden",
+      "purpose": "TREATMENT_FINDER",
+      "contacts": [
+        { "method": "URL", "label": "Behandlungsverzeichnis", "value": "TODO-VERIFY" }
+      ],
+      "hours": null,
+      "languages": ["de"],
+      "notes": "Provider directories (DGESS / BFE) for finding specialist clinicians.",
+      "verifiedOn": "2026-06-28",
+      "verifiedBy": "PROVISIONAL-UNVERIFIED"
+    },
+    {
+      "id": "de-telefonseelsorge",
+      "name": "Telefonseelsorge",
+      "purpose": "ACUTE_CRISIS",
+      "contacts": [
+        { "method": "PHONE", "label": "Telefonseelsorge (24/7)", "value": "TODO-VERIFY" }
+      ],
+      "hours": null,
+      "languages": ["de"],
+      "notes": "General 24/7 crisis support.",
+      "verifiedOn": "2026-06-28",
+      "verifiedBy": "PROVISIONAL-UNVERIFIED"
+    },
+    {
+      "id": "de-emergency",
+      "name": "Notruf",
+      "purpose": "ACUTE_CRISIS",
+      "contacts": [
+        { "method": "PHONE", "label": "Notruf (nur bei Lebensgefahr)", "value": "TODO-VERIFY" }
+      ],
+      "hours": null,
+      "languages": ["de"],
+      "notes": "Life-threatening situations only.",
+      "verifiedOn": "2026-06-28",
+      "verifiedBy": "PROVISIONAL-UNVERIFIED"
+    }
+  ]
+}

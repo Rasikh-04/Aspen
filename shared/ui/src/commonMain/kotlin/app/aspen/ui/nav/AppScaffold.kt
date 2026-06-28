@@ -11,6 +11,9 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
@@ -21,6 +24,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import app.aspen.design.AspenTheme
+import app.aspen.domain.safety.CrisisResolver
+import app.aspen.domain.safety.model.LocaleKey
 import app.aspen.ui.generated.resources.Res
 import app.aspen.ui.generated.resources.nav_calm
 import app.aspen.ui.generated.resources.nav_home
@@ -30,6 +35,7 @@ import app.aspen.ui.home.CalmHomeScreen
 import app.aspen.ui.screen.CalmScreen
 import app.aspen.ui.screen.ReflectScreen
 import app.aspen.ui.screen.SafetyPlaceholderScreen
+import app.aspen.ui.screen.SafetyScreen
 import app.aspen.ui.screen.SettingsScreen
 
 private data class Tab(val route: String, val label: StringResource)
@@ -40,7 +46,7 @@ private data class Tab(val route: String, val label: StringResource)
  * it is reached as an affordance from Home (CLAUDE.md #6).
  */
 @Composable
-fun AppScaffold() {
+fun AppScaffold(crisisResolver: CrisisResolver? = null) {
     val navController = rememberNavController()
     val tabs = listOf(
         Tab(Routes.HOME, Res.string.nav_home),
@@ -90,7 +96,22 @@ fun AppScaffold() {
             composable(Routes.CALM) { CalmScreen() }
             composable(Routes.SETTINGS) { SettingsScreen() }
             composable(Routes.SAFETY) {
-                SafetyPlaceholderScreen(onBack = { navController.popBackStack() })
+                val onBack = { navController.popBackStack(); Unit }
+                if (crisisResolver == null) {
+                    // No resolver wired (e.g. iOS, pending DI) → keep the calm placeholder, no regression.
+                    SafetyPlaceholderScreen(onBack = onBack)
+                } else {
+                    // Region is an explicit user choice, independent of UI language (CLAUDE.md #11).
+                    var region by remember { mutableStateOf(LocaleKey.INTL) }
+                    SafetyScreen(
+                        resources = crisisResolver.resolve(region),
+                        selectedRegion = region,
+                        onRegionChange = { region = it },
+                        onContact = { /* Phase 2: contacts are TODO-VERIFY and non-actionable (see SafetyScreen). */ },
+                        onReachTrustedPerson = { /* Phase 2: trusted-contact capture lands with the consent UI. */ },
+                        onBack = onBack,
+                    )
+                }
             }
         }
     }

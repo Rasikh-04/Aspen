@@ -20,4 +20,18 @@
     <string name="safety_title">Reaching a person</string>
     <string name="safety_body">A calm route to real human support, a trusted contact or a region-correct line, will live here.</string>
     <string name="back">Back</string>
+    <!-- Safety/crisis strings below are English placeholders. CRISIS COPY REQUIRES ED-informed
+         native Urdu review before any ship (docs/12 §3, CLAUDE.md #7/#11). -->
+    <string name="safety_intro">You deserve real support. These are calm ways to reach a person.</string>
+    <string name="safety_region_label">Show help for</string>
+    <string name="safety_region_pk">Pakistan</string>
+    <string name="safety_region_de">Germany</string>
+    <string name="safety_region_uk">United Kingdom</string>
+    <string name="safety_region_intl">International</string>
+    <string name="safety_trusted_person">Reach your trusted person</string>
+    <string name="safety_heading_acute">If you need someone right now</string>
+    <string name="safety_heading_support">Eating-disorder support</string>
+    <string name="safety_heading_finder">Find ongoing treatment</string>
+    <string name="safety_fallback_note">We don\'t have verified local services for this region yet. These trusted options can help you find support near you.</string>
+    <string name="safety_unverified">Details are being verified</string>
 </resources>

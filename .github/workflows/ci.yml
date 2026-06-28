@@ -41,9 +41,17 @@ jobs:
       - name: Copy-lint gate (forbidden tokens)
         run: ./gradlew copyLint --console=plain --stacktrace
 
-      # Shared, device-free logic: LocaleResolver, contrast/no-alarm-red, domain.
+      # Crisis-registry release gate: NEDA-deny + SR-2 freshness (docs/09 §2.5, docs/10 §7).
+      # INFORMATIONAL until launch — crisis content is TODO-VERIFY until advisors verify it, so this
+      # step is EXPECTED to report findings and must not fail the build yet.
+      # TODO(pre-launch): remove `continue-on-error` to make this BLOCKING once content is verified.
+      - name: Crisis-registry gate (informational until launch)
+        continue-on-error: true
+        run: ./gradlew crisisGate --console=plain --stacktrace
+
+      # Shared, device-free logic: LocaleResolver, contrast/no-alarm-red, domain, safety+consent data.
       - name: Shared logic tests (JVM)
-        run: ./gradlew :shared:core-common:jvmTest :shared:domain:jvmTest --console=plain --stacktrace
+        run: ./gradlew :shared:core-common:jvmTest :shared:domain:jvmTest :shared:data:jvmTest --console=plain --stacktrace
 
       # Android app must build to Calm Home.
       - name: Assemble Android (debug)
