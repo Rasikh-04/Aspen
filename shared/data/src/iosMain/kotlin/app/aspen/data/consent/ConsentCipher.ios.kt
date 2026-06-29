@@ -1,16 +1,17 @@
 package app.aspen.data.consent
 
-/**
- * iOS [ConsentCipher] — **Phase-2 PLACEHOLDER**. This is an in-process passthrough so the iOS target
- * compiles and the encryption seam is in place; it is **NOT secure and NOT device-verified**.
- *
- * Tracked leftout (docs/STATUS.md): the real iOS actual must hold the key in the iOS Keychain and use
- * CryptoKit AES-GCM (via cinterop), mirroring the Android Keystore actual. Aspen is Android-first, so
- * no consent data is persisted on iOS in Phase 2 — but this must be replaced before any iOS release.
- */
-private class PlaceholderIosConsentCipher : ConsentCipher {
-    override fun encrypt(plaintext: ByteArray): ByteArray = plaintext.copyOf()
-    override fun decrypt(ciphertext: ByteArray): ByteArray = ciphertext.copyOf()
-}
+import app.aspen.data.local.platformLocalCipher
 
-actual fun platformConsentCipher(): ConsentCipher = PlaceholderIosConsentCipher()
+/**
+ * iOS [ConsentCipher] — delegates to the unified [app.aspen.data.local.LocalCipher], which is itself a
+ * **PLACEHOLDER passthrough** on iOS (NOT secure, NOT device-verified). Replacing the iOS local cipher
+ * with a Keychain + CryptoKit actual fixes consent and every other on-device store at once. Tracked
+ * leftout (docs/STATUS.md).
+ */
+actual fun platformConsentCipher(): ConsentCipher {
+    val delegate = platformLocalCipher()
+    return object : ConsentCipher {
+        override fun encrypt(plaintext: ByteArray): ByteArray = delegate.encrypt(plaintext)
+        override fun decrypt(ciphertext: ByteArray): ByteArray = delegate.decrypt(ciphertext)
+    }
+}

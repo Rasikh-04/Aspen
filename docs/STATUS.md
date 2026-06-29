@@ -37,12 +37,51 @@ The pure-`:domain` contract the questionnaire UI (Dev B) binds to. No UI, no per
 - ✅ `:shared:domain:compileCommonMainKotlinMetadata` — common compiles for all targets; iOS target configures
   (Kotlin/Native iOS link stays a `macos-14` CI concern, per Phase 1/2 notes).
 
-### Open / next (Dev A, Phase 3)
-- [ ] Encrypted profile persistence in `:shared:data` (reuse the existing `expect/actual` cipher seam), profile
-  re-run/edit storage, and logging-write suppression enforcement at the data layer.
+### Open / next (Dev A, Phase 3 — after the local-store branch below)
 - [ ] Advisor sign-off on the question set + profile→behaviour mapping → flip `advisorVerified`.
-- [ ] Review Dev B's questionnaire-UI PR (wires to `deriveProfile`/`deriveConfig`).
+- [ ] Review Dev B's questionnaire/grounding/reflection/logging UI PRs (wire to `deriveProfile`/`deriveConfig`/`LoggingService`).
+- [ ] Durable on-disk `EncryptedBlobStore` (platform path/Context); iOS Keychain+CryptoKit `LocalCipher` actual.
 - [ ] PR + CI when git workflow §6 is enabled (repo still private; no PR yet per current instruction).
+
+---
+
+## Done (Phase 3 — Dev A: encrypted local store) — branch `feat/phase3-encrypted-local-store` (stacked on onboarding domain)
+
+The on-device encrypted store under the profile + logging features, plus **data-layer enforcement** of the
+food-logging suppression rules. Independent of Dev B (B's screens consume these ports/services).
+
+### Unified local crypto (`:shared:data/local`)
+- **`LocalCipher` seam** (`expect fun platformLocalCipher()`) — the single key-backed AES/GCM crypto for **all**
+  on-device data. Actuals: JVM AES-256/GCM (process-ephemeral, test grade), Android AES/GCM via AndroidKeyStore
+  (`aspen.local.v1`), iOS passthrough **placeholder**. **Consent now delegates to this** (its `ConsentCipher`
+  actuals are thin adapters) — removed the duplicated per-store cryptography; one audited implementation.
+- **`EncryptedBlobStore`** (generic) + `InMemoryEncryptedBlobStore` default, with `clear()` for hard-delete.
+
+### Profile persistence (`:shared:data/onboarding`, `:shared:domain/onboarding`)
+- **`ProfileStore`** port (domain) + **`PersistentProfileStore`** (data) — JSON DTO → encrypted blob; **fail-safe**
+  (missing/corrupt/undecryptable → `null` → safest default). Re-runnable/editable (`save` overwrites; `clear` resets).
+- **`AppConfigProvider`** — single read-path for adaptivity; **safe by default** (no profile → `MIXED_OR_UNSURE` →
+  food logging OFF). Adaptivity only opens up from the safest baseline once a profile exists.
+
+### Numberless logging store + suppression enforcement (`:shared:domain/logging`, `:shared:data/logging`)
+- **Entities** `Reflection`/`FoodLog`/`BehaviourLog` + `FeelingTag` — **structurally numberless** (no numeric
+  fields exist; SR-1) and string-free (UI localizes tags).
+- **`LoggingStore`** port + **`PersistentLoggingStore`** — encrypted, fail-safe (corrupt → empty), **hard deletes**
+  + `clearAll()` (FR-11).
+- **`LoggingService`** — the **single enforcement point**: `logFood` is refused (`LogOutcome.SuppressedFoodLogging`,
+  not an error/shame state) when the active `AppConfig.foodLoggingMode == OFF`; reflections + behaviour logs are
+  always available (docs/03 FR-3b). Features depend on the service, never the store, so the rule can't be bypassed.
+- **DI** (`localStoreModule` in `AspenModules.kt`): shared `LocalCipher`, per-store blobs, `AppConfigProvider`,
+  `LoggingService`; added to `aspenSharedModules`.
+
+### Verified locally (Dev A / Linux — no Xcode)
+- ✅ `:shared:domain:jvmTest` + `:shared:data:jvmTest` — logging suppression (restriction/no-profile → suppressed,
+  binge → saved, reflections/behaviour always on, delete-everything), profile round-trip/encrypted-at-rest/
+  corrupt→null/clear, logging round-trip/hard-delete/clearAll/corrupt→empty, DI graph resolves (food logging
+  suppressed by default). Existing safety/consent/crisis suites still green.
+- ✅ `copyLint` — passes (no user-facing strings added).
+- ✅ `:shared:data:compileAndroidMain` (consent-cipher delegation compiles) + `compileCommonMainKotlinMetadata`
+  (iOS target configures).
 
 ---
 

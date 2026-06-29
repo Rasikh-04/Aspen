@@ -2,6 +2,7 @@ package app.aspen.data.di
 
 import app.aspen.domain.consent.ConsentManager
 import app.aspen.domain.consent.model.DataCategory
+import app.aspen.domain.logging.LoggingService
 import app.aspen.domain.safety.CrisisResolver
 import app.aspen.domain.safety.SafetyEngine
 import app.aspen.domain.safety.model.LocaleKey
@@ -42,5 +43,12 @@ class AspenModulesTest {
     fun consentManagerResolvesAndDefaultsDeny() {
         val manager = koin().get<ConsentManager>()
         assertFalse(manager.canAccess("anyone", DataCategory.REFLECTIONS), "default-deny out of the box")
+    }
+
+    @Test
+    fun loggingServiceResolvesAndSuppressesFoodLoggingByDefault() {
+        // No profile stored → safest config → food logging off out of the box (Phase 3 wiring).
+        val logging = koin().get<LoggingService>()
+        assertFalse(logging.isFoodLoggingOffered(), "food logging suppressed until a profile permits it")
     }
 }
