@@ -2,7 +2,47 @@
 
 _Resume-cold notes. Update at the end of every working session (CLAUDE.md)._
 
-**Phase:** 2 — Safety subsystem + consent primitive (`docs/09`). Spine built; **crisis-freshness gate is RED by design** until advisors verify content.
+**Phase:** 3 — Onboarding + Grounding + Reflection/Logging (`docs/07`, `docs/13`). Two-dev split active: **Dev A (lead)** owns `:domain` profile/logic + logging-suppression rules + encrypted-store integration; **Dev B** owns the feature UI. Phase 2 spine remains built; **crisis-freshness gate still RED by design** until advisors verify content.
+
+---
+
+## Done (Phase 3 — Dev A: onboarding profile domain) — branch `feat/onboarding-profile-domain`
+
+The pure-`:domain` contract the questionnaire UI (Dev B) binds to. No UI, no persistence yet (kept small per `docs/13` §5); encrypted profile store is the next Dev-A branch.
+
+### Onboarding subsystem (`:shared:domain/onboarding`, pure Kotlin)
+- **Models** (`onboarding/model/`): `SupportProfile` (6 internal profiles, never user-visible — CLAUDE.md #9) +
+  `ProtectiveFlag` (`SUPPRESS_FOOD_LOGGING`, `NO_BODY_IMAGE_FRAMING`); `Questionnaire.kt` (typed, **numberless**,
+  **no user-facing strings** — IDs/option tokens only; copy stays in `:ui`); `OnboardingResult`/`RoutingHints`;
+  `AppConfig` (`FoodLoggingMode` OFF/REFRAMED/AVAILABLE, `CompanionTone`, `ToolEmphasis`, `SupportRoutingStrength`,
+  `bodyImageFramingAllowed`) + `ProfileMappingProvenance`.
+- **`OnboardingScoring.deriveProfile()`** — heuristic tally (docs/11 §4): conservative bias (any restriction/avoidance
+  signal raises `SUPPRESS_FOOD_LOGGING`), Q6 `YES` raises `NO_BODY_IMAGE_FRAMING` + zeroes body-image weight,
+  ties/low-signal/skip-all → `MIXED_OR_UNSURE`. Never throws, never returns an empty profile map.
+- **`ProfileBehaviourMap.deriveConfig()`** — full nuanced mapping (per decision: **full mapping now, advisor flag is
+  metadata**). `SUPPRESS_FOOD_LOGGING` forces `FoodLoggingMode.OFF` regardless of dominant profile; restriction/
+  avoidance never get `AVAILABLE`. Total over all profiles.
+- `DomainModule.PHASE = 3`.
+
+### ⚠ Profile→behaviour mapping is PROVISIONAL (advisor gate open — `docs/07` Phase 3 `[APPROVE]`)
+- The mapping (esp. **logging-suppression-per-disorder**) needs ED-informed advisor sign-off before *enabling*
+  (`docs/01` §5a, `docs/11` §6). Carried as `ProfileMappingProvenance.PROVISIONAL` (`advisorVerified = false`,
+  `revision = "draft-2026-06-29"`) so a Phase-7 release gate can refuse an unverified mapping — same "build the
+  mechanism, mark it provisional" pattern as the crisis registry. Question set + mapping are a clinical-review item.
+
+### Verified locally (Dev A / Linux — no Xcode)
+- ✅ `:shared:domain:jvmTest` — 17 onboarding tests (scoring conservative bias, ARFID down-weight, ties→mixed,
+  skip-all→mixed, routing; mapping suppression invariants, totality, provisional provenance) + existing suites green.
+- ✅ `copyLint` — passes (domain adds no user-facing strings).
+- ✅ `:shared:domain:compileCommonMainKotlinMetadata` — common compiles for all targets; iOS target configures
+  (Kotlin/Native iOS link stays a `macos-14` CI concern, per Phase 1/2 notes).
+
+### Open / next (Dev A, Phase 3)
+- [ ] Encrypted profile persistence in `:shared:data` (reuse the existing `expect/actual` cipher seam), profile
+  re-run/edit storage, and logging-write suppression enforcement at the data layer.
+- [ ] Advisor sign-off on the question set + profile→behaviour mapping → flip `advisorVerified`.
+- [ ] Review Dev B's questionnaire-UI PR (wires to `deriveProfile`/`deriveConfig`).
+- [ ] PR + CI when git workflow §6 is enabled (repo still private; no PR yet per current instruction).
 
 ---
 
