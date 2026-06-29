@@ -1,0 +1,23 @@
+# Normalise all text to LF in the repo; tools handle native endings on checkout
+* text=auto eol=lf
+
+# Scripts that MUST stay LF (gradlew breaks with CRLF)
+gradlew         text eol=lf
+*.sh            text eol=lf
+
+# Windows batch must stay CRLF
+*.bat           text eol=crlf
+*.cmd           text eol=crlf
+
+# Binary — never normalise
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.webp binary
+*.gif  binary
+*.ttf  binary
+*.otf  binary
+*.jar  binary
+*.zip  binary
+*.keystore binary
+*.jks  binary

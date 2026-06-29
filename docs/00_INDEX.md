@@ -30,6 +30,8 @@ Everything here is grounded in cited sources where it makes a factual claim. The
 | 10 | `10_CRISIS_REGISTRY_DRAFT.md` | **Draft** crisis/support resources per region (UK/DE/US/PK + worldwide fallback). Anchor orgs grounded in research; every number `⚠VERIFY` for advisors. |
 | 11 | `11_ONBOARDING_QUESTIONNAIRE_DRAFT.md` | **Draft** disorder-adaptive onboarding questionnaire — numberless, personalises-not-diagnoses, with support-profile scoring. For clinical sign-off. |
 | 12 | `12_LOCALIZATION.md` | First-class i18n requirement: 7 languages, RTL from day one, per-language review of sensitive surfaces. Wired so it can't drift. |
+| 13 | `13_TEAM_ROLES_AND_RESPONSIBILITIES.md` | Two-developer ownership split (Phase 3 on), with the non-negotiable per-PR Definition of Done and a rigorous, symmetric review standard. |
+| 14 | `14_GIT_WORKFLOW.md` | Branch → PR → merge-to-main flow, with Linux/Windows cross-platform handling (line endings, paths, gradlew). |
 
 ---
 
@@ -83,7 +85,3 @@ Aspen is a **free, text-first, Android-first (iOS to follow) between-session sup
 
 - **Food logging:** I revised the docs to *include* it per your decision, but held a hard line: **numberless only** (no calories/weight/portions/macros — that's the actual harm vector in the evidence), optional, no streaks/shame, and **suppressible per disorder type** via the questionnaire. This needs clinical sign-off per presentation. (`01` §5)
 - **iOS overlay companion is impossible** — not a stack choice; iOS forbids system-wide overlays in *any* framework. The companion's **in-app form is the cross-platform baseline**; the roam-the-screen overlay is an **Android-only enhancement**. (`04` ADR-001, `05`)
-
----
-
-*Generated as the research/planning artifact for the Aspen rebuild. Treat as draft v0.1 pending your review.*
