@@ -2,7 +2,7 @@
 
 _Resume-cold notes. Update at the end of every working session (CLAUDE.md)._
 
-**Phase:** 3 — Onboarding + Grounding + Reflection/Logging (`docs/07`, `docs/13`). Two-dev split active: **Dev A (lead)** owns `:domain` profile/logic + logging-suppression rules + encrypted-store integration; **Dev B** owns the feature UI. Phase 2 spine remains built; **crisis-freshness gate still RED by design** until advisors verify content.
+**Phase:** 3 — Onboarding + Grounding + Reflection/Logging (`docs/07`, `docs/13`). Two-dev split active: **Dev A (lead)** owns `:domain` profile/logic + logging-suppression rules + encrypted-store integration (done); **Dev B** owns the feature UI (Flows 0/A/B + Settings — **done locally**, branch `feat/phase3-feature-ui`). Phase 2 spine remains built; **crisis-freshness gate still RED by design** until advisors verify content.
 
 ---
 
@@ -82,6 +82,73 @@ food-logging suppression rules. Independent of Dev B (B's screens consume these 
 - ✅ `copyLint` — passes (no user-facing strings added).
 - ✅ `:shared:data:compileAndroidMain` (consent-cipher delegation compiles) + `compileCommonMainKotlinMetadata`
   (iOS target configures).
+
+---
+
+## Done (Phase 3 — Dev B: feature UI) — branch `feat/phase3-feature-ui` (stacked on encrypted-local-store)
+
+The shared `:shared:ui` Compose screens for Flows 0/A/B + Settings, wired to Dev A's domain use-cases
+(`OnboardingScoring`/`ProfileStore`, `LoggingService`/`AppConfigProvider`). All copy externalised,
+numberless, no streaks/scores/alarm-red; every flow keeps the ≤2-tap human exit (CLAUDE.md #3/#5/#6).
+
+### Flow 0 — onboarding questionnaire (`ui/onboarding`)
+- **`OnboardingController`** (plain Compose state holder; no ViewModel lib): owns in-progress
+  `OnboardingAnswers` + a step cursor; edits are immutable `copy()`; scores **only** via the domain
+  `OnboardingScoring.deriveProfile()` — the UI never derives/shows a profile, label, or score (#9).
+- **One numberless question per screen** (Q1–Q10, docs/11 §3), intro + closing; every item skippable
+  ("skip this one" = prefer-not-to-say → no signal), "skip these for now" → safe `MIXED_OR_UNSURE`.
+  Progress shown as **soft dots, never "3 of 10"** (#3). Closing routes toward real help first.
+- First-run gating in `AppRoot`: no stored profile → onboarding; on finish `ProfileStore.save()`; the
+  questionnaire is **re-runnable from Settings**. (Treating null-profile as "not onboarded" — small
+  routing convention on the existing contract; no contract change.)
+
+### Flow A — grounding tools (`ui/grounding`)
+- **Chooser** (Calm tab): Breathe · Ground (5-4-3-2-1) · Ride the urge · Write it down · **Reach
+  someone** (always-present human exit). Full-screen tools as routes (bottom bar hidden); calm,
+  non-evaluative close ("Glad you took a moment") — never "great job"/streaks.
+- **BreatheScreen** paced-breathing animation that **honours reduced-motion** (`LocalReducedMotion`)
+  → static cue words, no animation (SR-6). `Ground54321Screen` (sensory counts, not food/body numbers),
+  `RideTheUrgeScreen` (wave framing, no timer).
+
+### Flow B — reflection + numberless logging (`ui/reflect`)
+- **`ReflectScreen`** wired to `LoggingService` (the single enforcement point): reflections + feeling
+  logs always available; **food logging entry only appears when `isFoodLoggingOffered()`** for the
+  active profile. Feeling tags are emotions only (no intensity scale/count — SR-1). One-tap delete per
+  entry; **empty days are silent** (no "you missed"). Null service → calm placeholder (iOS-safe).
+
+### Settings (`ui/settings`)
+- **Revisit the questions** (re-run Flow 0) + **delete everything I've written** (confirmed dialog →
+  `LoggingService.deleteEverything()`, FR-11). Calm copy, amber (never red) on the destructive action.
+
+### Wiring
+- **`AspenDeps`** (domain types only — keeps `:shared:ui` on `:shared:domain` alone) threaded through
+  `AspenApp`/`AppScaffold`, mirroring the existing `crisisResolver` injection. **Android `MainActivity`**
+  constructs the encrypted store stack by hand (Koin-start at platform entries is still the tracked
+  leftout). **iOS `MainViewController` unchanged** (`AspenApp()` → null deps → calm placeholders).
+
+### Verified locally (Dev B-role / Linux — no Xcode)
+- ✅ `:androidApp:assembleDebug` — full chain (`:shared:ui` → `:shared:data` → `:shared:domain` →
+  app) compiles; APK builds.
+- ✅ `:shared:ui:testAndroidHostTest` — 8 UI tests (controller cursor/immutability, empty→MIXED,
+  restriction→SUPPRESS_FOOD_LOGGING via domain, feeling-tag label coverage). Enabled host tests on
+  `:shared:ui` via `withHostTestBuilder {}` so commonTest runs JVM-hosted on Linux.
+- ✅ `copyLint` passes incl. all new Phase-3 strings; ✅ `:shared:ui:compileCommonMainKotlinMetadata`
+  (iOS target configures); ✅ existing `:shared:domain:jvmTest` + `:shared:data:jvmTest` still green.
+
+### ⚠ Deviations & leftouts (Phase 3 — Dev B, explicit per CLAUDE.md)
+- **DEVIATION (single branch):** docs/13 §5 / docs/14 mandate small one-feature-per-PR. By explicit
+  request this ships all three Flow-0/A/B features + Settings on **one branch** (`feat/phase3-feature-ui`)
+  / one PR. Noted so the reviewer expects a larger-than-usual (but still cohesive) diff.
+- **In-memory blob store → profile resets on cold start** (same durable-on-disk leftout as Phase 2),
+  so onboarding re-shows each fresh launch. Fine for dev; durable persistence is the tracked next task.
+- **Urdu (and other locales) Phase-3 strings fall back to English** at runtime (values-ur not mirrored);
+  questionnaire/companion copy needs ED-informed native review before ship (docs/11 §5, docs/12 §3).
+- **Reduced-motion is honoured in the UI** (`LocalReducedMotion`) but **not yet sourced from the OS
+  setting** — the OS→theme plumbing is a small follow-up (currently defaults to motion on).
+- **No Compose UI/interaction/RTL snapshot tests yet** — state logic is unit-tested; screen-level
+  Robolectric/snapshot + RTL screenshot tests are a follow-up (docs/13 §4 a11y/RTL).
+- **CI does not yet run `:shared:ui:testAndroidHostTest`** — add it to `.github/workflows/ci.yml`
+  alongside the existing jvmTest gates (Dev A / lead infra task).
 
 ---
 
