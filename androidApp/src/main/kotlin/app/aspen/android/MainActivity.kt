@@ -1,7 +1,14 @@
 package app.aspen.android
 
+import android.Manifest
+import android.content.Intent
 import android.content.pm.ApplicationInfo
+import android.content.pm.PackageManager
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -17,6 +24,7 @@ import app.aspen.data.local.AspenLocalStorage
 import app.aspen.data.local.FileEncryptedBlobStore
 import app.aspen.data.local.platformLocalCipher
 import app.aspen.data.logging.PersistentLoggingStore
+import app.aspen.data.companion.PersistentCompanionPrefsStore
 import app.aspen.data.onboarding.PersistentProfileStore
 import app.aspen.domain.ai.ReflectionCompanion
 import app.aspen.domain.consent.DefaultConsentManager
@@ -27,8 +35,11 @@ import app.aspen.domain.safety.DefaultCrisisSignalLexicon
 import app.aspen.domain.safety.DefaultForbiddenLexicon
 import app.aspen.domain.safety.DefaultSafetyEngine
 import app.aspen.domain.safety.SafetyRules
+import app.aspen.companion.overlay.CompanionOverlayService
 import app.aspen.ui.AspenApp
 import app.aspen.ui.AspenDeps
+import app.aspen.ui.companion.CompanionNotificationsControl
+import app.aspen.ui.companion.CompanionOverlayControl
 import app.aspen.ui.generated.resources.Res
 import app.aspen.ui.generated.resources.safety_ai_fallback
 import kotlin.time.Clock
@@ -47,6 +58,60 @@ import org.jetbrains.compose.resources.stringResource
  * user-facing copy (CLAUDE.md #11) — the UI layer owns it, so it is read via stringResource.
  */
 class MainActivity : ComponentActivity() {
+
+    // One shared instance so Settings, the in-app layer, the overlay service and onResume all read
+    // the same prefs. Constructed lazily — AspenLocalStorage.init runs first in onCreate.
+    private val companionPrefs by lazy {
+        PersistentCompanionPrefsStore(platformLocalCipher(), FileEncryptedBlobStore("companion_prefs"))
+    }
+
+    private val overlayControl = object : CompanionOverlayControl {
+        override fun isPermissionGranted() = CompanionOverlayService.isPermissionGranted(this@MainActivity)
+
+        override fun requestPermission() {
+            // The OS-owned grant screen (docs/05 §6): we can only take the user there, never
+            // show our own dialog — the shared UI has already explained it in plain language.
+            startActivity(
+                Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:$packageName")),
+            )
+        }
+
+        override fun setOverlayActive(active: Boolean) {
+            if (active) CompanionOverlayService.start(this@MainActivity) else CompanionOverlayService.stop(this@MainActivity)
+        }
+    }
+
+    // Result ignored on purpose: if the user declines, the worker stays scheduled but the policy
+    // path goes quiet (worker checks the permission) — we never re-ask outside the opt-in act.
+    private val notificationsPermissionRequest =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) {}
+
+    private val notificationsControl = object : CompanionNotificationsControl {
+        override fun setScheduled(active: Boolean) {
+            if (active) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
+                    checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED
+                ) {
+                    notificationsPermissionRequest.launch(Manifest.permission.POST_NOTIFICATIONS)
+                }
+                CompanionCheckinScheduler.schedule(this@MainActivity)
+            } else {
+                CompanionCheckinScheduler.cancel(this@MainActivity)
+            }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Re-sync after the user returns from the OS permission screen. Start only when every
+        // opt-in is present (docs/05 §3.1); if the permission was revoked the service refuses
+        // itself, so no stop-side handling is needed here.
+        val prefs = companionPrefs.current()
+        if (prefs != null && prefs.enabled && prefs.overlayEnabled && overlayControl.isPermissionGranted()) {
+            CompanionOverlayService.start(this)
+        }
+    }
+
     @OptIn(ExperimentalUuidApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -107,6 +172,9 @@ class MainActivity : ComponentActivity() {
             appConfigProvider = appConfig,
             safetyEngine = safetyEngine,
             crisisSignals = crisisSignals,
+            companionPrefsStore = companionPrefs,
+            overlayControl = overlayControl,
+            notificationsControl = notificationsControl,
             isDebugBuild = isDebug,
         )
     }

@@ -2,9 +2,104 @@
 
 _Resume-cold notes. Update at the end of every working session (CLAUDE.md)._
 
-**Phase:** 4 **built + verified locally 2026-07-02** on three stacked branches:
-`feat/phase4-durable-store` → `feat/phase4-guard-companion` → `feat/phase4-cloud-reflection`
-(merge/push pending review). **`crisisGateStrict` still RED by design** until advisors verify content.
+**Phase:** 5 **built + verified locally 2026-07-03** on three stacked branches:
+`feat/phase5-companion-core` → `feat/phase5-overlay-android` → `feat/phase5-notifications-reduced-motion`
+(merge/push pending review; commits authored by Tabeen-Bokhat-04). **`crisisGateStrict` still RED by
+design** until advisors verify content.
+
+---
+
+## Done (Phase 5 — companion, docs/05 / docs/07 Phase-5) — three stacked branches
+
+### ① In-app companion (`feat/phase5-companion-core`) — the cross-platform baseline
+- **`CompanionBehaviour`** (domain/companion, pure): total, non-throwing state machine
+  (Hidden/Ambient/Playful/GentlePresence/Suspended) with the guardrails AS STRUCTURE — disabled ⇒
+  Hidden whatever happens; **dismissed never self-returns** (only Summon; SR-4 no-nag); reduced
+  motion refuses/settles play (SR-6); hard-moment ⇒ gentle presence (no play); fullscreen ⇒ suspend,
+  resume to calm ambient only. Playful is time-boxed (60s). 21 tests incl. totality sweep.
+- **`CompanionPrefs`** (ALL defaults off) + encrypted fail-safe **`PersistentCompanionPrefsStore`**
+  (unreadable/unknown-species → null → all off — storage faults can only make it quieter);
+  `companionModule` DI + off-by-default graph test.
+- **Procedural pixel sprites** (ui/companion/sprite; **approved deviation 2026-07-03** from docs/05
+  §5 "soft round creature" — reconciliation: pixel FORM, calm palette, 2–6 fps, nothing twitchy):
+  in-code 12×12 pixel grids → Compose Canvas, **zero binary assets**, reviewable in a diff. Lineup:
+  **Aspen sprite** (default; original warm-apricot critter, leaf sprout + floating dusty-rose heart —
+  a terminal-pet homage, NOT Anthropic trade dress), **sage cat**, **sand bunny** (dog/owl/panda =
+  fast-follow, same format). Integrity tests: uniform grids, palette-resolvable, fps ≤ 8, **no
+  alarm-red**, species distinct. Renderer ticker runs only while composed/animated; reduced motion ⇒
+  single still frame, no coroutine.
+- **`CompanionController`** (plain state holder) + **`InAppCompanionLayer`** in `AppScaffold`:
+  ambient at the bottom edge, drag to move, tap → playful (domain time-box via 1s ticks), during
+  play a **one-tap calm "Rest now"** dismisses until re-summoned (docs/05 §3.1). Hard-moment routes
+  (Calm + tools) ⇒ gentle presence with ONE curated Phase-4 library line; **never composed on the
+  safety route** (crisis surface stays clear, CLAUDE.md #6). Settings: "A small companion" toggle
+  (off by default) + species chips. 12 host tests.
+
+### ② Android overlay (`feat/phase5-overlay-android`) — platform enhancement
+- New **`:companion-overlay-android`** module: foreground service (**`specialUse`** FGS subtype,
+  quiet IMPORTANCE_MIN honest notification) hosting one ComposeView on the WindowManager
+  (`TYPE_APPLICATION_OVERLAY` + `FLAG_NOT_FOCUSABLE` — can never intercept typing).
+  **`SYSTEM_ALERT_WINDOW` only, never AccessibilityService** (docs/05 §6 guardrail).
+- **Same shared controller/machine/sprites as in-app** — one rulebook. `FullscreenSignals`
+  (insets-based, non-invasive): system bars hidden ⇒ suspend (renders NOTHING — no frames);
+  4 unit tests incl. never-resurrect-dismissed. `START_NOT_STICKY`: OEM kills it ⇒ companion just
+  disappears, nothing else breaks. Service refuses to run unless enabled+overlayEnabled+permission.
+- **Permissions UX** (docs/05 §6): Settings "Across your screen" row → plain-language
+  explain-BEFORE-request dialog (incl. what Aspen CANNOT do) → OS grant screen; `onResume` re-sync;
+  disable = instant. Master toggle takes the overlay down too. In-app layer yields while the overlay
+  carries presence (single instance). `CompanionOverlayControl` seam is null on iOS ⇒ row absent
+  (documented platform limit, docs/04 ADR-001).
+- **Approved deferral 2026-07-03:** "home-screen-only" scope — no privacy-clean launcher detection
+  exists (would need `PACKAGE_USAGE_STATS`); v1 = in-app / overlay-everywhere-with-auto-suspend.
+
+### ③ Check-ins + reduced motion (`feat/phase5-notifications-reduced-motion`) — Phase-4 leftouts land
+- **`NotificationPolicy`** (domain, pure, 7 tests): opt-in **twice over** (companion AND
+  notifications), **≥72h cadence by construction**, 10:00–21:00 window, wording accepted ONLY from
+  the library's `NOTIFICATION_PHRASING` moment (out-of-moment lines rejected at the seam). No
+  burst/retry/"missed you" path exists. Android: daily WorkManager probe that may only ASK the
+  policy; encrypted last-delivery timestamp; silent channel; `POST_NOTIFICATIONS` requested only
+  inside the opt-in act; revoked ⇒ silent, never re-asks. Settings row "A rare hello".
+- **OS-sourced reduced motion** (closes the Phase-3 leftout): `systemReducedMotion()` expect/actual
+  (Android animator-scale; iOS Reduce Motion) → `AspenTheme` at the shared root + overlay service
+  controller (SR-6).
+
+### Verified locally (Linux — no Xcode; iOS link = CI `macos-14`)
+- ✅ `:shared:domain:jvmTest` (28 new companion tests) · `:shared:data:jvmTest` (7 new) ·
+  `:shared:ui:testAndroidHostTest` (12 new) · `:companion-overlay-android:testDebugUnitTest` (4)
+- ✅ `copyLint` green (**4 string files** — overlay module res now scanned too) · `crisisGate` green
+  (`crisisGateStrict` red by design) · `:androidApp:assembleDebug` · iOS metadata compiles ·
+  `:shared:ui:compileKotlinIosArm64` (new iosMain actual compiles)
+- Deps added: `androidx.work:work-runtime-ktx 2.10.1`, `lifecycle-runtime-ktx 2.9.1`,
+  `savedstate-ktx 1.3.0`, `core-ktx 1.16.0`; new plugin alias `com.android.library` (root
+  `apply false` required — AGP already on classpath).
+
+### Phase 5.5 reserved — companion refinement (docs/07)
+- Placeholder phase added 2026-07-03; **scope TBD by the team** before it starts. The Phase-5
+  deferrals below are listed there as candidates.
+
+### ⚠ Deviations & leftouts (Phase 5 — explicit, per CLAUDE.md)
+- **DEVIATION (docs/05 §5 art):** procedural pixel-art instead of soft-round vector — approved
+  2026-07-03 (calm palette + slow motion reconciliation, recorded above). Sprite-pack
+  download/cache mechanism (docs/05 §5) not built — pixel maps make it unnecessary for v1.
+- **DEVIATION (docs/05 §4 gestures):** dismiss is the one-tap "Rest now" action during play (+
+  Settings toggle) rather than fling-to-edge; fling/double-tap-configurable deferred. A11y-friendlier
+  and satisfies §3.1 one-tap dismiss; revisit after user validation.
+- **Dismissal is session-scoped:** "Rest now" hides until re-summon OR next cold start/app resume
+  (overlay: next `onResume` restarts it). Acceptable v1 reading of "stays gone until summoned";
+  flag for the docs/05 §8 user-validation gate.
+- **Overlay behaviours kept minimal on purpose (docs/05 §3 "do less"):** no floating summon button,
+  no hide-behind-icons illusions, no proactive check-in speech — presence only. Candidates for
+  post-validation iterations.
+- **Real-device verification pending** (Linux host): 60fps / <~1%/hr idle battery / OEM
+  suspend-and-kill behaviour — now a PRE_SHIP §4b checklist item.
+- **API 24–25 have no static reduced-motion signal** without a Context — those two levels keep
+  motion on (in-app default).
+- **iOS:** in-app companion compiles for iOS by construction (shared code, iosArm64 klib green) but
+  is **not device-verified**; overlay + check-ins are Android-only (platform limit / Phase 8).
+- **No new companion lines added** — zero new advisor surface; overlay/notification UI strings are
+  en drafts, ur falls back to en (docs/12 §3 review still owed for all Phase 3–5 strings).
+- **No Compose screen-level UI tests yet** (state logic unit-tested) — same tracked follow-up as
+  Phases 3–4; CI still doesn't run `:shared:ui:testAndroidHostTest` (lead infra task).
 
 ---
 

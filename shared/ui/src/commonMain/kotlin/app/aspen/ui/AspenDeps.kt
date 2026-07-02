@@ -2,6 +2,7 @@ package app.aspen.ui
 
 import app.aspen.domain.ai.CompanionVoice
 import app.aspen.domain.ai.ReflectionCompanion
+import app.aspen.domain.companion.CompanionPrefsStore
 import app.aspen.domain.consent.ConsentManager
 import app.aspen.domain.logging.LoggingService
 import app.aspen.domain.onboarding.AppConfigProvider
@@ -34,5 +35,11 @@ data class AspenDeps(
     val appConfigProvider: AppConfigProvider? = null,
     val safetyEngine: SafetyEngine? = null,
     val crisisSignals: CrisisSignals? = null,
+    /** Phase 5: companion presence prefs (docs/05). Null → companion features absent, all off. */
+    val companionPrefsStore: CompanionPrefsStore? = null,
+    /** Phase 5: Android overlay hook (docs/05 §6); null on platforms without system overlays. */
+    val overlayControl: app.aspen.ui.companion.CompanionOverlayControl? = null,
+    /** Phase 5: check-in scheduling hook (FR-8, off by default); null → row absent. */
+    val notificationsControl: app.aspen.ui.companion.CompanionNotificationsControl? = null,
     val isDebugBuild: Boolean = false,
 )

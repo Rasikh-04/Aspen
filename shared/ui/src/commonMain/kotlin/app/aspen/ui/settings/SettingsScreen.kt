@@ -23,8 +23,31 @@ import org.jetbrains.compose.resources.stringResource
 import app.aspen.design.AspenTheme
 import app.aspen.design.components.AspenCard
 import app.aspen.design.components.AspenScreenHeader
+import androidx.compose.foundation.layout.Row
+import app.aspen.design.components.AspenChoiceChip
 import app.aspen.domain.ai.ReflectionCompanion
+import app.aspen.domain.companion.model.CompanionSpecies
 import app.aspen.domain.consent.ConsentManager
+import app.aspen.ui.companion.CompanionController
+import app.aspen.ui.companion.CompanionNotificationsControl
+import app.aspen.ui.companion.CompanionOverlayControl
+import app.aspen.ui.generated.resources.settings_notify_subtitle_off
+import app.aspen.ui.generated.resources.settings_notify_subtitle_on
+import app.aspen.ui.generated.resources.settings_notify_title
+import app.aspen.ui.generated.resources.companion_species_aspen
+import app.aspen.ui.generated.resources.companion_species_bunny
+import app.aspen.ui.generated.resources.companion_species_cat
+import app.aspen.ui.generated.resources.settings_companion_species_label
+import app.aspen.ui.generated.resources.settings_companion_subtitle_off
+import app.aspen.ui.generated.resources.settings_companion_subtitle_on
+import app.aspen.ui.generated.resources.settings_companion_title
+import app.aspen.ui.generated.resources.settings_overlay_dialog_body
+import app.aspen.ui.generated.resources.settings_overlay_dialog_cancel
+import app.aspen.ui.generated.resources.settings_overlay_dialog_confirm
+import app.aspen.ui.generated.resources.settings_overlay_dialog_title
+import app.aspen.ui.generated.resources.settings_overlay_subtitle_off
+import app.aspen.ui.generated.resources.settings_overlay_subtitle_on
+import app.aspen.ui.generated.resources.settings_overlay_title
 import app.aspen.domain.consent.model.DataCategory
 import app.aspen.domain.consent.model.Recipient
 import app.aspen.domain.consent.model.RecipientType
@@ -65,10 +88,14 @@ fun SettingsScreen(
     loggingService: LoggingService?,
     consentManager: ConsentManager? = null,
     reflectionCompanion: ReflectionCompanion? = null,
+    companion: CompanionController? = null,
+    overlayControl: CompanionOverlayControl? = null,
+    notificationsControl: CompanionNotificationsControl? = null,
     onOpenDebugCompanion: (() -> Unit)? = null,
 ) {
     var confirmDelete by remember { mutableStateOf(false) }
     var confirmAiEnable by remember { mutableStateOf(false) }
+    var confirmOverlay by remember { mutableStateOf(false) }
     // Bumped on grant/revoke so the row re-reads the consent state.
     var aiRevision by remember { mutableStateOf(0) }
 
@@ -111,6 +138,73 @@ fun SettingsScreen(
                 style = AspenTheme.typography.caption,
                 color = AspenTheme.colors.textMuted,
             )
+        }
+        if (companion != null) {
+            // Phase 5 (docs/05 §3.1): the companion is off by default; this toggle is the only way
+            // it ever appears, and turning it off is instant with zero friction or guilt copy.
+            SettingRow(
+                title = Res.string.settings_companion_title,
+                subtitle = if (companion.prefs.enabled) {
+                    Res.string.settings_companion_subtitle_on
+                } else {
+                    Res.string.settings_companion_subtitle_off
+                },
+                onClick = {
+                    val turningOff = companion.prefs.enabled
+                    companion.setEnabled(!turningOff)
+                    // Banishing the companion always takes the overlay down with it, instantly.
+                    if (turningOff) overlayControl?.setOverlayActive(false)
+                },
+            )
+            if (companion.prefs.enabled) {
+                Text(
+                    stringResource(Res.string.settings_companion_species_label),
+                    style = AspenTheme.typography.caption,
+                    color = AspenTheme.colors.textMuted,
+                )
+                Row(horizontalArrangement = Arrangement.spacedBy(AspenTheme.spacing.s)) {
+                    SpeciesChip(companion, CompanionSpecies.ASPEN_SPRITE, Res.string.companion_species_aspen)
+                    SpeciesChip(companion, CompanionSpecies.CAT, Res.string.companion_species_cat)
+                    SpeciesChip(companion, CompanionSpecies.BUNNY, Res.string.companion_species_bunny)
+                }
+                if (notificationsControl != null) {
+                    // FR-8: off by default, opt-in, instantly revocable. The wording promises
+                    // little on purpose — the policy allows at most one gentle hello every 3 days.
+                    SettingRow(
+                        title = Res.string.settings_notify_title,
+                        subtitle = if (companion.prefs.notificationsEnabled) {
+                            Res.string.settings_notify_subtitle_on
+                        } else {
+                            Res.string.settings_notify_subtitle_off
+                        },
+                        onClick = {
+                            val enable = !companion.prefs.notificationsEnabled
+                            companion.setNotificationsEnabled(enable)
+                            notificationsControl.setScheduled(enable)
+                        },
+                    )
+                }
+                if (overlayControl != null) {
+                    // Android-only (docs/05 §6). Off → on goes through the plain-language
+                    // explainer BEFORE any OS permission screen; on → off is instant, no friction.
+                    SettingRow(
+                        title = Res.string.settings_overlay_title,
+                        subtitle = if (companion.prefs.overlayEnabled) {
+                            Res.string.settings_overlay_subtitle_on
+                        } else {
+                            Res.string.settings_overlay_subtitle_off
+                        },
+                        onClick = {
+                            if (companion.prefs.overlayEnabled) {
+                                companion.setOverlayEnabled(false)
+                                overlayControl.setOverlayActive(false)
+                            } else {
+                                confirmOverlay = true
+                            }
+                        },
+                    )
+                }
+            }
         }
         if (loggingService != null) {
             SettingRow(
@@ -164,6 +258,39 @@ fun SettingsScreen(
         )
     }
 
+    if (confirmOverlay && companion != null && overlayControl != null) {
+        // Explain BEFORE requesting (docs/05 §6): what the permission does, and — as important —
+        // what Aspen cannot do with it. Honest, plain language, no urgency.
+        AlertDialog(
+            onDismissRequest = { confirmOverlay = false },
+            shape = AspenTheme.shapes.large,
+            containerColor = AspenTheme.colors.surface,
+            titleContentColor = AspenTheme.colors.textPrimary,
+            textContentColor = AspenTheme.colors.textSecondary,
+            title = { Text(stringResource(Res.string.settings_overlay_dialog_title)) },
+            text = { Text(stringResource(Res.string.settings_overlay_dialog_body)) },
+            confirmButton = {
+                TextButton(onClick = {
+                    companion.setOverlayEnabled(true)
+                    if (overlayControl.isPermissionGranted()) {
+                        overlayControl.setOverlayActive(true)
+                    } else {
+                        // The OS settings screen; the platform re-syncs when the user returns.
+                        overlayControl.requestPermission()
+                    }
+                    confirmOverlay = false
+                }) {
+                    Text(stringResource(Res.string.settings_overlay_dialog_confirm), color = AspenTheme.colors.primaryDark)
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { confirmOverlay = false }) {
+                    Text(stringResource(Res.string.settings_overlay_dialog_cancel), color = AspenTheme.colors.textPrimary)
+                }
+            },
+        )
+    }
+
     if (confirmDelete && loggingService != null) {
         AlertDialog(
             onDismissRequest = { confirmDelete = false },
@@ -189,6 +316,15 @@ fun SettingsScreen(
             },
         )
     }
+}
+
+@Composable
+private fun SpeciesChip(companion: CompanionController, species: CompanionSpecies, label: StringResource) {
+    AspenChoiceChip(
+        label = stringResource(label),
+        selected = companion.prefs.species == species,
+        onToggle = { companion.setSpecies(species) },
+    )
 }
 
 @Composable

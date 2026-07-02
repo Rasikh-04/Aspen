@@ -5,6 +5,7 @@ import app.aspen.domain.ai.AiClient
 import app.aspen.domain.ai.CompanionMoment
 import app.aspen.domain.ai.CompanionVoice
 import app.aspen.domain.ai.ReflectionCompanion
+import app.aspen.domain.companion.CompanionPrefsStore
 import app.aspen.domain.consent.ConsentManager
 import app.aspen.domain.consent.model.DataCategory
 import app.aspen.domain.logging.LoggingService
@@ -69,6 +70,14 @@ class AspenModulesTest {
         // and the reflection surface reports itself disabled until an explicit consent grant.
         assertTrue(koin().get<AiClient>() === DisabledAiClient, "cloud client must default to Disabled")
         assertFalse(koin().get<ReflectionCompanion>().isEnabled(), "cloud reflection is off by default")
+    }
+
+    @Test
+    fun companionPresenceIsProvablyOffByDefault() {
+        // Phase 5 (docs/05 §3.1): no stored prefs → null → defaults → companion, overlay and
+        // notifications all OFF. Presence is only ever switched on by an explicit user act.
+        val prefs = koin().get<CompanionPrefsStore>().current()
+        assertTrue(prefs == null, "fresh install must have no stored companion prefs")
     }
 
     @Test

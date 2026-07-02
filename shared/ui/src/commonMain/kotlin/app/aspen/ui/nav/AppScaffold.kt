@@ -52,6 +52,9 @@ import app.aspen.ui.generated.resources.nav_calm
 import app.aspen.ui.generated.resources.nav_home
 import app.aspen.ui.generated.resources.nav_reflect
 import app.aspen.ui.generated.resources.nav_settings
+import app.aspen.domain.companion.CompanionEvent
+import app.aspen.ui.companion.CompanionController
+import app.aspen.ui.companion.InAppCompanionLayer
 import app.aspen.ui.debug.CompanionPreviewScreen
 import app.aspen.ui.grounding.BreatheScreen
 import app.aspen.ui.grounding.Ground54321Screen
@@ -103,8 +106,20 @@ fun AppScaffold(
     val showBar = currentRoute == null || currentRoute in Routes.tabRoutes
     val motion = AspenTheme.motion
 
+    // Phase 5 (docs/05): the in-app companion floats over the shell. The hard-moment flow turns it
+    // into gentle presence; everywhere else it is ambient. It is NEVER composed on the safety
+    // route — the crisis surface stays absolutely clear (CLAUDE.md #6).
+    val companion = remember { CompanionController(deps.companionPrefsStore) }
+    val hardMomentRoutes = setOf(Routes.CALM, Routes.BREATHE, Routes.GROUND_54321, Routes.RIDE_URGE)
+    LaunchedEffect(currentRoute) {
+        companion.on(
+            if (currentRoute in hardMomentRoutes) CompanionEvent.HardMomentOpened else CompanionEvent.HardMomentClosed,
+        )
+    }
+
     AspenAmbientBackground {
-        Scaffold(
+        Box {
+            Scaffold(
             containerColor = Color.Transparent,
             bottomBar = {
                 if (!showBar) return@Scaffold
@@ -158,6 +173,9 @@ fun AppScaffold(
                         loggingService = deps.loggingService,
                         consentManager = deps.consentManager,
                         reflectionCompanion = deps.reflectionCompanion,
+                        companion = if (deps.companionPrefsStore != null) companion else null,
+                        overlayControl = deps.overlayControl,
+                        notificationsControl = deps.notificationsControl,
                         onOpenDebugCompanion = if (canPreview) {
                             { navController.navigate(Routes.DEBUG_COMPANION) }
                         } else {
@@ -199,6 +217,14 @@ fun AppScaffold(
                         )
                     }
                 }
+            }
+            }
+            if (currentRoute != Routes.SAFETY) {
+                InAppCompanionLayer(
+                    controller = companion,
+                    voice = deps.companionVoice,
+                    appConfigProvider = deps.appConfigProvider,
+                )
             }
         }
     }

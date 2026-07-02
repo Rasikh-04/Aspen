@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Overlay-ONLY permissions (docs/05 §6): SYSTEM_ALERT_WINDOW is user-granted from a system
+         settings screen (never a runtime dialog we can spring). NEVER AccessibilityService — if a
+         behaviour needs it, we drop the behaviour, not raise the permission (guardrail §3.7). -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+
+    <application>
+        <service
+            android:name="app.aspen.companion.overlay.CompanionOverlayService"
+            android:exported="false"
+            android:foregroundServiceType="specialUse">
+            <property
+                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="User-summoned decorative companion overlay; renders a small ambient sprite, collects nothing" />
+        </service>
+    </application>
+</manifest>
