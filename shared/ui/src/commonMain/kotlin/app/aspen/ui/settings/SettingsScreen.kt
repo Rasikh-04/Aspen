@@ -23,8 +23,19 @@ import org.jetbrains.compose.resources.stringResource
 import app.aspen.design.AspenTheme
 import app.aspen.design.components.AspenCard
 import app.aspen.design.components.AspenScreenHeader
+import androidx.compose.foundation.layout.Row
+import app.aspen.design.components.AspenChoiceChip
 import app.aspen.domain.ai.ReflectionCompanion
+import app.aspen.domain.companion.model.CompanionSpecies
 import app.aspen.domain.consent.ConsentManager
+import app.aspen.ui.companion.CompanionController
+import app.aspen.ui.generated.resources.companion_species_aspen
+import app.aspen.ui.generated.resources.companion_species_bunny
+import app.aspen.ui.generated.resources.companion_species_cat
+import app.aspen.ui.generated.resources.settings_companion_species_label
+import app.aspen.ui.generated.resources.settings_companion_subtitle_off
+import app.aspen.ui.generated.resources.settings_companion_subtitle_on
+import app.aspen.ui.generated.resources.settings_companion_title
 import app.aspen.domain.consent.model.DataCategory
 import app.aspen.domain.consent.model.Recipient
 import app.aspen.domain.consent.model.RecipientType
@@ -65,6 +76,7 @@ fun SettingsScreen(
     loggingService: LoggingService?,
     consentManager: ConsentManager? = null,
     reflectionCompanion: ReflectionCompanion? = null,
+    companion: CompanionController? = null,
     onOpenDebugCompanion: (() -> Unit)? = null,
 ) {
     var confirmDelete by remember { mutableStateOf(false) }
@@ -111,6 +123,31 @@ fun SettingsScreen(
                 style = AspenTheme.typography.caption,
                 color = AspenTheme.colors.textMuted,
             )
+        }
+        if (companion != null) {
+            // Phase 5 (docs/05 §3.1): the companion is off by default; this toggle is the only way
+            // it ever appears, and turning it off is instant with zero friction or guilt copy.
+            SettingRow(
+                title = Res.string.settings_companion_title,
+                subtitle = if (companion.prefs.enabled) {
+                    Res.string.settings_companion_subtitle_on
+                } else {
+                    Res.string.settings_companion_subtitle_off
+                },
+                onClick = { companion.setEnabled(!companion.prefs.enabled) },
+            )
+            if (companion.prefs.enabled) {
+                Text(
+                    stringResource(Res.string.settings_companion_species_label),
+                    style = AspenTheme.typography.caption,
+                    color = AspenTheme.colors.textMuted,
+                )
+                Row(horizontalArrangement = Arrangement.spacedBy(AspenTheme.spacing.s)) {
+                    SpeciesChip(companion, CompanionSpecies.ASPEN_SPRITE, Res.string.companion_species_aspen)
+                    SpeciesChip(companion, CompanionSpecies.CAT, Res.string.companion_species_cat)
+                    SpeciesChip(companion, CompanionSpecies.BUNNY, Res.string.companion_species_bunny)
+                }
+            }
         }
         if (loggingService != null) {
             SettingRow(
@@ -189,6 +226,15 @@ fun SettingsScreen(
             },
         )
     }
+}
+
+@Composable
+private fun SpeciesChip(companion: CompanionController, species: CompanionSpecies, label: StringResource) {
+    AspenChoiceChip(
+        label = stringResource(label),
+        selected = companion.prefs.species == species,
+        onToggle = { companion.setSpecies(species) },
+    )
 }
 
 @Composable

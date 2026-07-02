@@ -17,6 +17,7 @@ import app.aspen.data.local.AspenLocalStorage
 import app.aspen.data.local.FileEncryptedBlobStore
 import app.aspen.data.local.platformLocalCipher
 import app.aspen.data.logging.PersistentLoggingStore
+import app.aspen.data.companion.PersistentCompanionPrefsStore
 import app.aspen.data.onboarding.PersistentProfileStore
 import app.aspen.domain.ai.ReflectionCompanion
 import app.aspen.domain.consent.DefaultConsentManager
@@ -107,6 +108,7 @@ class MainActivity : ComponentActivity() {
             appConfigProvider = appConfig,
             safetyEngine = safetyEngine,
             crisisSignals = crisisSignals,
+            companionPrefsStore = PersistentCompanionPrefsStore(cipher, FileEncryptedBlobStore("companion_prefs")),
             isDebugBuild = isDebug,
         )
     }

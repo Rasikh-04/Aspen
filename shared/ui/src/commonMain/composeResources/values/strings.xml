@@ -218,4 +218,15 @@
     <string name="debug_guard_rewrite">Guard: withheld and replaced</string>
     <string name="debug_guard_crisis">Crisis signals: would hand off</string>
     <string name="debug_guard_no_crisis">Crisis signals: no hand-off</string>
+
+    <!-- Companion presence (Phase 5, docs/05). Calm, optional, never guilt (SR-4). -->
+    <string name="settings_companion_title">A small companion</string>
+    <string name="settings_companion_subtitle_off">Off. A tiny pixel friend can sit quietly in the corner, only if you want.</string>
+    <string name="settings_companion_subtitle_on">Keeping you company. Tap to let it rest.</string>
+    <string name="settings_companion_species_label">Who keeps you company</string>
+    <string name="companion_species_aspen">Aspen sprite</string>
+    <string name="companion_species_cat">Cat</string>
+    <string name="companion_species_bunny">Bunny</string>
+    <string name="companion_a11y_label">Your companion. Tap to play together.</string>
+    <string name="companion_rest_action">Rest now</string>
 </resources>

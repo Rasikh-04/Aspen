@@ -3,6 +3,7 @@ package app.aspen.data.di
 import app.aspen.data.ai.PersistentAiMessageStore
 import app.aspen.data.ai.cloud.DisabledAiClient
 import app.aspen.data.ai.local.LibraryCompanionVoice
+import app.aspen.data.companion.PersistentCompanionPrefsStore
 import app.aspen.data.consent.ConsentBlobStore
 import app.aspen.data.consent.DurableConsentBlobStore
 import app.aspen.data.consent.PersistentConsentStore
@@ -17,6 +18,7 @@ import app.aspen.domain.ai.AiClient
 import app.aspen.domain.ai.AiMessageStore
 import app.aspen.domain.ai.CompanionVoice
 import app.aspen.domain.ai.ReflectionCompanion
+import app.aspen.domain.companion.CompanionPrefsStore
 import app.aspen.domain.consent.ConsentManager
 import app.aspen.domain.consent.ConsentStore
 import app.aspen.domain.consent.DefaultConsentManager
@@ -124,8 +126,19 @@ val aiModule: Module = module {
     }
 }
 
+/**
+ * Companion presence wiring (Phase 5, docs/05). Prefs are encrypted like every other local store
+ * and FAIL-SAFE to all-off: a missing/corrupt blob can never switch the companion, its overlay, or
+ * its notifications on (docs/05 §3.1). The companion's *words* stay on the Phase-4
+ * [CompanionVoice]; this module only stores where/whether its *body* may appear.
+ */
+val companionModule: Module = module {
+    single<CompanionPrefsStore> { PersistentCompanionPrefsStore(get(), FileEncryptedBlobStore("companion_prefs")) }
+}
+
 /** Everything :shared:data contributes. Pass these to `startKoin { modules(aspenSharedModules) }`. */
-val aspenSharedModules: List<Module> = listOf(safetyModule, consentModule, localStoreModule, aiModule)
+val aspenSharedModules: List<Module> =
+    listOf(safetyModule, consentModule, localStoreModule, aiModule, companionModule)
 
 /*
  * ───────────────────────── MANUAL PLATFORM-INIT GUIDE (Koin 4.1) ─────────────────────────

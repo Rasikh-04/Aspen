@@ -2,6 +2,7 @@ package app.aspen.ui
 
 import app.aspen.domain.ai.CompanionVoice
 import app.aspen.domain.ai.ReflectionCompanion
+import app.aspen.domain.companion.CompanionPrefsStore
 import app.aspen.domain.consent.ConsentManager
 import app.aspen.domain.logging.LoggingService
 import app.aspen.domain.onboarding.AppConfigProvider
@@ -34,5 +35,7 @@ data class AspenDeps(
     val appConfigProvider: AppConfigProvider? = null,
     val safetyEngine: SafetyEngine? = null,
     val crisisSignals: CrisisSignals? = null,
+    /** Phase 5: companion presence prefs (docs/05). Null → companion features absent, all off. */
+    val companionPrefsStore: CompanionPrefsStore? = null,
     val isDebugBuild: Boolean = false,
 )
