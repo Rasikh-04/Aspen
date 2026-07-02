@@ -27,6 +27,11 @@ a rewrite later.
   untouched).
 - **Rule from Phase 4 on** (`docs/06` §2.1): feature UI composes these primitives; raw Material widgets
   on shipped surfaces are a review-blocking defect; extend the layer rather than hand-rolling.
+- **Post-merge CI fix:** the iOS framework link (macOS runner only) failed with "IrTypeAliasSymbolImpl
+  is already bound" — navigation/lifecycle 2.9 pulls `kotlinx-datetime` 0.7.x while we pinned 0.6.1.
+  Resolved by migrating all `Clock`/`Instant` usage to stdlib `kotlin.time` and **dropping the
+  `kotlinx-datetime` dependency entirely**. Reminder: only CI exercises the iOS *link* step — Linux
+  `check` compiles iOS klibs but can't catch link-time klib conflicts.
 
 ---
 

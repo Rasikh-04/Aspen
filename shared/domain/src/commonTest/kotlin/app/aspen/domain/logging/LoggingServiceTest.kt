@@ -11,8 +11,8 @@ import app.aspen.domain.onboarding.model.ProtectiveFlag
 import app.aspen.domain.onboarding.model.RoutingHints
 import app.aspen.domain.onboarding.model.SupportProfile
 import app.aspen.domain.onboarding.model.SupportRoutingStrength
-import kotlinx.datetime.Clock
-import kotlinx.datetime.Instant
+import kotlin.time.Clock
+import kotlin.time.Instant
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse

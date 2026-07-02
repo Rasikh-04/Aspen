@@ -1,6 +1,6 @@
 package app.aspen.domain.logging.model
 
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 
 /**
  * Qualitative feeling tags for logs (docs/03 FR-3b, docs/04 §5 `felt_how`). These are **emotions, not

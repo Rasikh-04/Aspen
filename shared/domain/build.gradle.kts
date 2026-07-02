@@ -20,7 +20,6 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(project(":shared:core-common"))
-            api(libs.kotlinx.datetime)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

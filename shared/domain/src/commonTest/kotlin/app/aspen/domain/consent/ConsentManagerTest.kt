@@ -6,8 +6,8 @@ import app.aspen.domain.consent.model.ConsentGrant
 import app.aspen.domain.consent.model.DataCategory
 import app.aspen.domain.consent.model.Recipient
 import app.aspen.domain.consent.model.RecipientType
-import kotlinx.datetime.Clock
-import kotlinx.datetime.Instant
+import kotlin.time.Clock
+import kotlin.time.Instant
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse

@@ -1,6 +1,6 @@
 package app.aspen.domain.consent.model
 
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 
 /**
  * Scoped data categories a grant can cover (docs/09 §3.1, docs/08 §3). Stored data is tagged by

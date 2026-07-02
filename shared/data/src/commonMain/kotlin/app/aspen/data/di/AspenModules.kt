@@ -22,7 +22,7 @@ import app.aspen.domain.safety.DefaultForbiddenLexicon
 import app.aspen.domain.safety.DefaultSafetyEngine
 import app.aspen.domain.safety.SafetyEngine
 import app.aspen.domain.safety.SafetyRules
-import kotlinx.datetime.Clock
+import kotlin.time.Clock
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 import org.koin.core.module.Module

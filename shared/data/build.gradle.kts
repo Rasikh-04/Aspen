@@ -23,7 +23,6 @@ kotlin {
             api(project(":shared:domain"))
             implementation(project(":shared:core-common"))
             implementation(libs.kotlinx.serialization.json)
-            implementation(libs.kotlinx.datetime)
             implementation(libs.koin.core)
         }
         commonTest.dependencies {

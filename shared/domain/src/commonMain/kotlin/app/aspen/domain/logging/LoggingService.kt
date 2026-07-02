@@ -6,7 +6,7 @@ import app.aspen.domain.logging.model.FoodLog
 import app.aspen.domain.logging.model.Reflection
 import app.aspen.domain.onboarding.AppConfigProvider
 import app.aspen.domain.onboarding.model.FoodLoggingMode
-import kotlinx.datetime.Clock
+import kotlin.time.Clock
 
 /** Result of a write attempt. Food logging may be refused for a contraindicated profile. */
 sealed interface LogOutcome {

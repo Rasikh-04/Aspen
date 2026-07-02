@@ -5,8 +5,8 @@ import app.aspen.domain.consent.model.ConsentEventType
 import app.aspen.domain.consent.model.ConsentGrant
 import app.aspen.domain.consent.model.DataCategory
 import app.aspen.domain.consent.model.Recipient
-import kotlinx.datetime.Clock
-import kotlinx.datetime.Instant
+import kotlin.time.Clock
+import kotlin.time.Instant
 
 /**
  * The consent primitive (docs/08 §3, docs/09 §3.2) — the spine future sharing hangs off. Built now

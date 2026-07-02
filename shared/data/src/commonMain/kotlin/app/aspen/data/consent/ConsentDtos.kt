@@ -6,7 +6,7 @@ import app.aspen.domain.consent.model.ConsentGrant
 import app.aspen.domain.consent.model.DataCategory
 import app.aspen.domain.consent.model.Recipient
 import app.aspen.domain.consent.model.RecipientType
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 import kotlinx.serialization.Serializable
 
 /**

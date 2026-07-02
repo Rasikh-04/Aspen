@@ -4,7 +4,7 @@ import app.aspen.domain.logging.model.BehaviourLog
 import app.aspen.domain.logging.model.FeelingTag
 import app.aspen.domain.logging.model.FoodLog
 import app.aspen.domain.logging.model.Reflection
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 import kotlinx.serialization.Serializable
 
 /**
