@@ -57,8 +57,23 @@ Before ship, for **each launch locale**:
 - [ ] Crisis-signal phrase lists advisor-reviewed per language (`config/safety/crisis_signals.json`, starter).
 - [ ] Companion ranker model ship decision: bundle vs on-demand download (asset is optional + git-ignored
       in dev, docs/DEV_SETUP §7); iOS ranker actual (deterministic selector until then).
-- [ ] Notification scheduling (deferred from Phase 4): lands with Phase 5 companion; must stay opt-in,
-      off by default, phrasing only from the reviewed library (SR-4).
+- [x] Notification scheduling (deferred from Phase 4): **landed with Phase 5** — opt-in twice over,
+      off by default, ≥72h cadence + daytime window by construction (`NotificationPolicy`), phrasing
+      only from the reviewed library's NOTIFICATION_PHRASING moment (SR-4). Copy review still gated
+      by §4's library sign-off above.
+
+## 4b. Companion (Phase 5, docs/05)
+- [ ] **User-validation gate (docs/05 §8, release-blocking for wide release):** test with people in
+      recovery via an ED charity/advisory relationship — kind company vs surveillance/pressure. If a
+      meaningful subset finds it obstructive it ships MORE conservative (summon-only) or not at all.
+- [ ] **Real-device QA (cannot be verified on the Linux dev host):** overlay 60fps active,
+      **<~1%/hr idle battery**, suspend on fullscreen/immersive apps (insets signal), drag across
+      OEM launchers; aggressive-battery OEMs (Xiaomi/MIUI, Samsung, Oppo) — degrade gracefully
+      when the service is killed (docs/04 §6).
+- [ ] Play policy review of the `specialUse` foreground-service subtype declaration + overlay
+      permission explainer copy.
+- [ ] Overlay/notification strings native-reviewed per language before that language ships
+      (same sensitive-surface bar as companion lines, docs/12 §3).
 
 ## 5. Platform / build
 - [ ] iOS targets compile + link on CI (`macos-14`); Xcode project embeds `Shared.framework`.
