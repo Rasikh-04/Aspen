@@ -229,4 +229,13 @@
     <string name="companion_species_bunny">Bunny</string>
     <string name="companion_a11y_label">Your companion. Tap to play together.</string>
     <string name="companion_rest_action">Rest now</string>
+
+    <!-- Overlay companion (Phase 5, docs/05 §6). Explain-before-request permission UX. -->
+    <string name="settings_overlay_title">Across your screen</string>
+    <string name="settings_overlay_subtitle_off">The companion stays inside Aspen.</string>
+    <string name="settings_overlay_subtitle_on">The companion can sit at the edge of your screen, outside Aspen too.</string>
+    <string name="settings_overlay_dialog_title">Let it sit outside Aspen?</string>
+    <string name="settings_overlay_dialog_body">Android will ask you to allow Aspen to “display over other apps”. That only lets the companion sit on your screen — Aspen cannot see, read, or record anything you do there. It hides on its own during videos and games, and you can let it rest anytime.</string>
+    <string name="settings_overlay_dialog_confirm">Okay, continue</string>
+    <string name="settings_overlay_dialog_cancel">Not now</string>
 </resources>

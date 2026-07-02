@@ -29,6 +29,7 @@ import app.aspen.domain.ai.ReflectionCompanion
 import app.aspen.domain.companion.model.CompanionSpecies
 import app.aspen.domain.consent.ConsentManager
 import app.aspen.ui.companion.CompanionController
+import app.aspen.ui.companion.CompanionOverlayControl
 import app.aspen.ui.generated.resources.companion_species_aspen
 import app.aspen.ui.generated.resources.companion_species_bunny
 import app.aspen.ui.generated.resources.companion_species_cat
@@ -36,6 +37,13 @@ import app.aspen.ui.generated.resources.settings_companion_species_label
 import app.aspen.ui.generated.resources.settings_companion_subtitle_off
 import app.aspen.ui.generated.resources.settings_companion_subtitle_on
 import app.aspen.ui.generated.resources.settings_companion_title
+import app.aspen.ui.generated.resources.settings_overlay_dialog_body
+import app.aspen.ui.generated.resources.settings_overlay_dialog_cancel
+import app.aspen.ui.generated.resources.settings_overlay_dialog_confirm
+import app.aspen.ui.generated.resources.settings_overlay_dialog_title
+import app.aspen.ui.generated.resources.settings_overlay_subtitle_off
+import app.aspen.ui.generated.resources.settings_overlay_subtitle_on
+import app.aspen.ui.generated.resources.settings_overlay_title
 import app.aspen.domain.consent.model.DataCategory
 import app.aspen.domain.consent.model.Recipient
 import app.aspen.domain.consent.model.RecipientType
@@ -77,10 +85,12 @@ fun SettingsScreen(
     consentManager: ConsentManager? = null,
     reflectionCompanion: ReflectionCompanion? = null,
     companion: CompanionController? = null,
+    overlayControl: CompanionOverlayControl? = null,
     onOpenDebugCompanion: (() -> Unit)? = null,
 ) {
     var confirmDelete by remember { mutableStateOf(false) }
     var confirmAiEnable by remember { mutableStateOf(false) }
+    var confirmOverlay by remember { mutableStateOf(false) }
     // Bumped on grant/revoke so the row re-reads the consent state.
     var aiRevision by remember { mutableStateOf(0) }
 
@@ -134,7 +144,12 @@ fun SettingsScreen(
                 } else {
                     Res.string.settings_companion_subtitle_off
                 },
-                onClick = { companion.setEnabled(!companion.prefs.enabled) },
+                onClick = {
+                    val turningOff = companion.prefs.enabled
+                    companion.setEnabled(!turningOff)
+                    // Banishing the companion always takes the overlay down with it, instantly.
+                    if (turningOff) overlayControl?.setOverlayActive(false)
+                },
             )
             if (companion.prefs.enabled) {
                 Text(
@@ -146,6 +161,26 @@ fun SettingsScreen(
                     SpeciesChip(companion, CompanionSpecies.ASPEN_SPRITE, Res.string.companion_species_aspen)
                     SpeciesChip(companion, CompanionSpecies.CAT, Res.string.companion_species_cat)
                     SpeciesChip(companion, CompanionSpecies.BUNNY, Res.string.companion_species_bunny)
+                }
+                if (overlayControl != null) {
+                    // Android-only (docs/05 §6). Off → on goes through the plain-language
+                    // explainer BEFORE any OS permission screen; on → off is instant, no friction.
+                    SettingRow(
+                        title = Res.string.settings_overlay_title,
+                        subtitle = if (companion.prefs.overlayEnabled) {
+                            Res.string.settings_overlay_subtitle_on
+                        } else {
+                            Res.string.settings_overlay_subtitle_off
+                        },
+                        onClick = {
+                            if (companion.prefs.overlayEnabled) {
+                                companion.setOverlayEnabled(false)
+                                overlayControl.setOverlayActive(false)
+                            } else {
+                                confirmOverlay = true
+                            }
+                        },
+                    )
                 }
             }
         }
@@ -196,6 +231,39 @@ fun SettingsScreen(
             dismissButton = {
                 TextButton(onClick = { confirmAiEnable = false }) {
                     Text(stringResource(Res.string.settings_ai_dialog_cancel), color = AspenTheme.colors.textPrimary)
+                }
+            },
+        )
+    }
+
+    if (confirmOverlay && companion != null && overlayControl != null) {
+        // Explain BEFORE requesting (docs/05 §6): what the permission does, and — as important —
+        // what Aspen cannot do with it. Honest, plain language, no urgency.
+        AlertDialog(
+            onDismissRequest = { confirmOverlay = false },
+            shape = AspenTheme.shapes.large,
+            containerColor = AspenTheme.colors.surface,
+            titleContentColor = AspenTheme.colors.textPrimary,
+            textContentColor = AspenTheme.colors.textSecondary,
+            title = { Text(stringResource(Res.string.settings_overlay_dialog_title)) },
+            text = { Text(stringResource(Res.string.settings_overlay_dialog_body)) },
+            confirmButton = {
+                TextButton(onClick = {
+                    companion.setOverlayEnabled(true)
+                    if (overlayControl.isPermissionGranted()) {
+                        overlayControl.setOverlayActive(true)
+                    } else {
+                        // The OS settings screen; the platform re-syncs when the user returns.
+                        overlayControl.requestPermission()
+                    }
+                    confirmOverlay = false
+                }) {
+                    Text(stringResource(Res.string.settings_overlay_dialog_confirm), color = AspenTheme.colors.primaryDark)
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { confirmOverlay = false }) {
+                    Text(stringResource(Res.string.settings_overlay_dialog_cancel), color = AspenTheme.colors.textPrimary)
                 }
             },
         )

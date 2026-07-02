@@ -37,5 +37,7 @@ data class AspenDeps(
     val crisisSignals: CrisisSignals? = null,
     /** Phase 5: companion presence prefs (docs/05). Null → companion features absent, all off. */
     val companionPrefsStore: CompanionPrefsStore? = null,
+    /** Phase 5: Android overlay hook (docs/05 §6); null on platforms without system overlays. */
+    val overlayControl: app.aspen.ui.companion.CompanionOverlayControl? = null,
     val isDebugBuild: Boolean = false,
 )

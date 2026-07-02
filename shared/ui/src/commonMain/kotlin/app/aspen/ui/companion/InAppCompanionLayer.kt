@@ -63,6 +63,9 @@ fun BoxScope.InAppCompanionLayer(
     controller.reducedMotion = LocalReducedMotion.current
     val state = controller.state
     if (state !is CompanionState.Ambient && state !is CompanionState.Playful && state !is CompanionState.GentlePresence) return
+    // When the Android overlay carries the presence it is visible inside Aspen too — never show
+    // two companions at once (docs/05 §6 "single instance").
+    if (controller.prefs.overlayEnabled) return
 
     // The playful time-box heartbeat: only runs while playful, cancelled the moment it isn't.
     if (state is CompanionState.Playful) {

@@ -174,6 +174,7 @@ fun AppScaffold(
                         consentManager = deps.consentManager,
                         reflectionCompanion = deps.reflectionCompanion,
                         companion = if (deps.companionPrefsStore != null) companion else null,
+                        overlayControl = deps.overlayControl,
                         onOpenDebugCompanion = if (canPreview) {
                             { navController.navigate(Routes.DEBUG_COMPANION) }
                         } else {

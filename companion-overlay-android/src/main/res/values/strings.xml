@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Overlay-service strings (Phase 5, docs/05 §6). The persistent notification Android requires
+     for a foreground service — worded calmly and honestly, never alarmy (CLAUDE.md #5). Scanned by
+     the root copyLint gate like every other string file. ur/other locales fall back to en until
+     native ED-informed review (docs/12 §3). -->
+<resources>
+    <string name="overlay_channel_name">Companion</string>
+    <string name="overlay_channel_description">Keeps the little companion on your screen. Quiet by design.</string>
+    <string name="overlay_notification_title">Your companion is nearby</string>
+    <string name="overlay_notification_body">It sits quietly at the edge of the screen. You can let it rest anytime from Aspen.</string>
+</resources>
