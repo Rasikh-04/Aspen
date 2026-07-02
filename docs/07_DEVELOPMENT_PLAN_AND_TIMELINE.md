@@ -57,6 +57,17 @@ The two **[APPROVE]** gates that need a human (you) are: (1) this whole document
 - **DoD:** in-app companion works on both platforms; Android overlay holds 60fps active / **<~1%/hr idle**, suspends on fullscreen, one-tap dismiss, works-without-permission path verified, tested on aggressive-battery OEMs; **iOS gets in-app companion only (documented platform limit).**
 - **[APPROVE]** companion spec before build; **user-validation gate** (`05` §8) before wide release.
 
+### Phase 5.5 — Companion refinement *(placeholder — scope TBD by the team)*
+- **Status:** reserved 2026-07-03 at Phase-5 close; details to be filled in before it starts.
+- **Candidate items** (the deliberate Phase-5 deferrals, docs/STATUS.md — a menu, not a commitment):
+  fling-to-edge dismiss + configurable double-tap gestures (docs/05 §4); optional floating summon
+  button; hide-behind-icons z-order illusions; dog/owl/panda species (same pixel-map format);
+  persistent (cross-session) dismissal; sprite-pack download/cache mechanism (docs/05 §5);
+  "home-screen-only" scope if a privacy-clean mechanism appears; playful-state speech (new lines →
+  advisor gate); findings from the §8 user validation.
+- **DoD:** TBD with the scope.
+- **[APPROVE]** scope before build (per-feature loop applies as usual).
+
 ### Phase 6 — Accounts, optional cloud sync, hardening, a11y, privacy
 - **Do:** app-native accounts + layerable auth (`08` §1); optional cloud sync with chosen key model (`08` §2); full a11y audit (**Android + iOS**); privacy review; performance gating; copy review.
 - **DoD:** anonymous still fully works; account/auth flows pass; key-model disclosed plainly; WCAG 2.2 AA-equivalent on both platforms; privacy review signed off.
@@ -88,6 +99,7 @@ Since there's no fixed deadline, this is expressed as **relative effort bands** 
 | 3 — Onboarding + Grounding + Reflection/Logging | ~4–6 weeks | questionnaire + adaptive logging needs advisor gate |
 | 4 — AI tiers | ~2–3 weeks | mostly guard + library + red-team |
 | 5 — Companion (in-app + Android overlay) | ~3–5 weeks | deepest; OEM testing; in-app is shared |
+| 5.5 — Companion refinement | TBD | placeholder (reserved 2026-07-03); scope to be defined |
 | 6 — Accounts/sync + hardening/a11y/privacy | ~3–4 weeks | both-platform a11y; key-model UX |
 | 7 — Clinical review + beta + Android launch | ~3–4 weeks + advisor/beta calendar | gated by external people |
 | 8 — iOS polish & launch | ~3–5 weeks | CMP iOS native-feel + a11y pass |

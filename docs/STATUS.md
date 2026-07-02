@@ -73,6 +73,10 @@ design** until advisors verify content.
   `savedstate-ktx 1.3.0`, `core-ktx 1.16.0`; new plugin alias `com.android.library` (root
   `apply false` required — AGP already on classpath).
 
+### Phase 5.5 reserved — companion refinement (docs/07)
+- Placeholder phase added 2026-07-03; **scope TBD by the team** before it starts. The Phase-5
+  deferrals below are listed there as candidates.
+
 ### ⚠ Deviations & leftouts (Phase 5 — explicit, per CLAUDE.md)
 - **DEVIATION (docs/05 §5 art):** procedural pixel-art instead of soft-round vector — approved
   2026-07-03 (calm palette + slow motion reconciliation, recorded above). Sprite-pack
