@@ -6,9 +6,8 @@ package app.aspen.data.local
  * EncryptedSharedPreferences, Keychain item) can vary without touching store logic. One instance backs
  * one logical store (profile, logs, …); keep them separate so a corrupt blob can't cross-contaminate.
  *
- * Current default is [InMemoryEncryptedBlobStore]. A durable on-disk implementation (with platform
- * path/Context plumbing) is a tracked leftout for a later phase (docs/STATUS.md); the encryption seam
- * and the fail-safe read/parse logic are what is locked in and tested now.
+ * The shipped default is the durable [FileEncryptedBlobStore] (Phase 4); [InMemoryEncryptedBlobStore]
+ * remains as the test double.
  */
 interface EncryptedBlobStore {
     /** The stored ciphertext, or null if nothing has been written yet. Must not throw. */
@@ -21,7 +20,7 @@ interface EncryptedBlobStore {
     fun clear()
 }
 
-/** In-memory blob store — the current default and the test double. */
+/** In-memory blob store — the test double (the shipped default is [FileEncryptedBlobStore]). */
 class InMemoryEncryptedBlobStore(initial: ByteArray? = null) : EncryptedBlobStore {
     private var data: ByteArray? = initial
     override fun load(): ByteArray? = data

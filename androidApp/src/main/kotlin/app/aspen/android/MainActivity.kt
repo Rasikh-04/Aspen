@@ -5,7 +5,8 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import app.aspen.data.crisis.CrisisRegistryRepo
-import app.aspen.data.local.InMemoryEncryptedBlobStore
+import app.aspen.data.local.AspenLocalStorage
+import app.aspen.data.local.FileEncryptedBlobStore
 import app.aspen.data.local.platformLocalCipher
 import app.aspen.data.logging.PersistentLoggingStore
 import app.aspen.data.onboarding.PersistentProfileStore
@@ -21,19 +22,21 @@ import kotlin.uuid.Uuid
  * domain use-cases (crisis resolver, profile store, logging service) so Flows 0/A/B/C are live.
  *
  * This mirrors `localStoreModule` in AspenModules.kt by hand because Koin-start at the platform entry
- * is still a tracked leftout (docs/STATUS.md). The blob stores are in-memory for now (durable on-disk
- * persistence is the same tracked leftout), so the inferred profile resets on a cold start.
+ * is still a tracked leftout (docs/STATUS.md). Since Phase 4 the blob stores are durable on-disk
+ * ([FileEncryptedBlobStore] under filesDir, Keystore-encrypted), so the profile and logs survive a
+ * cold start; [AspenLocalStorage] must be initialised before any store is built.
  */
 class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalUuidApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        AspenLocalStorage.init(applicationContext)
 
         val cipher = platformLocalCipher()
-        val profileStore = PersistentProfileStore(cipher, InMemoryEncryptedBlobStore())
+        val profileStore = PersistentProfileStore(cipher, FileEncryptedBlobStore("profile"))
         val appConfig = AppConfigProvider(profileStore)
-        val loggingStore = PersistentLoggingStore(cipher, InMemoryEncryptedBlobStore())
+        val loggingStore = PersistentLoggingStore(cipher, FileEncryptedBlobStore("logs"))
         val loggingService = LoggingService(
             store = loggingStore,
             appConfig = appConfig,

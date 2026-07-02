@@ -1,11 +1,11 @@
 package app.aspen.data.di
 
 import app.aspen.data.consent.ConsentBlobStore
-import app.aspen.data.consent.InMemoryConsentBlobStore
+import app.aspen.data.consent.DurableConsentBlobStore
 import app.aspen.data.consent.PersistentConsentStore
 import app.aspen.data.consent.platformConsentCipher
 import app.aspen.data.crisis.CrisisRegistryRepo
-import app.aspen.data.local.InMemoryEncryptedBlobStore
+import app.aspen.data.local.FileEncryptedBlobStore
 import app.aspen.data.local.LocalCipher
 import app.aspen.data.local.platformLocalCipher
 import app.aspen.data.logging.PersistentLoggingStore
@@ -52,12 +52,12 @@ val safetyModule: Module = module {
  * Consent primitive wiring (docs/08 §3, docs/09 §3). [ConsentStore] is the encrypted, fail-safe
  * [PersistentConsentStore]; the cipher is the platform-keyed [platformConsentCipher].
  *
- * Phase-2 leftout: [ConsentBlobStore] is in-memory (not yet durable on-disk) — see docs/STATUS.md.
+ * Durable since Phase 4: [ConsentBlobStore] persists on disk via [DurableConsentBlobStore].
  */
 @OptIn(ExperimentalUuidApi::class)
 val consentModule: Module = module {
     single { platformConsentCipher() }
-    single<ConsentBlobStore> { InMemoryConsentBlobStore() }
+    single<ConsentBlobStore> { DurableConsentBlobStore() }
     single<ConsentStore> { PersistentConsentStore(get(), get()) }
     single<ConsentManager> {
         DefaultConsentManager(store = get(), clock = Clock.System, newId = { Uuid.random().toString() })
@@ -65,9 +65,10 @@ val consentModule: Module = module {
 }
 
 /**
- * On-device encrypted-store wiring (docs/04 §5, Phase 3). [LocalCipher] is the single key-backed
- * crypto shared by every local store; each store gets its OWN [InMemoryEncryptedBlobStore] so a corrupt
- * blob can't cross-contaminate (durable on-disk blob is a tracked leftout — docs/STATUS.md).
+ * On-device encrypted-store wiring (docs/04 §5, Phase 3; durable since Phase 4). [LocalCipher] is the
+ * single key-backed crypto shared by every local store; each store gets its OWN durable
+ * [FileEncryptedBlobStore] blob so a corrupt file can't cross-contaminate. On Android,
+ * `AspenLocalStorage.init(context)` must run at app start BEFORE this module resolves.
  *
  * [AppConfigProvider] turns the stored profile into the live adaptivity config; [LoggingService] is the
  * single enforcement point for food-logging suppression (it reads [AppConfigProvider] before any
@@ -76,9 +77,9 @@ val consentModule: Module = module {
 @OptIn(ExperimentalUuidApi::class)
 val localStoreModule: Module = module {
     single<LocalCipher> { platformLocalCipher() }
-    single<ProfileStore> { PersistentProfileStore(get(), InMemoryEncryptedBlobStore()) }
+    single<ProfileStore> { PersistentProfileStore(get(), FileEncryptedBlobStore("profile")) }
     single { AppConfigProvider(get()) }
-    single<LoggingStore> { PersistentLoggingStore(get(), InMemoryEncryptedBlobStore()) }
+    single<LoggingStore> { PersistentLoggingStore(get(), FileEncryptedBlobStore("logs")) }
     single {
         LoggingService(
             store = get(),
@@ -103,6 +104,7 @@ val aspenSharedModules: List<Module> = listOf(safetyModule, consentModule, local
  *      class AspenApp : Application() {
  *          override fun onCreate() {
  *              super.onCreate()
+ *              AspenLocalStorage.init(this)   // REQUIRED before any durable store resolves
  *              startKoin {
  *                  androidContext(this@AspenApp)
  *                  modules(
@@ -129,6 +131,7 @@ val aspenSharedModules: List<Module> = listOf(safetyModule, consentModule, local
  * 3) VERIFY after wiring: `./gradlew :shared:data:jvmTest` (AspenModulesTest resolves the graph with a
  *    test SafetyFallbackCopy), then run the Android app and open Flow C (Settings → Safety).
  *
- * Leftouts tracked in docs/STATUS.md: durable on-disk ConsentBlobStore; device-verified Keystore/
- * Keychain ciphers; iOS Keychain cipher actual (currently a passthrough placeholder).
+ * Leftouts tracked in docs/STATUS.md: device-verified Keystore/Keychain ciphers; iOS Keychain cipher
+ * actual (currently a passthrough placeholder — durable files exist on iOS but hold passthrough
+ * "ciphertext", so nothing sensitive should persist on iOS until it lands).
  */
