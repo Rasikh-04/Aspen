@@ -1,6 +1,5 @@
 package app.aspen.ui.onboarding
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
@@ -9,19 +8,18 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
 import app.aspen.design.AspenTheme
+import app.aspen.design.components.AspenAmbientBackground
+import app.aspen.design.components.AspenPrimaryButton
+import app.aspen.design.components.AspenQuietButton
+import app.aspen.design.components.AspenTextAction
 import app.aspen.domain.onboarding.model.BodyImageSalience
 import app.aspen.domain.onboarding.model.EatingRelationship
 import app.aspen.domain.onboarding.model.HelpWanted
@@ -187,79 +185,71 @@ private fun QuestionScreen(controller: OnboardingController) {
 
 @Composable
 private fun IntroScreen(onBegin: () -> Unit, onSkipAll: () -> Unit) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(AspenTheme.colors.background)
-            .padding(horizontal = AspenTheme.spacing.l, vertical = AspenTheme.spacing.xxl),
-        verticalArrangement = Arrangement.Center,
-    ) {
-        Text(
-            text = stringResource(Res.string.onb_intro_title),
-            style = AspenTheme.typography.display,
-            color = AspenTheme.colors.textPrimary,
-        )
-        Spacer(Modifier.height(AspenTheme.spacing.l))
-        OnboardingProse(stringResource(Res.string.onb_intro_body))
-        Spacer(Modifier.height(AspenTheme.spacing.xxl))
-        Button(
-            onClick = onBegin,
-            shape = AspenTheme.shapes.large,
-            colors = ButtonDefaults.buttonColors(
-                containerColor = AspenTheme.colors.primary,
-                contentColor = AspenTheme.colors.textInverse,
-            ),
-            modifier = Modifier.fillMaxWidth().height(56.dp),
+    AspenAmbientBackground {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(horizontal = AspenTheme.spacing.l, vertical = AspenTheme.spacing.xxl),
+            verticalArrangement = Arrangement.Center,
         ) {
-            Text(stringResource(Res.string.onb_begin), style = AspenTheme.typography.label)
-        }
-        Spacer(Modifier.height(AspenTheme.spacing.s))
-        TextButton(onClick = onSkipAll, modifier = Modifier.align(Alignment.CenterHorizontally)) {
-            Text(stringResource(Res.string.onb_skip_all), color = AspenTheme.colors.textSecondary)
+            Text(
+                text = stringResource(Res.string.onb_intro_title),
+                style = AspenTheme.typography.display,
+                color = AspenTheme.colors.textPrimary,
+            )
+            Spacer(Modifier.height(AspenTheme.spacing.l))
+            OnboardingProse(stringResource(Res.string.onb_intro_body))
+            Spacer(Modifier.height(AspenTheme.spacing.xxl))
+            AspenPrimaryButton(
+                label = stringResource(Res.string.onb_begin),
+                onClick = onBegin,
+                modifier = Modifier.fillMaxWidth(),
+            )
+            Spacer(Modifier.height(AspenTheme.spacing.s))
+            AspenTextAction(
+                label = stringResource(Res.string.onb_skip_all),
+                onClick = onSkipAll,
+                modifier = Modifier.align(Alignment.CenterHorizontally),
+            )
         }
     }
 }
 
 @Composable
 private fun ClosingScreen(onBack: () -> Unit, onFindHelp: () -> Unit, onContinue: () -> Unit) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(AspenTheme.colors.background)
-            .padding(horizontal = AspenTheme.spacing.l, vertical = AspenTheme.spacing.xxl),
-        verticalArrangement = Arrangement.Center,
-    ) {
-        Text(
-            text = stringResource(Res.string.onb_closing_title),
-            style = AspenTheme.typography.display,
-            color = AspenTheme.colors.textPrimary,
-        )
-        Spacer(Modifier.height(AspenTheme.spacing.l))
-        OnboardingProse(stringResource(Res.string.onb_closing_body))
-        Spacer(Modifier.height(AspenTheme.spacing.xxl))
-        // Route toward real help first (docs/11 §3 closing): the human exit is foregrounded.
-        OutlinedButton(
-            onClick = onFindHelp,
-            shape = AspenTheme.shapes.large,
-            modifier = Modifier.fillMaxWidth().height(56.dp),
+    AspenAmbientBackground {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(horizontal = AspenTheme.spacing.l, vertical = AspenTheme.spacing.xxl),
+            verticalArrangement = Arrangement.Center,
         ) {
-            Text(stringResource(Res.string.onb_closing_find_help), style = AspenTheme.typography.label)
-        }
-        Spacer(Modifier.height(AspenTheme.spacing.sm))
-        Button(
-            onClick = onContinue,
-            shape = AspenTheme.shapes.large,
-            colors = ButtonDefaults.buttonColors(
-                containerColor = AspenTheme.colors.primary,
-                contentColor = AspenTheme.colors.textInverse,
-            ),
-            modifier = Modifier.fillMaxWidth().height(56.dp),
-        ) {
-            Text(stringResource(Res.string.onb_closing_continue), style = AspenTheme.typography.label)
-        }
-        Spacer(Modifier.height(AspenTheme.spacing.s))
-        TextButton(onClick = onBack, modifier = Modifier.align(Alignment.CenterHorizontally)) {
-            Text(stringResource(Res.string.onb_back), color = AspenTheme.colors.textSecondary)
+            Text(
+                text = stringResource(Res.string.onb_closing_title),
+                style = AspenTheme.typography.display,
+                color = AspenTheme.colors.textPrimary,
+            )
+            Spacer(Modifier.height(AspenTheme.spacing.l))
+            OnboardingProse(stringResource(Res.string.onb_closing_body))
+            Spacer(Modifier.height(AspenTheme.spacing.xxl))
+            // Route toward real help first (docs/11 §3 closing): the human exit is foregrounded.
+            AspenQuietButton(
+                label = stringResource(Res.string.onb_closing_find_help),
+                onClick = onFindHelp,
+                modifier = Modifier.fillMaxWidth(),
+            )
+            Spacer(Modifier.height(AspenTheme.spacing.sm))
+            AspenPrimaryButton(
+                label = stringResource(Res.string.onb_closing_continue),
+                onClick = onContinue,
+                modifier = Modifier.fillMaxWidth(),
+            )
+            Spacer(Modifier.height(AspenTheme.spacing.s))
+            AspenTextAction(
+                label = stringResource(Res.string.onb_back),
+                onClick = onBack,
+                modifier = Modifier.align(Alignment.CenterHorizontally),
+            )
         }
     }
 }

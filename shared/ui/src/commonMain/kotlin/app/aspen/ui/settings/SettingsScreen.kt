@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -22,6 +21,8 @@ import androidx.compose.ui.Modifier
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
 import app.aspen.design.AspenTheme
+import app.aspen.design.components.AspenCard
+import app.aspen.design.components.AspenScreenHeader
 import app.aspen.domain.logging.LoggingService
 import app.aspen.ui.generated.resources.Res
 import app.aspen.ui.generated.resources.settings_delete_all
@@ -50,7 +51,7 @@ fun SettingsScreen(onRevisitQuestions: () -> Unit, loggingService: LoggingServic
             .padding(horizontal = AspenTheme.spacing.l, vertical = AspenTheme.spacing.xl),
         verticalArrangement = Arrangement.spacedBy(AspenTheme.spacing.sm),
     ) {
-        Text(stringResource(Res.string.settings_title), style = AspenTheme.typography.display, color = AspenTheme.colors.textPrimary)
+        AspenScreenHeader(title = stringResource(Res.string.settings_title))
         Spacer(Modifier.height(AspenTheme.spacing.m))
 
         SettingRow(
@@ -70,6 +71,10 @@ fun SettingsScreen(onRevisitQuestions: () -> Unit, loggingService: LoggingServic
     if (confirmDelete && loggingService != null) {
         AlertDialog(
             onDismissRequest = { confirmDelete = false },
+            shape = AspenTheme.shapes.large,
+            containerColor = AspenTheme.colors.surface,
+            titleContentColor = AspenTheme.colors.textPrimary,
+            textContentColor = AspenTheme.colors.textSecondary,
             title = { Text(stringResource(Res.string.settings_delete_dialog_title)) },
             text = { Text(stringResource(Res.string.settings_delete_dialog_body)) },
             confirmButton = {
@@ -91,16 +96,9 @@ fun SettingsScreen(onRevisitQuestions: () -> Unit, loggingService: LoggingServic
 
 @Composable
 private fun SettingRow(title: StringResource, subtitle: StringResource, onClick: () -> Unit) {
-    Surface(
-        shape = AspenTheme.shapes.medium,
-        color = AspenTheme.colors.surface,
-        onClick = onClick,
-        modifier = Modifier.fillMaxWidth(),
-    ) {
-        Column(Modifier.padding(AspenTheme.spacing.m)) {
-            Text(stringResource(title), style = AspenTheme.typography.body, color = AspenTheme.colors.textPrimary)
-            Spacer(Modifier.height(AspenTheme.spacing.xs))
-            Text(stringResource(subtitle), style = AspenTheme.typography.caption, color = AspenTheme.colors.textSecondary)
-        }
+    AspenCard(onClick = onClick, modifier = Modifier.fillMaxWidth()) {
+        Text(stringResource(title), style = AspenTheme.typography.body, color = AspenTheme.colors.textPrimary)
+        Spacer(Modifier.height(AspenTheme.spacing.xs))
+        Text(stringResource(subtitle), style = AspenTheme.typography.caption, color = AspenTheme.colors.textSecondary)
     }
 }

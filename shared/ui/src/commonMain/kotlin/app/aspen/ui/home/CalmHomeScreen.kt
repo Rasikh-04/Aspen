@@ -7,10 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,6 +15,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.stringResource
 import app.aspen.design.AspenTheme
+import app.aspen.design.components.AspenPrimaryButton
+import app.aspen.design.components.AspenTextAction
 import app.aspen.ui.generated.resources.Res
 import app.aspen.ui.generated.resources.home_greeting
 import app.aspen.ui.generated.resources.home_hard_moment
@@ -55,24 +54,15 @@ fun CalmHomeScreen(
             textAlign = TextAlign.Center,
         )
         Spacer(Modifier.height(AspenTheme.spacing.xxl))
-        Button(
+        AspenPrimaryButton(
+            label = stringResource(Res.string.home_hard_moment),
             onClick = onHardMoment,
-            shape = AspenTheme.shapes.large,
-            colors = ButtonDefaults.buttonColors(
-                containerColor = AspenTheme.colors.primary,
-                contentColor = AspenTheme.colors.textInverse,
-            ),
             modifier = Modifier.fillMaxWidth().height(64.dp),
-        ) {
-            Text(stringResource(Res.string.home_hard_moment), style = AspenTheme.typography.label)
-        }
+        )
         Spacer(Modifier.height(AspenTheme.spacing.xxxl))
-        TextButton(onClick = onReachPerson) {
-            Text(
-                text = stringResource(Res.string.home_reach_person),
-                style = AspenTheme.typography.body,
-                color = AspenTheme.colors.textSecondary,
-            )
-        }
+        AspenTextAction(
+            label = stringResource(Res.string.home_reach_person),
+            onClick = onReachPerson,
+        )
     }
 }

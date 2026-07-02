@@ -2,6 +2,8 @@ package app.aspen.ui.reflect
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,23 +12,26 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Surface
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
 import app.aspen.design.AspenTheme
+import app.aspen.design.components.AspenCard
+import app.aspen.design.components.AspenPrimaryButton
+import app.aspen.design.components.AspenQuietButton
+import app.aspen.design.components.AspenScreenHeader
+import app.aspen.design.components.AspenTagPill
+import app.aspen.design.components.AspenTextAction
 import app.aspen.domain.logging.LoggingService
 import app.aspen.domain.logging.model.FeelingTag
 import app.aspen.ui.generated.resources.Res
@@ -117,8 +122,10 @@ private fun ReflectList(
             .padding(horizontal = AspenTheme.spacing.l, vertical = AspenTheme.spacing.xl),
         verticalArrangement = Arrangement.spacedBy(AspenTheme.spacing.sm),
     ) {
-        Text(stringResource(Res.string.reflect_title), style = AspenTheme.typography.display, color = AspenTheme.colors.textPrimary)
-        Text(stringResource(Res.string.reflect_subtitle), style = AspenTheme.typography.bodyLoose, color = AspenTheme.colors.textSecondary)
+        AspenScreenHeader(
+            title = stringResource(Res.string.reflect_title),
+            subtitle = stringResource(Res.string.reflect_subtitle),
+        )
         Spacer(Modifier.height(AspenTheme.spacing.s))
 
         EntryButton(Res.string.reflect_new_reflection, onWriteReflection)
@@ -157,34 +164,24 @@ private fun EntrySection(
     }
 }
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun EntryCard(text: String, feelings: Set<FeelingTag>, onDelete: () -> Unit) {
-    Surface(
-        shape = AspenTheme.shapes.medium,
-        color = AspenTheme.colors.surface,
-        modifier = Modifier.fillMaxWidth().padding(top = AspenTheme.spacing.xs),
-    ) {
-        Column(Modifier.padding(AspenTheme.spacing.m)) {
-            if (text.isNotBlank()) {
-                Text(text, style = AspenTheme.typography.body, color = AspenTheme.colors.textPrimary)
+    AspenCard(modifier = Modifier.fillMaxWidth().padding(top = AspenTheme.spacing.xs)) {
+        if (text.isNotBlank()) {
+            Text(text, style = AspenTheme.typography.body, color = AspenTheme.colors.textPrimary)
+        }
+        if (feelings.isNotEmpty()) {
+            Spacer(Modifier.height(AspenTheme.spacing.s))
+            FlowRow(
+                horizontalArrangement = Arrangement.spacedBy(AspenTheme.spacing.s),
+                verticalArrangement = Arrangement.spacedBy(AspenTheme.spacing.xs),
+            ) {
+                feelings.forEach { tag -> AspenTagPill(stringResource(feelingLabel(tag))) }
             }
-            if (feelings.isNotEmpty()) {
-                Spacer(Modifier.height(AspenTheme.spacing.xs))
-                Row {
-                    feelings.forEach { tag ->
-                        Text(
-                            stringResource(feelingLabel(tag)) + "   ",
-                            style = AspenTheme.typography.caption,
-                            color = AspenTheme.colors.textSecondary,
-                        )
-                    }
-                }
-            }
-            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
-                TextButton(onClick = onDelete) {
-                    Text(stringResource(Res.string.reflect_delete), color = AspenTheme.colors.textSecondary)
-                }
-            }
+        }
+        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
+            AspenTextAction(label = stringResource(Res.string.reflect_delete), onClick = onDelete)
         }
     }
 }
@@ -197,11 +194,11 @@ private fun ReflectionEditor(onSave: (String) -> Unit, onCancel: () -> Unit) {
         onSave = { onSave(text) },
         onCancel = onCancel,
     ) {
-        OutlinedTextField(
+        AspenTextField(
             value = text,
             onValueChange = { text = it },
-            placeholder = { Text(stringResource(Res.string.reflect_text_hint)) },
-            modifier = Modifier.fillMaxWidth().height(220.dp),
+            placeholder = Res.string.reflect_text_hint,
+            minHeight = 220.dp,
         )
     }
 }
@@ -215,11 +212,11 @@ private fun LogEditor(onSave: (String, Set<FeelingTag>) -> Unit, onCancel: () ->
         onSave = { onSave(note, feelings) },
         onCancel = onCancel,
     ) {
-        OutlinedTextField(
+        AspenTextField(
             value = note,
             onValueChange = { note = it },
-            placeholder = { Text(stringResource(Res.string.reflect_note_hint)) },
-            modifier = Modifier.fillMaxWidth().height(140.dp),
+            placeholder = Res.string.reflect_note_hint,
+            minHeight = 140.dp,
         )
         Spacer(Modifier.height(AspenTheme.spacing.m))
         Text(stringResource(Res.string.reflect_feelings_label), style = AspenTheme.typography.label, color = AspenTheme.colors.textSecondary)
@@ -228,6 +225,37 @@ private fun LogEditor(onSave: (String, Set<FeelingTag>) -> Unit, onCancel: () ->
             feelings = if (tag in feelings) feelings - tag else feelings + tag
         }
     }
+}
+
+/** The notebook's writing surface: soft corners, sage focus, warm paper fill — never a stark form field. */
+@Composable
+private fun AspenTextField(
+    value: String,
+    onValueChange: (String) -> Unit,
+    placeholder: StringResource,
+    minHeight: Dp,
+) {
+    OutlinedTextField(
+        value = value,
+        onValueChange = onValueChange,
+        placeholder = {
+            Text(
+                stringResource(placeholder),
+                style = AspenTheme.typography.body,
+                color = AspenTheme.colors.textMuted,
+            )
+        },
+        textStyle = AspenTheme.typography.body,
+        shape = AspenTheme.shapes.medium,
+        colors = OutlinedTextFieldDefaults.colors(
+            focusedBorderColor = AspenTheme.colors.primary,
+            unfocusedBorderColor = AspenTheme.colors.border,
+            focusedContainerColor = AspenTheme.colors.surface,
+            unfocusedContainerColor = AspenTheme.colors.surface,
+            cursorColor = AspenTheme.colors.primary,
+        ),
+        modifier = Modifier.fillMaxWidth().height(minHeight),
+    )
 }
 
 @Composable
@@ -246,30 +274,28 @@ private fun EditorScaffold(
         content()
         Spacer(Modifier.height(AspenTheme.spacing.l))
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(AspenTheme.spacing.s)) {
-            OutlinedButton(onClick = onCancel, modifier = Modifier.weight(1f).height(56.dp), shape = AspenTheme.shapes.large) {
-                Text(stringResource(Res.string.reflect_cancel), color = AspenTheme.colors.textPrimary)
-            }
-            Button(
+            AspenQuietButton(
+                label = stringResource(Res.string.reflect_cancel),
+                onClick = onCancel,
+                modifier = Modifier.weight(1f),
+            )
+            AspenPrimaryButton(
+                label = stringResource(Res.string.reflect_save),
                 onClick = onSave,
                 enabled = canSave,
-                modifier = Modifier.weight(1f).height(56.dp),
-                shape = AspenTheme.shapes.large,
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = AspenTheme.colors.primary,
-                    contentColor = AspenTheme.colors.textInverse,
-                ),
-            ) {
-                Text(stringResource(Res.string.reflect_save), style = AspenTheme.typography.label)
-            }
+                modifier = Modifier.weight(1f),
+            )
         }
     }
 }
 
 @Composable
 private fun EntryButton(label: StringResource, onClick: () -> Unit) {
-    OutlinedButton(onClick = onClick, shape = AspenTheme.shapes.large, modifier = Modifier.fillMaxWidth().height(56.dp)) {
-        Text(stringResource(label), style = AspenTheme.typography.label, color = AspenTheme.colors.textPrimary)
-    }
+    AspenQuietButton(
+        label = stringResource(label),
+        onClick = onClick,
+        modifier = Modifier.fillMaxWidth(),
+    )
 }
 
 @Composable

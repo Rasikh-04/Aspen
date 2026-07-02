@@ -2,7 +2,31 @@
 
 _Resume-cold notes. Update at the end of every working session (CLAUDE.md)._
 
-**Phase:** 3 — Onboarding + Grounding + Reflection/Logging (`docs/07`, `docs/13`). Two-dev split active: **Dev A (lead)** owns `:domain` profile/logic + logging-suppression rules + encrypted-store integration (done); **Dev B** owns the feature UI (Flows 0/A/B + Settings — **done locally**, branch `feat/phase3-feature-ui`). Phase 2 spine remains built; **crisis-freshness gate still RED by design** until advisors verify content.
+**Phase:** 3 **complete — merged to `main` 2026-07-02** (Dev A: domain/profile/store; Dev B: feature UI, branch `feat/phase3-feature-ui`, her commit authorship preserved as contributor credit). Repo is now public; branches pushed without PRs per current workflow instruction. **Next: Phase 4 (Dev A side to start later).** Phase 2 spine remains built; **strict crisis gate (`crisisGateStrict`) still RED by design** until advisors verify content.
+
+---
+
+## Done (2026-07-02 — UI maturation: the component layer) — on `feat/phase3-feature-ui`, pre-merge
+
+Phase 3 shipped with minimal text-based screens. Decision (now in `docs/06` §2.1): **calm is a design,
+not an absence of one** — the UI stays quiet/simple *by intent*, but must never look like a placeholder
+text-holder with default buttons. Fixed before Phase 4 so no feature builds on raw-Material UI and needs
+a rewrite later.
+
+- **New component layer `app.aspen.design.components`** (`:shared:core-design`): `AspenPrimaryButton` /
+  `AspenQuietButton` / `AspenTextAction`, `AspenCard`, `AspenChoiceChip` / `AspenTagPill`,
+  `AspenScreenHeader`, `AspenAmbientBackground` (static `drawBehind` — zero battery cost),
+  `AspenPresenceDots`, shared press-settle feedback. All honour the motion tokens + `LocalReducedMotion`.
+  New colour tokens: `primarySoft` (Sage100), `primaryFaint` (Sage50).
+- **Every Phase 3 screen refit onto the layer** (visuals only — no logic changes, no new user-facing
+  strings, so no new localization review load): nav shell (custom quiet tab bar with animated presence
+  dot, route cross-fades, ambient background), home, onboarding (animated option selection, presence-dot
+  progress), grounding chooser (whole-card targets), grounding tools (54321 cross-fade + presence dots),
+  reflect (cards, sage tag pills, warm text fields — feeling-chip selection moved off `cautionBg` amber
+  onto calm sage), settings, safety screens (Flow C re-toned slate; `TODO-VERIFY` non-actionable logic
+  untouched).
+- **Rule from Phase 4 on** (`docs/06` §2.1): feature UI composes these primitives; raw Material widgets
+  on shipped surfaces are a review-blocking defect; extend the layer rather than hand-rolling.
 
 ---
 

@@ -1,5 +1,6 @@
 package app.aspen.ui.grounding
 
+import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
@@ -17,10 +18,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -36,6 +34,10 @@ import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
 import app.aspen.design.AspenTheme
 import app.aspen.design.LocalReducedMotion
+import app.aspen.design.components.AspenPresenceDots
+import app.aspen.design.components.AspenPrimaryButton
+import app.aspen.design.components.AspenQuietButton
+import app.aspen.design.components.AspenTextAction
 import app.aspen.ui.generated.resources.Res
 import app.aspen.ui.generated.resources.breathe_in
 import app.aspen.ui.generated.resources.breathe_hold
@@ -69,12 +71,9 @@ private fun ToolScaffold(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(AspenTheme.colors.background)
             .padding(horizontal = AspenTheme.spacing.l, vertical = AspenTheme.spacing.l),
     ) {
-        TextButton(onClick = onExit) {
-            Text(stringResource(Res.string.grounding_close), color = AspenTheme.colors.textSecondary)
-        }
+        AspenTextAction(label = stringResource(Res.string.grounding_close), onClick = onExit)
         Spacer(Modifier.height(AspenTheme.spacing.m))
         Text(title, style = AspenTheme.typography.title, color = AspenTheme.colors.textPrimary)
         Box(Modifier.weight(1f).fillMaxWidth(), contentAlignment = Alignment.Center) { content() }
@@ -86,17 +85,11 @@ private fun ToolScaffold(
             modifier = Modifier.fillMaxWidth(),
         )
         Spacer(Modifier.height(AspenTheme.spacing.s))
-        Button(
+        AspenPrimaryButton(
+            label = stringResource(Res.string.grounding_done),
             onClick = onExit,
-            shape = AspenTheme.shapes.large,
-            colors = ButtonDefaults.buttonColors(
-                containerColor = AspenTheme.colors.primary,
-                contentColor = AspenTheme.colors.textInverse,
-            ),
-            modifier = Modifier.fillMaxWidth().height(56.dp),
-        ) {
-            Text(stringResource(Res.string.grounding_done), style = AspenTheme.typography.label)
-        }
+            modifier = Modifier.fillMaxWidth(),
+        )
     }
 }
 
@@ -182,6 +175,7 @@ fun Ground54321Screen(onExit: () -> Unit) {
         )
     }
     var index by remember { mutableStateOf(0) }
+    val motion = AspenTheme.motion
     ToolScaffold(title = stringResource(Res.string.ground_54321_title), onExit = onExit) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Text(
@@ -191,24 +185,25 @@ fun Ground54321Screen(onExit: () -> Unit) {
                 textAlign = TextAlign.Center,
             )
             Spacer(Modifier.height(AspenTheme.spacing.xl))
-            Text(
-                stringResource(steps[index]),
-                style = AspenTheme.typography.display,
-                color = AspenTheme.colors.textPrimary,
-                textAlign = TextAlign.Center,
-            )
+            // Steps cross-fade (a fade, so reduced-motion-safe per docs/06 §2 Motion).
+            Crossfade(targetState = index, animationSpec = tween(motion.mediumMs)) { step ->
+                Text(
+                    stringResource(steps[step]),
+                    style = AspenTheme.typography.display,
+                    color = AspenTheme.colors.textPrimary,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.fillMaxWidth(),
+                )
+            }
+            Spacer(Modifier.height(AspenTheme.spacing.l))
+            // Presence dots, not "step 2 of 5" — the walk-through is never a countable score (CLAUDE.md #3).
+            AspenPresenceDots(total = steps.size, active = index + 1)
             Spacer(Modifier.height(AspenTheme.spacing.xl))
             if (index < steps.lastIndex) {
-                Button(
+                AspenQuietButton(
+                    label = stringResource(Res.string.ground_54321_next),
                     onClick = { index += 1 },
-                    shape = AspenTheme.shapes.large,
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = AspenTheme.colors.surface,
-                        contentColor = AspenTheme.colors.textPrimary,
-                    ),
-                ) {
-                    Text(stringResource(Res.string.ground_54321_next), style = AspenTheme.typography.label)
-                }
+                )
             }
         }
     }

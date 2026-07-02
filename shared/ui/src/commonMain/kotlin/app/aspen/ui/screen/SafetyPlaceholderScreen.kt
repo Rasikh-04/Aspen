@@ -7,12 +7,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import org.jetbrains.compose.resources.stringResource
 import app.aspen.design.AspenTheme
+import app.aspen.design.components.AspenTextAction
 import app.aspen.ui.generated.resources.Res
 import app.aspen.ui.generated.resources.back
 import app.aspen.ui.generated.resources.safety_body
@@ -45,8 +45,6 @@ fun SafetyPlaceholderScreen(onBack: () -> Unit) {
             color = AspenTheme.colors.textPrimary,
         )
         Spacer(Modifier.height(AspenTheme.spacing.xl))
-        TextButton(onClick = onBack) {
-            Text(stringResource(Res.string.back), color = AspenTheme.colors.textSecondary)
-        }
+        AspenTextAction(label = stringResource(Res.string.back), onClick = onBack)
     }
 }

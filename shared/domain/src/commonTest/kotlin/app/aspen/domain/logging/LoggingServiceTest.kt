@@ -81,7 +81,7 @@ class LoggingServiceTest {
     }
 
     @Test
-    fun `food log is suppressed when no profile is stored (safest default)`() {
+    fun `food log is suppressed when no profile is stored - safest default`() {
         // Arrange — null profile → AppConfigProvider safest → MIXED_OR_UNSURE → food logging OFF.
         val store = FakeLoggingStore()
         val svc = service(store, FixedProfileStore(null))
@@ -95,7 +95,7 @@ class LoggingServiceTest {
     }
 
     @Test
-    fun `food log is stored for a binge profile (available, shame-free)`() {
+    fun `food log is stored for a binge profile - available and shame-free`() {
         // Arrange — binge, no protective flag → AVAILABLE.
         val store = FakeLoggingStore()
         val svc = service(store, FixedProfileStore(profileResult(SupportProfile.BINGE_LEANING)))
@@ -128,7 +128,7 @@ class LoggingServiceTest {
     }
 
     @Test
-    fun `delete everything wipes all logs (FR-11)`() {
+    fun `delete everything wipes all logs - FR-11`() {
         // Arrange
         val store = FakeLoggingStore()
         val svc = service(store, FixedProfileStore(profileResult(SupportProfile.BINGE_LEANING)))

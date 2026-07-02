@@ -1,16 +1,15 @@
 package app.aspen.ui.reflect
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material3.FilterChip
-import androidx.compose.material3.FilterChipDefaults
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
 import app.aspen.design.AspenTheme
+import app.aspen.design.components.AspenChoiceChip
 import app.aspen.domain.logging.model.FeelingTag
 import app.aspen.ui.generated.resources.Res
 import app.aspen.ui.generated.resources.feeling_alone
@@ -42,25 +41,23 @@ fun feelingLabel(tag: FeelingTag): StringResource = when (tag) {
     FeelingTag.ALONE -> Res.string.feeling_alone
 }
 
-/** Feeling-tag picker: emotions only, no intensity scale or count (SR-1, numberless). */
+/**
+ * Feeling-tag picker: emotions only, no intensity scale or count (SR-1, numberless). Selection is
+ * a calm sage tint — all feelings are equally valid, so no tag ever gets a "good/bad" colour.
+ */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun FeelingTagChips(selected: Set<FeelingTag>, onToggle: (FeelingTag) -> Unit) {
     FlowRow(
         modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = androidx.compose.foundation.layout.Arrangement.spacedBy(AspenTheme.spacing.s),
+        horizontalArrangement = Arrangement.spacedBy(AspenTheme.spacing.s),
+        verticalArrangement = Arrangement.spacedBy(AspenTheme.spacing.s),
     ) {
         FeelingTag.entries.forEach { tag ->
-            val isOn = tag in selected
-            FilterChip(
-                selected = isOn,
-                onClick = { onToggle(tag) },
-                label = { Text(stringResource(feelingLabel(tag))) },
-                shape = AspenTheme.shapes.large,
-                colors = FilterChipDefaults.filterChipColors(
-                    selectedContainerColor = AspenTheme.colors.cautionBg,
-                    selectedLabelColor = AspenTheme.colors.textPrimary,
-                ),
+            AspenChoiceChip(
+                label = stringResource(feelingLabel(tag)),
+                selected = tag in selected,
+                onToggle = { onToggle(tag) },
             )
         }
     }
