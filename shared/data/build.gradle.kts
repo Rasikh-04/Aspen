@@ -28,6 +28,12 @@ kotlin {
         commonTest.dependencies {
             implementation(libs.kotlin.test)
         }
+        androidMain.dependencies {
+            // Tier-1 companion ranker (docs/04 ADR-003): small text-EMBEDDER model (select/personalise
+            // from the curated library, never generate). The model asset is optional; absence falls
+            // back to deterministic selection.
+            implementation(libs.mediapipe.tasks.text)
+        }
         jvmTest.dependencies {
             // Parity test reads the canonical crisis JSON from the repo and asserts it matches the
             // in-code registry (single source of truth, no drift — same pattern as the token lexicon).
