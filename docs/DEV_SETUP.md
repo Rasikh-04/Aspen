@@ -89,3 +89,25 @@ Because this app is for a vulnerable population, two failure modes are worth wir
 ```
 
 > Reminder: `docs/09` is your current build target. `docs/00_INDEX.md` is the map. `CLAUDE.md` wins over everything.
+
+---
+
+## 7. Optional: companion ranker model (Phase 4, Tier-1 AI)
+
+The Tier-1 companion voice works fully without any model (deterministic selection over the curated
+library). To exercise the LiteRT/MediaPipe **ranker** on Android — a small text-EMBEDDER that only
+re-orders the approved lines, never generates — drop the model asset in place:
+
+```
+# ~4 MB, Apache-2.0, from the MediaPipe model zoo ("Average Word Embedding" text embedder):
+mkdir -p androidApp/src/main/assets
+curl -L -o androidApp/src/main/assets/companion_ranker.tflite \
+  https://storage.googleapis.com/mediapipe-models/text_embedder/average_word_embedder/float32/latest/average_word_embedder.tflite
+```
+
+- The asset is **git-ignored** (binary; each dev fetches it) and **optional by design**: absent or
+  unloadable → `platformLineRanker()` returns null → deterministic selection, asserted by tests.
+- Verify in a debug build: Settings → "Companion preview (debug)" shows which line the ranker picks
+  per moment; without the asset the picks rotate deterministically by variant instead.
+- Model zoo page (for updates/checksums): https://ai.google.dev/edge/mediapipe/solutions/text/text_embedder
+- Ship decision (bundle vs on-demand download) is a Phase-7 item — docs/PRE_SHIP_VERIFICATION.md.

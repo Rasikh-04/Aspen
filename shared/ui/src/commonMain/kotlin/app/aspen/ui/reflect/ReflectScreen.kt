@@ -32,6 +32,7 @@ import app.aspen.design.components.AspenQuietButton
 import app.aspen.design.components.AspenScreenHeader
 import app.aspen.design.components.AspenTagPill
 import app.aspen.design.components.AspenTextAction
+import app.aspen.domain.ai.ReflectionCompanion
 import app.aspen.domain.logging.LoggingService
 import app.aspen.domain.logging.model.FeelingTag
 import app.aspen.ui.generated.resources.Res
@@ -65,9 +66,16 @@ private sealed interface ReflectMode {
  *
  * [loggingService] is null when unwired (e.g. iOS until its DI lands) — then this shows a calm
  * placeholder rather than crashing, mirroring the Flow C pattern.
+ *
+ * [reflectionCompanion] (Phase 4, docs/03 FR-5) renders the cloud reflection card ONLY while its
+ * consent grant is active; [onReachSomeone] is the crisis hand-off route (≤2 taps, CLAUDE.md #6).
  */
 @Composable
-fun ReflectScreen(loggingService: LoggingService?) {
+fun ReflectScreen(
+    loggingService: LoggingService?,
+    reflectionCompanion: ReflectionCompanion? = null,
+    onReachSomeone: () -> Unit = {},
+) {
     if (loggingService == null) {
         PlaceholderColumn(stringResource(Res.string.reflect_subtitle))
         return
@@ -79,6 +87,8 @@ fun ReflectScreen(loggingService: LoggingService?) {
     when (mode) {
         ReflectMode.List -> ReflectList(
             service = loggingService,
+            reflectionCompanion = reflectionCompanion,
+            onReachSomeone = onReachSomeone,
             revision = revision,
             onWriteReflection = { mode = ReflectMode.WriteReflection },
             onFeelingLog = { mode = ReflectMode.FeelingLog },
@@ -103,6 +113,8 @@ fun ReflectScreen(loggingService: LoggingService?) {
 @Composable
 private fun ReflectList(
     service: LoggingService,
+    reflectionCompanion: ReflectionCompanion?,
+    onReachSomeone: () -> Unit,
     revision: Int,
     onWriteReflection: () -> Unit,
     onFeelingLog: () -> Unit,
@@ -131,6 +143,12 @@ private fun ReflectList(
         EntryButton(Res.string.reflect_new_reflection, onWriteReflection)
         EntryButton(Res.string.reflect_new_feeling_log, onFeelingLog)
         if (foodOffered) EntryButton(Res.string.reflect_new_food_log, onFoodLog)
+
+        // Cloud reflection (Phase 4): visible ONLY while the explicit consent grant is active.
+        if (reflectionCompanion != null && reflectionCompanion.isEnabled()) {
+            Spacer(Modifier.height(AspenTheme.spacing.s))
+            ReflectionCompanionCard(companion = reflectionCompanion, onReachSomeone = onReachSomeone)
+        }
 
         Spacer(Modifier.height(AspenTheme.spacing.m))
         if (isEmpty) {

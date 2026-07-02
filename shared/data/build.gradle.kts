@@ -24,9 +24,14 @@ kotlin {
             implementation(project(":shared:core-common"))
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.koin.core)
+            // Tier-2 cloud client transport (docs/04 ADR-003). Engine-less on purpose: no live
+            // endpoint is wired (DisabledAiClient is the DI default); tests inject MockEngine.
+            implementation(libs.ktor.client.core)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
+            implementation(libs.kotlinx.coroutines.test)
+            implementation(libs.ktor.client.mock)
         }
         androidMain.dependencies {
             // Tier-1 companion ranker (docs/04 ADR-003): small text-EMBEDDER model (select/personalise

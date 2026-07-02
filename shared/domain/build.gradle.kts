@@ -23,6 +23,8 @@ kotlin {
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
+            // runTest for the suspend ReflectionCompanion pipeline (Phase 4).
+            implementation(libs.kotlinx.coroutines.test)
         }
         jvmTest.dependencies {
             // Parity test parses the canonical config/safety/forbidden_tokens.json (decision #3).

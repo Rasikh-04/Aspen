@@ -81,6 +81,15 @@ You asked about mixing technologies / going low-level for optimisation. The disc
 
 **[CONFIRM]** This matches what you described. One thing to confirm: are you OK starting the companion on a **curated+personalised library** rather than a trained local generator for v1? (Strongly recommended for safety; the trained model can come later.)
 
+> **Phase-4 implementation note (approved 2026-07-02):** the v1 "local model" is a small
+> LiteRT/MediaPipe **text-embedder ranker** (~4 MB), not a 1–3B generative model — it re-ranks the
+> approved library lines by moment/tone context and can only return keys from the candidate set
+> (safety by construction; null/failure degrades to deterministic selection). A generative local
+> model remains a later drop-in behind the same `CompanionVoice`/`LineRanker` ports. iOS runs the
+> deterministic selector until an iOS ranker actual lands (tracked). Tier 2 is implemented behind
+> `AiClient` with injectable endpoint/auth and ships bound to `DisabledAiClient` — compiled, tested,
+> **not live-wired**; no credential exists in the repo.
+
 ---
 
 ## 4. System architecture (clean, layered, modular)

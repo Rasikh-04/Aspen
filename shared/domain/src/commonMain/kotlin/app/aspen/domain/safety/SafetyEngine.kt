@@ -35,17 +35,22 @@ interface SafetyEngine {
     /** Region-correct, offline, never-empty crisis resources for [locale]. */
     fun crisis(locale: LocaleKey): CrisisResourceSet
 
-    /** Vet an AI candidate string. Phase 2: rule checks + safe fallback; real wiring is Phase 4. */
+    /**
+     * Vet an AI candidate string. Since Phase 4 this is LIVE on every cloud reply — the mandatory
+     * last step of [app.aspen.domain.ai.ReflectionCompanion]'s pipeline (docs/03 SR-3); the
+     * red-team suite (config/safety/redteam) release-gates it.
+     */
     fun guardOutput(candidate: String, ctx: OutputContext = OutputContext()): SafetyVerdict
 }
 
 /**
  * Default façade. [crisisResolver] does the resolving; [safetyRules] backs [guardOutput].
  *
- * [guardOutput] is a deliberate Phase-2 STUB (docs/09 §2.4): it applies the heuristic rules and, on
- * any trip, replaces the candidate with a neutral validating line that points the user at the human
- * exit (Flow C). It does NOT attempt to "fix" unsafe model text — on a violation it withholds and
- * hands off (CLAUDE.md #8). [safeFallbackText] is injected so it stays localized + reviewable.
+ * [guardOutput] applies the heuristic rules and, on any trip, replaces the candidate with a neutral
+ * validating line that points the user at the human exit (Flow C). It does NOT attempt to "fix"
+ * unsafe model text — on a violation it withholds and hands off (CLAUDE.md #8). [safeFallbackText]
+ * is injected so it stays localized + reviewable. Heuristics stay the BACKSTOP; the front line is
+ * the system prompt + curation (docs/09 §2.3).
  */
 class DefaultSafetyEngine(
     private val crisisResolver: CrisisResolver,

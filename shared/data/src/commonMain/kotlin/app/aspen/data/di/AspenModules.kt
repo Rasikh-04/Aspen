@@ -1,5 +1,8 @@
 package app.aspen.data.di
 
+import app.aspen.data.ai.PersistentAiMessageStore
+import app.aspen.data.ai.cloud.DisabledAiClient
+import app.aspen.data.ai.local.LibraryCompanionVoice
 import app.aspen.data.consent.ConsentBlobStore
 import app.aspen.data.consent.DurableConsentBlobStore
 import app.aspen.data.consent.PersistentConsentStore
@@ -10,6 +13,10 @@ import app.aspen.data.local.LocalCipher
 import app.aspen.data.local.platformLocalCipher
 import app.aspen.data.logging.PersistentLoggingStore
 import app.aspen.data.onboarding.PersistentProfileStore
+import app.aspen.domain.ai.AiClient
+import app.aspen.domain.ai.AiMessageStore
+import app.aspen.domain.ai.CompanionVoice
+import app.aspen.domain.ai.ReflectionCompanion
 import app.aspen.domain.consent.ConsentManager
 import app.aspen.domain.consent.ConsentStore
 import app.aspen.domain.consent.DefaultConsentManager
@@ -18,6 +25,8 @@ import app.aspen.domain.logging.LoggingStore
 import app.aspen.domain.onboarding.AppConfigProvider
 import app.aspen.domain.onboarding.ProfileStore
 import app.aspen.domain.safety.CrisisResolver
+import app.aspen.domain.safety.CrisisSignals
+import app.aspen.domain.safety.DefaultCrisisSignalLexicon
 import app.aspen.domain.safety.DefaultForbiddenLexicon
 import app.aspen.domain.safety.DefaultSafetyEngine
 import app.aspen.domain.safety.SafetyEngine
@@ -90,8 +99,33 @@ val localStoreModule: Module = module {
     }
 }
 
+/**
+ * AI-tier wiring (Phase 4, docs/04 ADR-003). Tier 1 is the curated [LibraryCompanionVoice] (the
+ * platform ranker degrades to deterministic selection when no model is present). Tier 2 defaults to
+ * [DisabledAiClient] — cloud is OFF and not live-wired (docs/PRE_SHIP_VERIFICATION.md); binding a
+ * real client is a deliberate future config change, never a side effect. [ReflectionCompanion] is
+ * the single pipeline: consent → crisis check → client → output guard → encrypted history.
+ */
+@OptIn(ExperimentalUuidApi::class)
+val aiModule: Module = module {
+    single { CrisisSignals(DefaultCrisisSignalLexicon.lexicon) }
+    single<CompanionVoice> { LibraryCompanionVoice() }
+    single<AiClient> { DisabledAiClient }
+    single<AiMessageStore> { PersistentAiMessageStore(get(), FileEncryptedBlobStore("ai_messages")) }
+    single {
+        ReflectionCompanion(
+            consent = get(),
+            client = get(),
+            safetyEngine = get(),
+            crisisSignals = get(),
+            store = get(),
+            newId = { Uuid.random().toString() },
+        )
+    }
+}
+
 /** Everything :shared:data contributes. Pass these to `startKoin { modules(aspenSharedModules) }`. */
-val aspenSharedModules: List<Module> = listOf(safetyModule, consentModule, localStoreModule)
+val aspenSharedModules: List<Module> = listOf(safetyModule, consentModule, localStoreModule, aiModule)
 
 /*
  * ───────────────────────── MANUAL PLATFORM-INIT GUIDE (Koin 4.1) ─────────────────────────

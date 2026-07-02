@@ -161,4 +161,61 @@
     <string name="settings_delete_cancel">Keep my writing</string>
     <string name="settings_delete_dialog_title">Delete everything?</string>
     <string name="settings_delete_dialog_body">This permanently removes everything you\'ve written on this device. It can\'t be undone.</string>
+
+    <!-- ═══ Phase 4: AI tiers ═══ -->
+
+    <!-- Companion message library (docs/04 ADR-003). SENSITIVE SURFACE (docs/12 §3): every line is a
+         PROVISIONAL draft pending clinically-informed advisor review; other languages may not ship
+         these until native-reviewed. Keys mirror config/companion/library.json. -->
+    <string name="companion_greeting_here">Hi. Just here with you.</string>
+    <string name="companion_greeting_company">Want some company for a bit?</string>
+    <string name="companion_greeting_soft">It\'s good that you\'re here.</string>
+    <string name="companion_hard_sit_together">Want to sit together for a minute?</string>
+    <string name="companion_hard_no_fixing">I\'m not going anywhere. We can just be here.</string>
+    <string name="companion_hard_reach_someone">Rough moment? I can get you to your calm tools, or to someone.</string>
+    <string name="companion_hard_passing">This feeling is like weather. It moves. I\'ll stay while it does.</string>
+    <string name="companion_ground_breathe">Want to breathe with me for a minute?</string>
+    <string name="companion_ground_senses">Let\'s notice the room together, slowly.</string>
+    <string name="companion_ground_write">Want to put it into words? I\'ll hold onto them.</string>
+    <string name="companion_ambient_here_if_needed">Just here if you want company.</string>
+    <string name="companion_ambient_no_followup">I\'ll be nearby.</string>
+    <string name="companion_notify_gentle_checkin">Just a hello. Nothing needed.</string>
+    <string name="companion_notify_tools_nearby">Your quiet tools are right here if today needs them.</string>
+
+    <!-- Cloud reflection consent (docs/04 ADR-003 Tier 2; wording per ADR). -->
+    <string name="settings_ai_title">Deeper reflection</string>
+    <string name="settings_ai_subtitle_off">Off. Your words never leave this device.</string>
+    <string name="settings_ai_subtitle_on">On. You can turn this off anytime.</string>
+    <string name="settings_ai_dialog_title">Turn on deeper reflection?</string>
+    <string name="settings_ai_dialog_body">Turning this on means what you write in the reflection space is sent securely to an AI service to give better responses. You can turn it off anytime, and everything it holds can be deleted.</string>
+    <string name="settings_ai_dialog_confirm">Turn it on</string>
+    <string name="settings_ai_dialog_cancel">Not now</string>
+    <string name="settings_ai_local_note">Everything else in Aspen works fully on this device, with no AI service involved.</string>
+    <string name="settings_debug_companion">Companion preview (debug)</string>
+    <string name="settings_debug_companion_subtitle">Developer-only view of the companion voice and safety guard.</string>
+
+    <!-- Reflection companion surface (docs/03 FR-5). -->
+    <string name="reflect_companion_title">Reflect together</string>
+    <string name="reflect_companion_hint">If you want, tell me how it felt…</string>
+    <string name="reflect_companion_send">Share</string>
+    <string name="reflect_companion_thinking">…</string>
+    <string name="reflect_companion_unavailable">Not available right now. Your notebook still works, always.</string>
+    <string name="reflect_companion_handoff">That sounds like a lot to carry. You deserve real support right now, from a real person.</string>
+    <string name="reflect_companion_handoff_button">Reach someone now</string>
+
+    <!-- Substituted when AI output is withheld by the safety guard (SR-3). -->
+    <string name="safety_ai_fallback">I can\'t respond the way I\'d want to here. What you\'re feeling matters, and a real person can be there for it.</string>
+
+    <!-- Debug companion preview (never visible in release builds). -->
+    <string name="debug_companion_title">Companion preview</string>
+    <string name="debug_companion_moment">Moment</string>
+    <string name="debug_companion_tone">Tone</string>
+    <string name="debug_companion_line">Chosen line</string>
+    <string name="debug_guard_title">Guard playground</string>
+    <string name="debug_guard_hint">Text to run through the guard…</string>
+    <string name="debug_guard_run">Check</string>
+    <string name="debug_guard_pass">Guard: pass</string>
+    <string name="debug_guard_rewrite">Guard: withheld and replaced</string>
+    <string name="debug_guard_crisis">Crisis signals: would hand off</string>
+    <string name="debug_guard_no_crisis">Crisis signals: no hand-off</string>
 </resources>
