@@ -19,6 +19,11 @@ kotlin {
         androidResources {
             enable = true
         }
+
+        // Run commonTest as JVM-hosted Android unit tests (no device/emulator) so Dev B's UI/state
+        // logic is verifiable on Linux/Windows, like the other modules' jvmTest. iOS test execution
+        // stays a macOS-CI concern (docs/13 §1).
+        withHostTestBuilder {}
     }
 
     val frameworkName = "Shared"

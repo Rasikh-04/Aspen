@@ -2,7 +2,177 @@
 
 _Resume-cold notes. Update at the end of every working session (CLAUDE.md)._
 
-**Phase:** 2 — Safety subsystem + consent primitive (`docs/09`). Spine built; **crisis-freshness gate is RED by design** until advisors verify content.
+**Phase:** 3 **complete — merged to `main` 2026-07-02** (Dev A: domain/profile/store; Dev B: feature UI, branch `feat/phase3-feature-ui`, her commit authorship preserved as contributor credit). Repo is now public; branches pushed without PRs per current workflow instruction. **Next: Phase 4 (Dev A side to start later).** Phase 2 spine remains built; **strict crisis gate (`crisisGateStrict`) still RED by design** until advisors verify content.
+
+---
+
+## Done (2026-07-02 — UI maturation: the component layer) — on `feat/phase3-feature-ui`, pre-merge
+
+Phase 3 shipped with minimal text-based screens. Decision (now in `docs/06` §2.1): **calm is a design,
+not an absence of one** — the UI stays quiet/simple *by intent*, but must never look like a placeholder
+text-holder with default buttons. Fixed before Phase 4 so no feature builds on raw-Material UI and needs
+a rewrite later.
+
+- **New component layer `app.aspen.design.components`** (`:shared:core-design`): `AspenPrimaryButton` /
+  `AspenQuietButton` / `AspenTextAction`, `AspenCard`, `AspenChoiceChip` / `AspenTagPill`,
+  `AspenScreenHeader`, `AspenAmbientBackground` (static `drawBehind` — zero battery cost),
+  `AspenPresenceDots`, shared press-settle feedback. All honour the motion tokens + `LocalReducedMotion`.
+  New colour tokens: `primarySoft` (Sage100), `primaryFaint` (Sage50).
+- **Every Phase 3 screen refit onto the layer** (visuals only — no logic changes, no new user-facing
+  strings, so no new localization review load): nav shell (custom quiet tab bar with animated presence
+  dot, route cross-fades, ambient background), home, onboarding (animated option selection, presence-dot
+  progress), grounding chooser (whole-card targets), grounding tools (54321 cross-fade + presence dots),
+  reflect (cards, sage tag pills, warm text fields — feeling-chip selection moved off `cautionBg` amber
+  onto calm sage), settings, safety screens (Flow C re-toned slate; `TODO-VERIFY` non-actionable logic
+  untouched).
+- **Rule from Phase 4 on** (`docs/06` §2.1): feature UI composes these primitives; raw Material widgets
+  on shipped surfaces are a review-blocking defect; extend the layer rather than hand-rolling.
+
+---
+
+## Done (Phase 3 — Dev A: onboarding profile domain) — branch `feat/onboarding-profile-domain`
+
+The pure-`:domain` contract the questionnaire UI (Dev B) binds to. No UI, no persistence yet (kept small per `docs/13` §5); encrypted profile store is the next Dev-A branch.
+
+### Onboarding subsystem (`:shared:domain/onboarding`, pure Kotlin)
+- **Models** (`onboarding/model/`): `SupportProfile` (6 internal profiles, never user-visible — CLAUDE.md #9) +
+  `ProtectiveFlag` (`SUPPRESS_FOOD_LOGGING`, `NO_BODY_IMAGE_FRAMING`); `Questionnaire.kt` (typed, **numberless**,
+  **no user-facing strings** — IDs/option tokens only; copy stays in `:ui`); `OnboardingResult`/`RoutingHints`;
+  `AppConfig` (`FoodLoggingMode` OFF/REFRAMED/AVAILABLE, `CompanionTone`, `ToolEmphasis`, `SupportRoutingStrength`,
+  `bodyImageFramingAllowed`) + `ProfileMappingProvenance`.
+- **`OnboardingScoring.deriveProfile()`** — heuristic tally (docs/11 §4): conservative bias (any restriction/avoidance
+  signal raises `SUPPRESS_FOOD_LOGGING`), Q6 `YES` raises `NO_BODY_IMAGE_FRAMING` + zeroes body-image weight,
+  ties/low-signal/skip-all → `MIXED_OR_UNSURE`. Never throws, never returns an empty profile map.
+- **`ProfileBehaviourMap.deriveConfig()`** — full nuanced mapping (per decision: **full mapping now, advisor flag is
+  metadata**). `SUPPRESS_FOOD_LOGGING` forces `FoodLoggingMode.OFF` regardless of dominant profile; restriction/
+  avoidance never get `AVAILABLE`. Total over all profiles.
+- `DomainModule.PHASE = 3`.
+
+### ⚠ Profile→behaviour mapping is PROVISIONAL (advisor gate open — `docs/07` Phase 3 `[APPROVE]`)
+- The mapping (esp. **logging-suppression-per-disorder**) needs ED-informed advisor sign-off before *enabling*
+  (`docs/01` §5a, `docs/11` §6). Carried as `ProfileMappingProvenance.PROVISIONAL` (`advisorVerified = false`,
+  `revision = "draft-2026-06-29"`) so a Phase-7 release gate can refuse an unverified mapping — same "build the
+  mechanism, mark it provisional" pattern as the crisis registry. Question set + mapping are a clinical-review item.
+
+### Verified locally (Dev A / Linux — no Xcode)
+- ✅ `:shared:domain:jvmTest` — 17 onboarding tests (scoring conservative bias, ARFID down-weight, ties→mixed,
+  skip-all→mixed, routing; mapping suppression invariants, totality, provisional provenance) + existing suites green.
+- ✅ `copyLint` — passes (domain adds no user-facing strings).
+- ✅ `:shared:domain:compileCommonMainKotlinMetadata` — common compiles for all targets; iOS target configures
+  (Kotlin/Native iOS link stays a `macos-14` CI concern, per Phase 1/2 notes).
+
+### Open / next (Dev A, Phase 3 — after the local-store branch below)
+- [ ] Advisor sign-off on the question set + profile→behaviour mapping → flip `advisorVerified`.
+- [ ] Review Dev B's questionnaire/grounding/reflection/logging UI PRs (wire to `deriveProfile`/`deriveConfig`/`LoggingService`).
+- [ ] Durable on-disk `EncryptedBlobStore` (platform path/Context); iOS Keychain+CryptoKit `LocalCipher` actual.
+- [ ] PR + CI when git workflow §6 is enabled (repo still private; no PR yet per current instruction).
+
+---
+
+## Done (Phase 3 — Dev A: encrypted local store) — branch `feat/phase3-encrypted-local-store` (stacked on onboarding domain)
+
+The on-device encrypted store under the profile + logging features, plus **data-layer enforcement** of the
+food-logging suppression rules. Independent of Dev B (B's screens consume these ports/services).
+
+### Unified local crypto (`:shared:data/local`)
+- **`LocalCipher` seam** (`expect fun platformLocalCipher()`) — the single key-backed AES/GCM crypto for **all**
+  on-device data. Actuals: JVM AES-256/GCM (process-ephemeral, test grade), Android AES/GCM via AndroidKeyStore
+  (`aspen.local.v1`), iOS passthrough **placeholder**. **Consent now delegates to this** (its `ConsentCipher`
+  actuals are thin adapters) — removed the duplicated per-store cryptography; one audited implementation.
+- **`EncryptedBlobStore`** (generic) + `InMemoryEncryptedBlobStore` default, with `clear()` for hard-delete.
+
+### Profile persistence (`:shared:data/onboarding`, `:shared:domain/onboarding`)
+- **`ProfileStore`** port (domain) + **`PersistentProfileStore`** (data) — JSON DTO → encrypted blob; **fail-safe**
+  (missing/corrupt/undecryptable → `null` → safest default). Re-runnable/editable (`save` overwrites; `clear` resets).
+- **`AppConfigProvider`** — single read-path for adaptivity; **safe by default** (no profile → `MIXED_OR_UNSURE` →
+  food logging OFF). Adaptivity only opens up from the safest baseline once a profile exists.
+
+### Numberless logging store + suppression enforcement (`:shared:domain/logging`, `:shared:data/logging`)
+- **Entities** `Reflection`/`FoodLog`/`BehaviourLog` + `FeelingTag` — **structurally numberless** (no numeric
+  fields exist; SR-1) and string-free (UI localizes tags).
+- **`LoggingStore`** port + **`PersistentLoggingStore`** — encrypted, fail-safe (corrupt → empty), **hard deletes**
+  + `clearAll()` (FR-11).
+- **`LoggingService`** — the **single enforcement point**: `logFood` is refused (`LogOutcome.SuppressedFoodLogging`,
+  not an error/shame state) when the active `AppConfig.foodLoggingMode == OFF`; reflections + behaviour logs are
+  always available (docs/03 FR-3b). Features depend on the service, never the store, so the rule can't be bypassed.
+- **DI** (`localStoreModule` in `AspenModules.kt`): shared `LocalCipher`, per-store blobs, `AppConfigProvider`,
+  `LoggingService`; added to `aspenSharedModules`.
+
+### Verified locally (Dev A / Linux — no Xcode)
+- ✅ `:shared:domain:jvmTest` + `:shared:data:jvmTest` — logging suppression (restriction/no-profile → suppressed,
+  binge → saved, reflections/behaviour always on, delete-everything), profile round-trip/encrypted-at-rest/
+  corrupt→null/clear, logging round-trip/hard-delete/clearAll/corrupt→empty, DI graph resolves (food logging
+  suppressed by default). Existing safety/consent/crisis suites still green.
+- ✅ `copyLint` — passes (no user-facing strings added).
+- ✅ `:shared:data:compileAndroidMain` (consent-cipher delegation compiles) + `compileCommonMainKotlinMetadata`
+  (iOS target configures).
+
+---
+
+## Done (Phase 3 — Dev B: feature UI) — branch `feat/phase3-feature-ui` (stacked on encrypted-local-store)
+
+The shared `:shared:ui` Compose screens for Flows 0/A/B + Settings, wired to Dev A's domain use-cases
+(`OnboardingScoring`/`ProfileStore`, `LoggingService`/`AppConfigProvider`). All copy externalised,
+numberless, no streaks/scores/alarm-red; every flow keeps the ≤2-tap human exit (CLAUDE.md #3/#5/#6).
+
+### Flow 0 — onboarding questionnaire (`ui/onboarding`)
+- **`OnboardingController`** (plain Compose state holder; no ViewModel lib): owns in-progress
+  `OnboardingAnswers` + a step cursor; edits are immutable `copy()`; scores **only** via the domain
+  `OnboardingScoring.deriveProfile()` — the UI never derives/shows a profile, label, or score (#9).
+- **One numberless question per screen** (Q1–Q10, docs/11 §3), intro + closing; every item skippable
+  ("skip this one" = prefer-not-to-say → no signal), "skip these for now" → safe `MIXED_OR_UNSURE`.
+  Progress shown as **soft dots, never "3 of 10"** (#3). Closing routes toward real help first.
+- First-run gating in `AppRoot`: no stored profile → onboarding; on finish `ProfileStore.save()`; the
+  questionnaire is **re-runnable from Settings**. (Treating null-profile as "not onboarded" — small
+  routing convention on the existing contract; no contract change.)
+
+### Flow A — grounding tools (`ui/grounding`)
+- **Chooser** (Calm tab): Breathe · Ground (5-4-3-2-1) · Ride the urge · Write it down · **Reach
+  someone** (always-present human exit). Full-screen tools as routes (bottom bar hidden); calm,
+  non-evaluative close ("Glad you took a moment") — never "great job"/streaks.
+- **BreatheScreen** paced-breathing animation that **honours reduced-motion** (`LocalReducedMotion`)
+  → static cue words, no animation (SR-6). `Ground54321Screen` (sensory counts, not food/body numbers),
+  `RideTheUrgeScreen` (wave framing, no timer).
+
+### Flow B — reflection + numberless logging (`ui/reflect`)
+- **`ReflectScreen`** wired to `LoggingService` (the single enforcement point): reflections + feeling
+  logs always available; **food logging entry only appears when `isFoodLoggingOffered()`** for the
+  active profile. Feeling tags are emotions only (no intensity scale/count — SR-1). One-tap delete per
+  entry; **empty days are silent** (no "you missed"). Null service → calm placeholder (iOS-safe).
+
+### Settings (`ui/settings`)
+- **Revisit the questions** (re-run Flow 0) + **delete everything I've written** (confirmed dialog →
+  `LoggingService.deleteEverything()`, FR-11). Calm copy, amber (never red) on the destructive action.
+
+### Wiring
+- **`AspenDeps`** (domain types only — keeps `:shared:ui` on `:shared:domain` alone) threaded through
+  `AspenApp`/`AppScaffold`, mirroring the existing `crisisResolver` injection. **Android `MainActivity`**
+  constructs the encrypted store stack by hand (Koin-start at platform entries is still the tracked
+  leftout). **iOS `MainViewController` unchanged** (`AspenApp()` → null deps → calm placeholders).
+
+### Verified locally (Dev B-role / Linux — no Xcode)
+- ✅ `:androidApp:assembleDebug` — full chain (`:shared:ui` → `:shared:data` → `:shared:domain` →
+  app) compiles; APK builds.
+- ✅ `:shared:ui:testAndroidHostTest` — 8 UI tests (controller cursor/immutability, empty→MIXED,
+  restriction→SUPPRESS_FOOD_LOGGING via domain, feeling-tag label coverage). Enabled host tests on
+  `:shared:ui` via `withHostTestBuilder {}` so commonTest runs JVM-hosted on Linux.
+- ✅ `copyLint` passes incl. all new Phase-3 strings; ✅ `:shared:ui:compileCommonMainKotlinMetadata`
+  (iOS target configures); ✅ existing `:shared:domain:jvmTest` + `:shared:data:jvmTest` still green.
+
+### ⚠ Deviations & leftouts (Phase 3 — Dev B, explicit per CLAUDE.md)
+- **DEVIATION (single branch):** docs/13 §5 / docs/14 mandate small one-feature-per-PR. By explicit
+  request this ships all three Flow-0/A/B features + Settings on **one branch** (`feat/phase3-feature-ui`)
+  / one PR. Noted so the reviewer expects a larger-than-usual (but still cohesive) diff.
+- **In-memory blob store → profile resets on cold start** (same durable-on-disk leftout as Phase 2),
+  so onboarding re-shows each fresh launch. Fine for dev; durable persistence is the tracked next task.
+- **Urdu (and other locales) Phase-3 strings fall back to English** at runtime (values-ur not mirrored);
+  questionnaire/companion copy needs ED-informed native review before ship (docs/11 §5, docs/12 §3).
+- **Reduced-motion is honoured in the UI** (`LocalReducedMotion`) but **not yet sourced from the OS
+  setting** — the OS→theme plumbing is a small follow-up (currently defaults to motion on).
+- **No Compose UI/interaction/RTL snapshot tests yet** — state logic is unit-tested; screen-level
+  Robolectric/snapshot + RTL screenshot tests are a follow-up (docs/13 §4 a11y/RTL).
+- **CI does not yet run `:shared:ui:testAndroidHostTest`** — add it to `.github/workflows/ci.yml`
+  alongside the existing jvmTest gates (Dev A / lead infra task).
 
 ---
 

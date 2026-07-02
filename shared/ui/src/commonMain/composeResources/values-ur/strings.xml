@@ -1,8 +1,13 @@
 <!--
-  Urdu (ur) — RTL stub for Phase 1.
+  Urdu (ur) — RTL stub.
   Only home_greeting is real, verified Urdu (to exercise Nastaliq shaping + RTL). The rest are
-  English placeholders pending native-speaker translation. Sensitive surfaces (crisis,
-  questionnaire, companion) require ED-informed native review before shipping (docs/12 §3).
+  English placeholders pending native-speaker translation.
+
+  Phase-3 onboarding / grounding / reflection strings are intentionally NOT mirrored here: any key
+  absent from this file falls back to values/strings.xml (English) at runtime, so RTL layout is still
+  exercised, while the sensitive questionnaire copy is held back from a fake "translation". These
+  surfaces require ED-informed native Urdu review before shipping (docs/11 §5, docs/12 §3,
+  CLAUDE.md #11). Tracked as a leftout in docs/STATUS.md.
 -->
 <resources>
     <string name="app_name">Aspen</string>
@@ -14,9 +19,6 @@
     <string name="home_subtitle">Whatever today holds, you can be here for a moment.</string>
     <string name="home_hard_moment">I am having a hard moment</string>
     <string name="home_reach_person">Reach a person</string>
-    <string name="reflect_placeholder">A gentle space to write will live here.</string>
-    <string name="calm_placeholder">Grounding tools will live here.</string>
-    <string name="settings_placeholder">Settings will live here.</string>
     <string name="safety_title">Reaching a person</string>
     <string name="safety_body">A calm route to real human support, a trusted contact or a region-correct line, will live here.</string>
     <string name="back">Back</string>

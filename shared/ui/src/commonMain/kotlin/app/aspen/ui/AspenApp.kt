@@ -1,26 +1,55 @@
 package app.aspen.ui
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import app.aspen.design.AspenTheme
-import app.aspen.domain.safety.CrisisResolver
 import app.aspen.ui.i18n.LocalAppLanguage
 import app.aspen.ui.i18n.LocaleProvider
 import app.aspen.ui.nav.AppScaffold
+import app.aspen.ui.onboarding.OnboardingFlow
 
 /**
- * Cross-platform application root (shared on Android + iOS, docs/04 §4). Resolves locale, applies
- * the Aspen theme for that language, then shows the navigation shell with the empty Calm Home.
+ * Cross-platform application root (shared on Android + iOS, docs/04 §4). Resolves locale, applies the
+ * Aspen theme, then either runs Flow 0 onboarding (first run) or the navigation shell.
  *
- * [crisisResolver] is supplied by the platform entry (from DI). When null, Flow C shows the Phase-1
- * placeholder — so iOS, whose entry can't yet reach :shared:data, stays non-broken until wired
- * (tracked in docs/STATUS.md). Android passes the real offline resolver, making Flow C live.
+ * [deps] are supplied by the platform entry from the data layer. When a field is null (e.g. iOS before
+ * its DI lands) the corresponding surface degrades to a calm placeholder rather than breaking
+ * (tracked in docs/STATUS.md).
  */
 @Composable
-fun AspenApp(crisisResolver: CrisisResolver? = null) {
+fun AspenApp(deps: AspenDeps = AspenDeps()) {
     LocaleProvider {
         val language = LocalAppLanguage.current
         AspenTheme(language = language) {
-            AppScaffold(crisisResolver = crisisResolver)
+            AppRoot(deps)
         }
+    }
+}
+
+@Composable
+private fun AppRoot(deps: AspenDeps) {
+    val profileStore = deps.profileStore
+
+    // First run = a profile store exists but nothing has been saved yet. With no store wired
+    // (unconfigured platform), skip straight to the app so nothing breaks.
+    var showOnboarding by remember { mutableStateOf(profileStore != null && profileStore.current() == null) }
+    var startAtSafety by remember { mutableStateOf(false) }
+
+    if (showOnboarding && profileStore != null) {
+        OnboardingFlow(onFinish = { result, goToSafety ->
+            profileStore.save(result)
+            startAtSafety = goToSafety
+            showOnboarding = false
+        })
+    } else {
+        AppScaffold(
+            deps = deps,
+            startAtSafety = startAtSafety,
+            onConsumedStart = { startAtSafety = false },
+            onRevisitQuestions = { if (profileStore != null) showOnboarding = true },
+        )
     }
 }

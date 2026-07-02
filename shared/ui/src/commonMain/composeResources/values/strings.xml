@@ -8,9 +8,6 @@
     <string name="home_subtitle">Whatever today holds, you can be here for a moment.</string>
     <string name="home_hard_moment">I am having a hard moment</string>
     <string name="home_reach_person">Reach a person</string>
-    <string name="reflect_placeholder">A gentle space to write will live here.</string>
-    <string name="calm_placeholder">Grounding tools will live here.</string>
-    <string name="settings_placeholder">Settings will live here.</string>
     <string name="safety_title">Reaching a person</string>
     <string name="safety_body">A calm route to real human support, a trusted contact or a region-correct line, will live here.</string>
     <string name="back">Back</string>
@@ -26,4 +23,142 @@
     <string name="safety_heading_finder">Find ongoing treatment</string>
     <string name="safety_fallback_note">We don\'t have verified local services for this region yet. These trusted options can help you find support near you.</string>
     <string name="safety_unverified">Details are being verified</string>
+
+    <!-- ── Flow 0: onboarding questionnaire (docs/06 §3 Flow 0, docs/11). Numberless,
+         skippable, personalises but never diagnoses. Sensitive copy: ED-informed native
+         review required per language before ship (docs/11 §5, docs/12 §3). ── -->
+    <string name="onb_intro_title">A few gentle questions</string>
+    <string name="onb_intro_body">So Aspen can fit you a little better. There are no right answers, nothing here is a test or a diagnosis, and you can skip anything. Take your time.</string>
+    <string name="onb_begin">Begin</string>
+    <string name="onb_skip_all">Skip these for now</string>
+    <string name="onb_skip_question">Skip this one</string>
+    <string name="onb_next">Continue</string>
+    <string name="onb_back">Back</string>
+    <string name="onb_prefer_not">I\'d rather not say</string>
+
+    <string name="onb_q1_title">What would feel most helpful from Aspen right now?</string>
+    <string name="onb_q1_calmer">A calmer moment in hard times</string>
+    <string name="onb_q1_private">Somewhere private to put my thoughts</string>
+    <string name="onb_q1_company">Company that doesn\'t ask much of me</string>
+    <string name="onb_q1_reach_help">A way to reach real help</string>
+    <string name="onb_q1_not_sure">I\'m not sure yet</string>
+
+    <string name="onb_q2_title">How would you describe your relationship with eating lately?</string>
+    <string name="onb_q2_tense_rules">Tense, or full of rules</string>
+    <string name="onb_q2_out_of_control">Out of my control at times</string>
+    <string name="onb_q2_undo_after">Something I try to undo afterwards</string>
+    <string name="onb_q2_sensory_hard">Hard because of how foods feel, taste, or seem</string>
+    <string name="onb_q2_body_focused">Mostly about how I feel in my body</string>
+    <string name="onb_q2_varies">It varies</string>
+
+    <string name="onb_likert_not_really">Not really</string>
+    <string name="onb_likert_sometimes">Sometimes</string>
+    <string name="onb_likert_often">Often</string>
+
+    <string name="onb_q3_title">Do you find yourself holding back from eating, even when part of you wants or needs to?</string>
+    <string name="onb_q4_title">Do you ever feel that once you start eating, it\'s hard to feel in control?</string>
+    <string name="onb_q5_title">After eating, do you often feel a strong urge to make up for it somehow?</string>
+
+    <string name="onb_q6_title">Is eating hard mainly because of how foods feel, taste, or smell, or worry about what eating might do, rather than worry about your body or shape?</string>
+    <string name="onb_q6_yes">Yes</string>
+    <string name="onb_q6_somewhat">Somewhat</string>
+    <string name="onb_q6_no">No</string>
+
+    <string name="onb_q7_title">How much do thoughts about your body or shape affect your day?</string>
+    <string name="onb_q7_not_much">Not much</string>
+    <string name="onb_q7_sometimes">Sometimes</string>
+    <string name="onb_q7_a_lot">A lot</string>
+
+    <string name="onb_q8_title">How much is this getting in the way of your everyday life right now?</string>
+    <string name="onb_q8_a_little">A little</string>
+    <string name="onb_q8_some">Some</string>
+    <string name="onb_q8_a_lot">A lot</string>
+
+    <string name="onb_q9_title">Do you have anyone, a professional or someone you trust, supporting you with this?</string>
+    <string name="onb_q9_professional">Yes, a professional</string>
+    <string name="onb_q9_trusted">Yes, someone I trust</string>
+    <string name="onb_q9_none">Not right now</string>
+
+    <string name="onb_q10_title">On the hardest days, would it help to have a quick way to reach a person?</string>
+    <string name="onb_q10_set_up">Yes, set that up</string>
+    <string name="onb_q10_maybe_later">Maybe later</string>
+    <string name="onb_q10_no">No</string>
+
+    <string name="onb_closing_title">Thank you for sharing</string>
+    <string name="onb_closing_body">Aspen will gently shape itself around what you\'ve said, and you can change any of this anytime. One thing worth saying clearly: this isn\'t a diagnosis or an assessment. If you\'d like to find real, specialist support, here\'s where to start.</string>
+    <string name="onb_closing_find_help">Find real support</string>
+    <string name="onb_closing_continue">Go to Aspen</string>
+
+    <!-- ── Flow A: grounding tools (docs/06 §3 Flow A). Offline, calm, exit always visible.
+         No scoring, no streaks; a gentle non-evaluative close. ── -->
+    <string name="grounding_title">A hard moment</string>
+    <string name="grounding_subtitle">Here are a few quiet things that can help. There\'s no wrong choice.</string>
+    <string name="grounding_breathe">Breathe</string>
+    <string name="grounding_54321">Ground (5-4-3-2-1)</string>
+    <string name="grounding_ride_urge">Ride the urge</string>
+    <string name="grounding_talk">Write it down</string>
+    <string name="grounding_reach_someone">Reach someone</string>
+    <string name="grounding_close">Close</string>
+    <string name="grounding_gentle_close">Glad you took a moment.</string>
+    <string name="grounding_done">I\'m okay for now</string>
+
+    <string name="breathe_title">Let\'s breathe together</string>
+    <string name="breathe_in">Breathe in</string>
+    <string name="breathe_hold">Hold</string>
+    <string name="breathe_out">Breathe out</string>
+    <string name="breathe_reduced_note">Follow the words at your own pace.</string>
+
+    <string name="ground_54321_title">Notice where you are</string>
+    <string name="ground_54321_intro">Slowly, gently, take each one in. There\'s no rush.</string>
+    <string name="ground_54321_see">Five things you can see</string>
+    <string name="ground_54321_hear">Four things you can hear</string>
+    <string name="ground_54321_touch">Three things you can touch</string>
+    <string name="ground_54321_smell">Two things you can smell</string>
+    <string name="ground_54321_taste">One thing you can taste</string>
+    <string name="ground_54321_next">Next</string>
+
+    <string name="ride_urge_title">Ride the urge</string>
+    <string name="ride_urge_body">Urges rise, crest, and pass, like a wave. You don\'t have to act on it. Stay here a moment and let it move through.</string>
+
+    <!-- ── Flow B: reflection + numberless logging (docs/06 §3 Flow B). Text + feeling tags
+         only; never a number (CLAUDE.md #1). Empty days are silent (CLAUDE.md #5). ── -->
+    <string name="reflect_title">Your space</string>
+    <string name="reflect_subtitle">A private place for your thoughts. Only you can see this.</string>
+    <string name="reflect_empty">Nothing here yet, and that\'s completely okay. This space is here whenever you\'d like it.</string>
+    <string name="reflect_new_reflection">Write something down</string>
+    <string name="reflect_new_feeling_log">Note how you\'re feeling</string>
+    <string name="reflect_new_food_log">Note a moment around eating</string>
+    <string name="reflect_section_reflections">Reflections</string>
+    <string name="reflect_section_feelings">Feelings</string>
+    <string name="reflect_section_food">Around eating</string>
+    <string name="reflect_save">Save</string>
+    <string name="reflect_cancel">Cancel</string>
+    <string name="reflect_delete">Delete</string>
+    <string name="reflect_text_hint">Whatever\'s on your mind…</string>
+    <string name="reflect_note_hint">A few words, if you\'d like…</string>
+    <string name="reflect_feelings_label">If it helps, what are you feeling?</string>
+
+    <string name="feeling_calm">Calm</string>
+    <string name="feeling_content">Content</string>
+    <string name="feeling_relieved">Relieved</string>
+    <string name="feeling_hopeful">Hopeful</string>
+    <string name="feeling_tired">Tired</string>
+    <string name="feeling_numb">Numb</string>
+    <string name="feeling_anxious">Anxious</string>
+    <string name="feeling_overwhelmed">Overwhelmed</string>
+    <string name="feeling_sad">Sad</string>
+    <string name="feeling_frustrated">Frustrated</string>
+    <string name="feeling_guilty">Guilty</string>
+    <string name="feeling_alone">Alone</string>
+
+    <!-- ── Settings (docs/06 §3 Flow 0.4: questionnaire re-runnable; FR-11 delete). ── -->
+    <string name="settings_title">Settings</string>
+    <string name="settings_revisit_questions">Revisit the questions</string>
+    <string name="settings_revisit_subtitle">Things change. You can answer again anytime.</string>
+    <string name="settings_delete_all">Delete everything I\'ve written</string>
+    <string name="settings_delete_all_subtitle">Permanently removes your reflections and notes from this device.</string>
+    <string name="settings_delete_confirm">Delete permanently</string>
+    <string name="settings_delete_cancel">Keep my writing</string>
+    <string name="settings_delete_dialog_title">Delete everything?</string>
+    <string name="settings_delete_dialog_body">This permanently removes everything you\'ve written on this device. It can\'t be undone.</string>
 </resources>

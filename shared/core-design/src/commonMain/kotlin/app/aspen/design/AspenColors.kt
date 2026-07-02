@@ -10,6 +10,8 @@ import app.aspen.core.color.Palette
 data class AspenColors(
     val primary: Color,
     val primaryDark: Color,
+    val primarySoft: Color,
+    val primaryFaint: Color,
     val secondary: Color,
     val background: Color,
     val surface: Color,
@@ -27,6 +29,8 @@ data class AspenColors(
 internal fun aspenLightColors(): AspenColors = AspenColors(
     primary = Color(Palette.Sage500),
     primaryDark = Color(Palette.Sage700),
+    primarySoft = Color(Palette.Sage100),
+    primaryFaint = Color(Palette.Sage50),
     secondary = Color(Palette.Sand500),
     background = Color(Palette.WarmOffWhite),
     surface = Color(Palette.WarmWhite),

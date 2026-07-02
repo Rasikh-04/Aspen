@@ -4,24 +4,26 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.style.TextDecoration
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
 import app.aspen.design.AspenTheme
+import app.aspen.design.components.AspenCard
+import app.aspen.design.components.AspenChoiceChip
+import app.aspen.design.components.AspenTextAction
 import app.aspen.domain.safety.model.Contact
 import app.aspen.domain.safety.model.CrisisResource
 import app.aspen.domain.safety.model.CrisisResourceSet
@@ -57,7 +59,7 @@ private val REGION_CHOICES: List<Pair<LocaleKey, StringResource>> = listOf(
  * Flow C — the calm route to a real person (docs/06 §6, CLAUDE.md #6). Pure UI: it renders a
  * resolved [CrisisResourceSet], an explicit region picker, and an always-present trusted-person row.
  *
- * Tone is calm and serious — soft amber [crisis]/[crisisBg] tokens, never alarm-red (CLAUDE.md #5).
+ * Tone is calm and serious — soft slate [crisis]/[crisisBg] tokens, never alarm-red (CLAUDE.md #5).
  * A contact whose value is still [UNVERIFIED] is shown but NOT tappable, so unverified crisis details
  * can never be dialled (docs/09 §2.5). Acute-crisis support is listed first.
  */
@@ -92,7 +94,13 @@ fun SafetyScreen(
         Spacer(Modifier.height(AspenTheme.spacing.l))
 
         // Trusted person is always offered first, regardless of region (CLAUDE.md #6, docs/06 §6.2).
-        TrustedPersonRow(onReachTrustedPerson)
+        AspenCard(onClick = onReachTrustedPerson, modifier = Modifier.fillMaxWidth()) {
+            Text(
+                text = stringResource(Res.string.safety_trusted_person),
+                style = AspenTheme.typography.body,
+                color = AspenTheme.colors.textPrimary,
+            )
+        }
 
         Spacer(Modifier.height(AspenTheme.spacing.l))
         RegionPicker(selectedRegion, onRegionChange)
@@ -111,30 +119,11 @@ fun SafetyScreen(
         Section(Res.string.safety_heading_finder, resources.treatmentFinder, onContact)
 
         Spacer(Modifier.height(AspenTheme.spacing.xl))
-        TextButton(onClick = onBack) {
-            Text(stringResource(Res.string.back), color = AspenTheme.colors.textSecondary)
-        }
+        AspenTextAction(label = stringResource(Res.string.back), onClick = onBack)
     }
 }
 
-@Composable
-private fun TrustedPersonRow(onReachTrustedPerson: () -> Unit) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(AspenTheme.spacing.s))
-            .background(AspenTheme.colors.surface)
-            .clickable(onClick = onReachTrustedPerson)
-            .padding(AspenTheme.spacing.m),
-    ) {
-        Text(
-            text = stringResource(Res.string.safety_trusted_person),
-            style = AspenTheme.typography.body,
-            color = AspenTheme.colors.textPrimary,
-        )
-    }
-}
-
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun RegionPicker(selected: LocaleKey, onRegionChange: (LocaleKey) -> Unit) {
     Text(
@@ -143,18 +132,19 @@ private fun RegionPicker(selected: LocaleKey, onRegionChange: (LocaleKey) -> Uni
         color = AspenTheme.colors.textSecondary,
     )
     Spacer(Modifier.height(AspenTheme.spacing.s))
-    Row(horizontalArrangement = Arrangement.spacedBy(AspenTheme.spacing.s)) {
+    FlowRow(
+        horizontalArrangement = Arrangement.spacedBy(AspenTheme.spacing.s),
+        verticalArrangement = Arrangement.spacedBy(AspenTheme.spacing.s),
+    ) {
         REGION_CHOICES.forEach { (region, label) ->
-            val active = region == selected
-            Text(
-                text = stringResource(label),
-                style = AspenTheme.typography.body,
-                color = if (active) AspenTheme.colors.crisis else AspenTheme.colors.textSecondary,
-                modifier = Modifier
-                    .clip(RoundedCornerShape(AspenTheme.spacing.s))
-                    .background(if (active) AspenTheme.colors.crisisBg else AspenTheme.colors.surface)
-                    .clickable { onRegionChange(region) }
-                    .padding(horizontal = AspenTheme.spacing.m, vertical = AspenTheme.spacing.s),
+            AspenChoiceChip(
+                label = stringResource(label),
+                selected = region == selected,
+                onToggle = { onRegionChange(region) },
+                role = Role.RadioButton,
+                // Re-toned for the serious surface: slate selection, never sage-cheerful here.
+                selectedContainer = AspenTheme.colors.surface,
+                selectedLabel = AspenTheme.colors.crisis,
             )
         }
     }
@@ -181,13 +171,7 @@ private fun Section(
 
 @Composable
 private fun ResourceCard(resource: CrisisResource, onContact: (Contact) -> Unit) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(AspenTheme.spacing.s))
-            .background(AspenTheme.colors.surface)
-            .padding(AspenTheme.spacing.m),
-    ) {
+    AspenCard(modifier = Modifier.fillMaxWidth()) {
         Text(resource.name, style = AspenTheme.typography.body, color = AspenTheme.colors.textPrimary)
         resource.notes?.let {
             Spacer(Modifier.height(AspenTheme.spacing.xs))

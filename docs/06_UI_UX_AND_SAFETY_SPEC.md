@@ -47,6 +47,38 @@ All sizes honour the OS **dynamic type** setting (a11y).
 **Radius** — small 8 / medium 16 / large 24; pills for chips.
 **Motion** — slow, eased, calming (200–400ms); a **reduced-motion** mode replaces transitions with fades and disables companion/breathing animation.
 
+### 2.1 The component layer — calm is a design, not an absence of one (mandatory from Phase 3)
+
+**Decision (2026-07-02):** Aspen's UI is deliberately quiet, but it must never read as *unfinished* — a
+screen of raw text and default buttons tells a user in a hard moment that nobody cared about this room.
+"Do less" (CLAUDE.md #10) governs *what* is on a screen, not *how well* it is made. Every surface gets
+the same craft: ambient light, soft depth, eased motion, whole-target touch areas.
+
+That craft lives in one place: **`app.aspen.design.components`** in `:shared:core-design`. All feature
+UI — current screens and everything from Phase 4 on — composes these primitives. **Raw Material
+widgets (`Button`, `OutlinedButton`, `FilterChip`, `NavigationBar`, ad-hoc `Surface` cards) are not
+acceptable on shipped surfaces**; if a screen needs something the layer doesn't have, extend the layer,
+don't hand-roll it in the feature. This is what keeps the app coherent as it grows and keeps the
+non-negotiables (soft amber only, presence not progress, reduced-motion parity) enforced once.
+
+The layer (each honours the tokens above and `LocalReducedMotion`):
+
+| Component | Role |
+|---|---|
+| `AspenPrimaryButton` | The single forward action of a screen (soft pill, gentle press settle) |
+| `AspenQuietButton` | Secondary routes (faint sage fill; replaces outlined buttons) |
+| `AspenTextAction` | Low-key inline actions (back / skip / close / delete) |
+| `AspenCard` | Grouped content; soft edge + whisper of shadow; optionally whole-card tappable |
+| `AspenChoiceChip` / `AspenTagPill` | Pill toggle (calm tint shift, re-tonable for Flow C) / read-only tag |
+| `AspenScreenHeader` | Serif display title + loose subtitle, one shared rhythm |
+| `AspenAmbientBackground` | The quiet light behind every screen — static `drawBehind`, zero battery cost |
+| `AspenPresenceDots` | Progress as presence (filled vs. soft dots), never a number or bar |
+
+Rules of the layer: press feedback is a shared subtle settle (disabled under reduced motion); selection
+states are eased tint fades (fades are the reduced-motion-safe transition); route changes cross-fade with
+the motion tokens; ambience is drawn statically (no animation loops outside the breathing tool). Screens
+stay text-first and near-empty — the craft is in the light, spacing, and settle, not in ornament.
+
 ---
 
 ## 3. The flows

@@ -5,9 +5,18 @@ import app.aspen.data.consent.InMemoryConsentBlobStore
 import app.aspen.data.consent.PersistentConsentStore
 import app.aspen.data.consent.platformConsentCipher
 import app.aspen.data.crisis.CrisisRegistryRepo
+import app.aspen.data.local.InMemoryEncryptedBlobStore
+import app.aspen.data.local.LocalCipher
+import app.aspen.data.local.platformLocalCipher
+import app.aspen.data.logging.PersistentLoggingStore
+import app.aspen.data.onboarding.PersistentProfileStore
 import app.aspen.domain.consent.ConsentManager
 import app.aspen.domain.consent.ConsentStore
 import app.aspen.domain.consent.DefaultConsentManager
+import app.aspen.domain.logging.LoggingService
+import app.aspen.domain.logging.LoggingStore
+import app.aspen.domain.onboarding.AppConfigProvider
+import app.aspen.domain.onboarding.ProfileStore
 import app.aspen.domain.safety.CrisisResolver
 import app.aspen.domain.safety.DefaultForbiddenLexicon
 import app.aspen.domain.safety.DefaultSafetyEngine
@@ -55,8 +64,33 @@ val consentModule: Module = module {
     }
 }
 
+/**
+ * On-device encrypted-store wiring (docs/04 §5, Phase 3). [LocalCipher] is the single key-backed
+ * crypto shared by every local store; each store gets its OWN [InMemoryEncryptedBlobStore] so a corrupt
+ * blob can't cross-contaminate (durable on-disk blob is a tracked leftout — docs/STATUS.md).
+ *
+ * [AppConfigProvider] turns the stored profile into the live adaptivity config; [LoggingService] is the
+ * single enforcement point for food-logging suppression (it reads [AppConfigProvider] before any
+ * food-log write). Features depend on [LoggingService], never on [LoggingStore] directly.
+ */
+@OptIn(ExperimentalUuidApi::class)
+val localStoreModule: Module = module {
+    single<LocalCipher> { platformLocalCipher() }
+    single<ProfileStore> { PersistentProfileStore(get(), InMemoryEncryptedBlobStore()) }
+    single { AppConfigProvider(get()) }
+    single<LoggingStore> { PersistentLoggingStore(get(), InMemoryEncryptedBlobStore()) }
+    single {
+        LoggingService(
+            store = get(),
+            appConfig = get(),
+            newId = { Uuid.random().toString() },
+            clock = Clock.System,
+        )
+    }
+}
+
 /** Everything :shared:data contributes. Pass these to `startKoin { modules(aspenSharedModules) }`. */
-val aspenSharedModules: List<Module> = listOf(safetyModule, consentModule)
+val aspenSharedModules: List<Module> = listOf(safetyModule, consentModule, localStoreModule)
 
 /*
  * ───────────────────────── MANUAL PLATFORM-INIT GUIDE (Koin 4.1) ─────────────────────────

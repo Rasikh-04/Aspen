@@ -11,5 +11,5 @@ package app.aspen.domain
  */
 object DomainModule {
     /** Current build phase — bumped as the spine is filled in. */
-    const val PHASE: Int = 2
+    const val PHASE: Int = 3
 }
