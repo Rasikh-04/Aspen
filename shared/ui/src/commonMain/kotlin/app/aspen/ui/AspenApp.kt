@@ -10,6 +10,7 @@ import app.aspen.ui.i18n.LocalAppLanguage
 import app.aspen.ui.i18n.LocaleProvider
 import app.aspen.ui.nav.AppScaffold
 import app.aspen.ui.onboarding.OnboardingFlow
+import app.aspen.ui.platform.systemReducedMotion
 
 /**
  * Cross-platform application root (shared on Android + iOS, docs/04 §4). Resolves locale, applies the
@@ -23,7 +24,9 @@ import app.aspen.ui.onboarding.OnboardingFlow
 fun AspenApp(deps: AspenDeps = AspenDeps()) {
     LocaleProvider {
         val language = LocalAppLanguage.current
-        AspenTheme(language = language) {
+        // OS-sourced reduced motion (SR-6): every animated surface honours LocalReducedMotion,
+        // which AspenTheme provides from this value.
+        AspenTheme(language = language, reducedMotion = remember { systemReducedMotion() }) {
             AppRoot(deps)
         }
     }

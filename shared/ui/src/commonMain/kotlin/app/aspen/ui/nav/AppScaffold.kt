@@ -175,6 +175,7 @@ fun AppScaffold(
                         reflectionCompanion = deps.reflectionCompanion,
                         companion = if (deps.companionPrefsStore != null) companion else null,
                         overlayControl = deps.overlayControl,
+                        notificationsControl = deps.notificationsControl,
                         onOpenDebugCompanion = if (canPreview) {
                             { navController.navigate(Routes.DEBUG_COMPANION) }
                         } else {

@@ -1,10 +1,14 @@
 package app.aspen.android
 
+import android.Manifest
 import android.content.Intent
 import android.content.pm.ApplicationInfo
+import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -34,6 +38,7 @@ import app.aspen.domain.safety.SafetyRules
 import app.aspen.companion.overlay.CompanionOverlayService
 import app.aspen.ui.AspenApp
 import app.aspen.ui.AspenDeps
+import app.aspen.ui.companion.CompanionNotificationsControl
 import app.aspen.ui.companion.CompanionOverlayControl
 import app.aspen.ui.generated.resources.Res
 import app.aspen.ui.generated.resources.safety_ai_fallback
@@ -73,6 +78,26 @@ class MainActivity : ComponentActivity() {
 
         override fun setOverlayActive(active: Boolean) {
             if (active) CompanionOverlayService.start(this@MainActivity) else CompanionOverlayService.stop(this@MainActivity)
+        }
+    }
+
+    // Result ignored on purpose: if the user declines, the worker stays scheduled but the policy
+    // path goes quiet (worker checks the permission) — we never re-ask outside the opt-in act.
+    private val notificationsPermissionRequest =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) {}
+
+    private val notificationsControl = object : CompanionNotificationsControl {
+        override fun setScheduled(active: Boolean) {
+            if (active) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
+                    checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED
+                ) {
+                    notificationsPermissionRequest.launch(Manifest.permission.POST_NOTIFICATIONS)
+                }
+                CompanionCheckinScheduler.schedule(this@MainActivity)
+            } else {
+                CompanionCheckinScheduler.cancel(this@MainActivity)
+            }
         }
     }
 
@@ -149,6 +174,7 @@ class MainActivity : ComponentActivity() {
             crisisSignals = crisisSignals,
             companionPrefsStore = companionPrefs,
             overlayControl = overlayControl,
+            notificationsControl = notificationsControl,
             isDebugBuild = isDebug,
         )
     }

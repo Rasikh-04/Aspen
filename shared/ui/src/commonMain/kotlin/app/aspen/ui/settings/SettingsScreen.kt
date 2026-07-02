@@ -29,7 +29,11 @@ import app.aspen.domain.ai.ReflectionCompanion
 import app.aspen.domain.companion.model.CompanionSpecies
 import app.aspen.domain.consent.ConsentManager
 import app.aspen.ui.companion.CompanionController
+import app.aspen.ui.companion.CompanionNotificationsControl
 import app.aspen.ui.companion.CompanionOverlayControl
+import app.aspen.ui.generated.resources.settings_notify_subtitle_off
+import app.aspen.ui.generated.resources.settings_notify_subtitle_on
+import app.aspen.ui.generated.resources.settings_notify_title
 import app.aspen.ui.generated.resources.companion_species_aspen
 import app.aspen.ui.generated.resources.companion_species_bunny
 import app.aspen.ui.generated.resources.companion_species_cat
@@ -86,6 +90,7 @@ fun SettingsScreen(
     reflectionCompanion: ReflectionCompanion? = null,
     companion: CompanionController? = null,
     overlayControl: CompanionOverlayControl? = null,
+    notificationsControl: CompanionNotificationsControl? = null,
     onOpenDebugCompanion: (() -> Unit)? = null,
 ) {
     var confirmDelete by remember { mutableStateOf(false) }
@@ -161,6 +166,23 @@ fun SettingsScreen(
                     SpeciesChip(companion, CompanionSpecies.ASPEN_SPRITE, Res.string.companion_species_aspen)
                     SpeciesChip(companion, CompanionSpecies.CAT, Res.string.companion_species_cat)
                     SpeciesChip(companion, CompanionSpecies.BUNNY, Res.string.companion_species_bunny)
+                }
+                if (notificationsControl != null) {
+                    // FR-8: off by default, opt-in, instantly revocable. The wording promises
+                    // little on purpose — the policy allows at most one gentle hello every 3 days.
+                    SettingRow(
+                        title = Res.string.settings_notify_title,
+                        subtitle = if (companion.prefs.notificationsEnabled) {
+                            Res.string.settings_notify_subtitle_on
+                        } else {
+                            Res.string.settings_notify_subtitle_off
+                        },
+                        onClick = {
+                            val enable = !companion.prefs.notificationsEnabled
+                            companion.setNotificationsEnabled(enable)
+                            notificationsControl.setScheduled(enable)
+                        },
+                    )
                 }
                 if (overlayControl != null) {
                     // Android-only (docs/05 §6). Off → on goes through the plain-language

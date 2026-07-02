@@ -45,6 +45,8 @@ dependencies {
     implementation(project(":shared:ui"))
     implementation(project(":shared:data"))
     implementation(project(":companion-overlay-android"))
+    implementation(libs.androidx.work.runtime)
+    implementation(compose.components.resources)
     implementation(libs.androidx.activity.compose)
     implementation(compose.runtime)
     implementation(compose.foundation)

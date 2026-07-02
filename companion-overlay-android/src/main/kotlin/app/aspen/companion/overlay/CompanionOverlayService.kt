@@ -20,6 +20,7 @@ import app.aspen.data.local.FileEncryptedBlobStore
 import app.aspen.data.local.platformLocalCipher
 import app.aspen.data.companion.PersistentCompanionPrefsStore
 import app.aspen.ui.companion.CompanionController
+import app.aspen.ui.platform.systemReducedMotion
 import kotlin.math.roundToInt
 
 /**
@@ -83,7 +84,10 @@ class CompanionOverlayService : Service() {
             return
         }
 
-        addOverlay(CompanionController(prefs))
+        val controller = CompanionController(prefs)
+        // SR-6: the overlay honours the OS reduced-motion signal exactly like the in-app layer.
+        controller.reducedMotion = systemReducedMotion()
+        addOverlay(controller)
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int = START_NOT_STICKY

@@ -39,5 +39,7 @@ data class AspenDeps(
     val companionPrefsStore: CompanionPrefsStore? = null,
     /** Phase 5: Android overlay hook (docs/05 §6); null on platforms without system overlays. */
     val overlayControl: app.aspen.ui.companion.CompanionOverlayControl? = null,
+    /** Phase 5: check-in scheduling hook (FR-8, off by default); null → row absent. */
+    val notificationsControl: app.aspen.ui.companion.CompanionNotificationsControl? = null,
     val isDebugBuild: Boolean = false,
 )

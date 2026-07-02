@@ -238,4 +238,11 @@
     <string name="settings_overlay_dialog_body">Android will ask you to allow Aspen to “display over other apps”. That only lets the companion sit on your screen — Aspen cannot see, read, or record anything you do there. It hides on its own during videos and games, and you can let it rest anytime.</string>
     <string name="settings_overlay_dialog_confirm">Okay, continue</string>
     <string name="settings_overlay_dialog_cancel">Not now</string>
+
+    <!-- Companion check-in notifications (Phase 5, FR-8/SR-4). Rare, gentle, opt-in. -->
+    <string name="settings_notify_title">A rare hello</string>
+    <string name="settings_notify_subtitle_off">Off. Aspen stays completely silent.</string>
+    <string name="settings_notify_subtitle_on">Once in a while, a gentle hello. Nothing is ever asked of you.</string>
+    <string name="notify_channel_name">Gentle check-ins</string>
+    <string name="notify_channel_description">A quiet hello from your companion, once in a while.</string>
 </resources>
