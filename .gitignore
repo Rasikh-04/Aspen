@@ -14,3 +14,6 @@ captures/
 .DS_Store
 Thumbs.db
 redundant/
+
+# Phase 4: optional on-device ranker model (fetched per-dev, see docs/DEV_SETUP.md §7)
+androidApp/src/main/assets/companion_ranker.tflite

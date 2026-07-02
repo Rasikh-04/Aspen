@@ -52,6 +52,7 @@ import app.aspen.ui.generated.resources.nav_calm
 import app.aspen.ui.generated.resources.nav_home
 import app.aspen.ui.generated.resources.nav_reflect
 import app.aspen.ui.generated.resources.nav_settings
+import app.aspen.ui.debug.CompanionPreviewScreen
 import app.aspen.ui.grounding.BreatheScreen
 import app.aspen.ui.grounding.Ground54321Screen
 import app.aspen.ui.grounding.GroundingChooser
@@ -134,7 +135,13 @@ fun AppScaffold(
                         onReachPerson = { navController.navigate(Routes.SAFETY) },
                     )
                 }
-                composable(Routes.REFLECT) { ReflectScreen(loggingService = deps.loggingService) }
+                composable(Routes.REFLECT) {
+                    ReflectScreen(
+                        loggingService = deps.loggingService,
+                        reflectionCompanion = deps.reflectionCompanion,
+                        onReachSomeone = { navController.navigate(Routes.SAFETY) },
+                    )
+                }
                 composable(Routes.CALM) {
                     GroundingChooser(
                         onBreathe = { navController.navigate(Routes.BREATHE) },
@@ -145,7 +152,31 @@ fun AppScaffold(
                     )
                 }
                 composable(Routes.SETTINGS) {
-                    SettingsScreen(onRevisitQuestions = onRevisitQuestions, loggingService = deps.loggingService)
+                    val canPreview = deps.isDebugBuild && deps.companionVoice != null && deps.appConfigProvider != null
+                    SettingsScreen(
+                        onRevisitQuestions = onRevisitQuestions,
+                        loggingService = deps.loggingService,
+                        consentManager = deps.consentManager,
+                        reflectionCompanion = deps.reflectionCompanion,
+                        onOpenDebugCompanion = if (canPreview) {
+                            { navController.navigate(Routes.DEBUG_COMPANION) }
+                        } else {
+                            null
+                        },
+                    )
+                }
+                composable(Routes.DEBUG_COMPANION) {
+                    val voice = deps.companionVoice
+                    val configProvider = deps.appConfigProvider
+                    if (deps.isDebugBuild && voice != null && configProvider != null) {
+                        CompanionPreviewScreen(
+                            voice = voice,
+                            appConfigProvider = configProvider,
+                            safetyEngine = deps.safetyEngine,
+                            crisisSignals = deps.crisisSignals,
+                            onBack = { navController.popBackStack() },
+                        )
+                    }
                 }
                 composable(Routes.BREATHE) { BreatheScreen(onExit = { navController.popBackStack() }) }
                 composable(Routes.GROUND_54321) { Ground54321Screen(onExit = { navController.popBackStack() }) }

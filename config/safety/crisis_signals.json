@@ -1,0 +1,40 @@
+{
+  "_comment": "Canonical crisis-sign phrase lists (docs/06 §5). Single source of truth; the runtime mirror is DefaultCrisisSignalLexicon (shared/domain), pinned by CrisisSignalLexiconParityTest. CONSERVATIVE, EXPLICIT phrases only — this drives a warm hand-off offer, never a diagnosis or label. Authoritative lists are advisor-supplied (docs/12 §3); this is the reviewed starter (en/de/ur).",
+  "languages": {
+    "en": [
+      "kill myself",
+      "killing myself",
+      "suicide",
+      "suicidal",
+      "end my life",
+      "ending my life",
+      "want to die",
+      "wanted to die",
+      "hurt myself",
+      "hurting myself",
+      "harm myself",
+      "harming myself",
+      "self-harm",
+      "self harm",
+      "don't want to be alive",
+      "do not want to be alive",
+      "better off dead",
+      "end it all"
+    ],
+    "de": [
+      "umbringen",
+      "selbstmord",
+      "suizid",
+      "nicht mehr leben",
+      "mir das leben nehmen",
+      "mich verletzen"
+    ],
+    "ur": [
+      "خودکشی",
+      "مرنا چاہتا",
+      "مرنا چاہتی",
+      "خود کو نقصان"
+    ]
+  },
+  "universal": []
+}

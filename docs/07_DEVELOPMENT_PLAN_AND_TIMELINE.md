@@ -46,6 +46,11 @@ The two **[APPROVE]** gates that need a human (you) are: (1) this whole document
 - **Do:** `:data:ai-local` (curated companion-message library + local personalisation/notifications — `04` ADR-003); `:data:ai-cloud` Claude client + output guard (SR-3) + system prompt + explicit-consent/brief-warning UX; **red-team suite**; graceful offline.
 - **DoD:** red-team suite passes (no eating advice / numbers / appearance / crisis-mishandling escapes either tier); cloud off by default; companion words come from approved library; offline degradation clean.
 - **[APPROVE]** AI behaviour/prompt/guard + companion library reviewed (with clinical advisor).
+- **Scope note (approved 2026-07-02):** notification *phrasing* selection ships in Phase 4
+  (`NOTIFICATION_PHRASING` moment in the library); notification *scheduling/plumbing* is deferred —
+  notifications are off by default (FR-8) and the delivery mechanics land with the companion work in
+  Phase 5. The cloud client is compiled + tested but **not live-wired** (no endpoint/key anywhere);
+  the endpoint/proxy decision is deferred to save cost — tracked in `PRE_SHIP_VERIFICATION.md`.
 
 ### Phase 5 — Companion (in-app shared + Android overlay)
 - **Do:** **in-app companion in shared `:ui`** (works Android + iOS) as the baseline; **`:companion-overlay-android`** system overlay (`SYSTEM_ALERT_WINDOW`, **no AccessibilityService**, Android-only) as enhancement; ambient/playful/suspend states; drag/tap/dismiss; fullscreen-suspend; permission-explainer; battery/frame budgets (`04` §6).

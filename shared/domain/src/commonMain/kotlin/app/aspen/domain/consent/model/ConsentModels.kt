@@ -7,14 +7,16 @@ import kotlin.time.Instant
  * these from the start so a future grant can be scoped precisely without a migration — even though
  * no recipients exist yet in Phase 2.
  */
-enum class DataCategory { REFLECTIONS, FOOD_LOGS, BEHAVIOUR_LOGS, PROFILE, SAFETY_EVENTS }
+enum class DataCategory { REFLECTIONS, FOOD_LOGS, BEHAVIOUR_LOGS, PROFILE, SAFETY_EVENTS, AI_MESSAGES }
 
 /**
  * Who a grant is directed to. Only [SELF_EXPORT] is wired in Phase 2 (used later by export); the
  * clinician/trusted-person types are defined but dormant so linkage later is "issue a grant," not a
- * refactor (docs/08 §4).
+ * refactor (docs/08 §4). [AI_SERVICE] (Phase 4) is the cloud reflection tier (docs/04 ADR-003): the
+ * explicit, revocable, audited consent that gates ANY message leaving the device — reusing this
+ * primitive instead of a bare settings flag so revoke-is-immediate and who-saw-what stay guaranteed.
  */
-enum class RecipientType { LINKED_CLINICIAN, TRUSTED_PERSON, SELF_EXPORT, AFFILIATED_DOCTOR }
+enum class RecipientType { LINKED_CLINICIAN, TRUSTED_PERSON, SELF_EXPORT, AFFILIATED_DOCTOR, AI_SERVICE }
 
 /** A grant's directed recipient (docs/09 §3.1). */
 data class Recipient(

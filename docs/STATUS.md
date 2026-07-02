@@ -2,7 +2,85 @@
 
 _Resume-cold notes. Update at the end of every working session (CLAUDE.md)._
 
-**Phase:** 3 **complete — merged to `main` 2026-07-02** (Dev A: domain/profile/store; Dev B: feature UI, branch `feat/phase3-feature-ui`, her commit authorship preserved as contributor credit). Repo is now public; branches pushed without PRs per current workflow instruction. **Next: Phase 4 (Dev A side to start later).** Phase 2 spine remains built; **strict crisis gate (`crisisGateStrict`) still RED by design** until advisors verify content.
+**Phase:** 4 **built + verified locally 2026-07-02** on three stacked branches:
+`feat/phase4-durable-store` → `feat/phase4-guard-companion` → `feat/phase4-cloud-reflection`
+(merge/push pending review). **`crisisGateStrict` still RED by design** until advisors verify content.
+
+---
+
+## Done (Phase 4 — AI tiers, docs/07 / docs/04 ADR-003 / docs/03 SR-3) — three stacked branches
+
+### ① Durable on-disk encrypted store (`feat/phase4-durable-store`) — closes the Phase-2/3 leftout
+- **`FileEncryptedBlobStore`** (common, fail-safe: load/clear never throw; names are logical ids) over a
+  tiny `BlobFileIo` expect/actual seam. JVM = tmp-dir (dev grade); **Android = `filesDir/aspen_blobs`,
+  atomic temp-then-rename writes, Keystore-encrypted bytes** — profile/logs/consent now survive cold
+  start. `AspenLocalStorage.init(context)` anchors Context at app start (fails fast if missed).
+- **iOS deliberately NOT durable yet:** real file IO is implemented but gated behind
+  `IOS_CIPHER_IS_REAL = false` — the iOS cipher is still a passthrough, and durable files would persist
+  PLAINTEXT. A process-wide in-memory stand-in keeps the no-plaintext-at-rest guarantee (PRE_SHIP §3).
+- DI + `MainActivity` rebound to durable blobs; `DurableConsentBlobStore` adapter for consent.
+
+### ② Guard + companion voice + red-team gate (`feat/phase4-guard-companion`)
+- **`CrisisSignals`** (domain/safety): conservative, heuristic crisis-sign INPUT check — explicit
+  phrases only (en/de/ur starter), boolean hand-off signal, never a label (CLAUDE.md #8/#9);
+  deliberately does not over-trigger on ordinary distress (docs/06 §6.3). Canonical
+  `config/safety/crisis_signals.json` + runtime mirror + parity test.
+- **Consent:** `RecipientType.AI_SERVICE` + `DataCategory.AI_MESSAGES` — cloud AI rides the existing
+  default-deny/revocable/audited primitive ("issue a grant, not a refactor" pays off as designed).
+- **Companion Tier 1** (ADR-003 safety refinement): `CompanionMoment`/`CompanionLine`/`CompanionLibrary`
+  + `CompanionVoice`/`LineRanker` ports (domain); curated **14-line PROVISIONAL library**
+  (`config/companion/library.json` + mirror + parity; copy = UI string keys per docs/12 §3).
+  `LibraryCompanionVoice`: ranker can only REORDER candidates (out-of-set picks discarded, throwing/null
+  → deterministic, total over every moment × tone — all tested).
+- **Android ranker actual:** MediaPipe text-EMBEDDER (~4 MB, NOT generative) over optional
+  `companion_ranker.tflite` asset (fetch guide: docs/DEV_SETUP §7; git-ignored); absent →
+  deterministic. JVM/iOS: null ranker (iOS actual tracked, like the cipher).
+- **Red-team gate:** `config/safety/redteam/corpus.json` (21 adversarial + 5 crisis + 5 benign
+  anti-over-blocking entries) + `RedTeamSuiteTest` in `check`; corpus-shrink protection.
+  `DomainModule.PHASE = 4`.
+
+### ③ Cloud reflection, consent UX, debug preview (`feat/phase4-cloud-reflection`)
+- **`ReflectionCompanion`** (domain/ai) — THE single pipeline (features never touch `AiClient`):
+  consent (default-deny) → crisis-sign check BEFORE anything leaves the device → client →
+  `guardOutput` (withhold + replace; unsafe text never echoed/persisted) → encrypted history.
+  Tested against the REAL consent manager/guard/signals (fakes only at client/store edges).
+- **`ClaudeAiClient`** (Ktor, Messages-API shape) with **injectable `AiEndpointConfig`** — **no key,
+  no endpoint in the repo**; refusal/errors/offline → calm `Unavailable`. **Shipped binding is
+  `DisabledAiClient`** (DI test proves cloud is off by default). Live endpoint = deferred decision
+  (PRE_SHIP §4). `ReflectionSystemPrompt` (revision `draft-2026-07-02`) = advisor-review surface.
+- **`PersistentAiMessageStore`** — encrypted `ai_messages`, fail-safe, FR-11 hard delete (Settings
+  "delete everything" now clears AI history too).
+- **UI:** Settings "Deeper reflection" row issues/revokes the consent grant with the calm ADR-003
+  one-time warning (revoke = instant, no friction); Reflect shows the companion card ONLY while the
+  grant is active (hand-off outcome → validating line + "Reach someone now" → Flow C); **debug-only
+  `CompanionPreviewScreen`** (Settings, debug builds): cycle moments/tones, see chosen line + key,
+  guard/crisis playground. `AspenDeps` extended (domain types only); `MainActivity` builds deps in
+  composition so the guard fallback line stays localized (CLAUDE.md #11).
+- **Strings:** 14 companion lines (en drafts, PROVISIONAL — sensitive surface), AI consent/settings,
+  reflection surface, `safety_ai_fallback`, debug strings. `copyLint` green. ur = English fallback
+  (unchanged pattern).
+
+### Verified locally (Linux — no Xcode; iOS link = CI `macos-14`)
+- ✅ `:shared:domain:jvmTest` (incl. ReflectionCompanion pipeline, CrisisSignals over/under-trigger,
+  red-team suite, parity tests) · `:shared:data:jvmTest` (durable store, AI store, mock-engine client,
+  DI cloud-off-by-default) · `:shared:ui:testAndroidHostTest` · `:buildSrc:test`
+- ✅ `copyLint` (all new strings) · `crisisGate` green / `crisisGateStrict` red by design · no
+  secret/key anywhere (grep) · `:androidApp:assembleDebug` · metadata compiles (iOS configures)
+- Deps: ktor 3.5.1 (3.2.0 has a known Android D8/dexing bug), mediapipe tasks-text 0.10.35,
+  kotlinx-coroutines-test.
+
+### ⚠ Deviations & leftouts (Phase 4 — explicit, per CLAUDE.md)
+- **DEVIATION (ADR-003 "1–3B local model"):** v1 ranker is a ~4 MB text-embedder, NOT generative —
+  approved 2026-07-02; noted in docs/04. Generative local model = later drop-in behind the same ports.
+- **Cloud tier not live-wired** (approved): `DisabledAiClient` binding; endpoint/proxy decision +
+  budget cap deferred (PRE_SHIP §4). No `ai_messages` can leave a device today.
+- **Notification scheduling deferred to Phase 5** (approved; docs/07 Phase-4 scope note) — phrasing
+  moment exists in the library only.
+- **All companion lines + system prompt + crisis-signal phrases are PROVISIONAL drafts** — Phase-4
+  [APPROVE] advisor gate is OPEN (PRE_SHIP §4).
+- **iOS:** ranker + durable storage + cipher all pending (deterministic voice + in-memory store on iOS).
+- **No Compose UI tests for the new surfaces yet** (state logic unit-tested; screen-level tests remain
+  the tracked follow-up from Phase 3).
 
 ---
 

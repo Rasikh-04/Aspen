@@ -38,10 +38,29 @@ Before ship, for **each launch locale**:
 ## 3. Consent persistence / crypto (docs/08 §2)
 - [ ] iOS `ConsentCipher` replaced: Keychain-held key + CryptoKit AES-GCM (currently a passthrough placeholder).
 - [ ] Android Keystore cipher verified on a real device/emulator.
-- [ ] Durable on-disk `ConsentBlobStore` in place (currently in-memory only).
+- [x] Durable on-disk `ConsentBlobStore` in place (Phase 4: `DurableConsentBlobStore` over `FileEncryptedBlobStore`).
 - [ ] Koin started at platform entries; localized `SafetyFallbackCopy` bound; trusted-contact capture + contact dialling wired.
+- [ ] iOS `LocalCipher` replaced (Keychain + CryptoKit); THEN flip `IOS_CIPHER_IS_REAL` in
+      `BlobFileIo.ios.kt` so iOS storage becomes durable (deliberately in-memory until the cipher is real —
+      durable files would persist plaintext).
 
-## 4. Platform / build
+## 4. AI tiers (Phase 4 — docs/04 ADR-003, docs/07 Phase 4 [APPROVE])
+- [ ] **Companion library reviewed by clinically-informed advisors** — every line in
+      `config/companion/library.json` is `PROVISIONAL` (drafts by dev); flip per-language review status
+      only on real sign-off. A language may not ship companion lines unreviewed (docs/12 §3).
+- [ ] **Tier-2 system prompt reviewed by advisors** (`ReflectionSystemPrompt`, revision `draft-2026-07-02`).
+- [ ] **Live cloud endpoint decision** (deferred to save cost): direct-with-proxy vs no cloud at v1. The
+      client is compiled/tested with injectable endpoint+auth; **no key may ever land in the repo/app** —
+      a proxy service holds credentials and the hard monthly budget (docs/03 B.3). Until decided,
+      `DisabledAiClient` stays the binding.
+- [ ] Red-team corpus extended per shipping language (en/de/ur starter today; hi/zh/ar/es pending lexicons).
+- [ ] Crisis-signal phrase lists advisor-reviewed per language (`config/safety/crisis_signals.json`, starter).
+- [ ] Companion ranker model ship decision: bundle vs on-demand download (asset is optional + git-ignored
+      in dev, docs/DEV_SETUP §7); iOS ranker actual (deterministic selector until then).
+- [ ] Notification scheduling (deferred from Phase 4): lands with Phase 5 companion; must stay opt-in,
+      off by default, phrasing only from the reviewed library (SR-4).
+
+## 5. Platform / build
 - [ ] iOS targets compile + link on CI (`macos-14`); Xcode project embeds `Shared.framework`.
 - [ ] Full app QA on Android (and iOS once wired): Flow C reachable ≤2 taps from every screen, calm (no alarm-red), reduced-motion respected.
 - [ ] Re-run the full non-negotiables review (CLAUDE.md ⛔ list) against shipping copy + UI.

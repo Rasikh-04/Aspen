@@ -1,0 +1,104 @@
+{
+  "_comment": "Canonical curated companion-message library (docs/04 ADR-003, docs/05). Single source of truth; runtime mirror is DefaultCompanionLibrary (shared/data), pinned by CompanionLibraryParityTest. Keys map to localized UI string resources — user-facing copy NEVER lives here. ranking_hint is non-user-facing selector input. ALL lines PROVISIONAL until advisor review (docs/07 Phase 4 [APPROVE]); a language may not ship unreviewed (docs/12 §3).",
+  "all_tones": ["GENTLE_NEUTRAL", "RESTRICTION_SENSITIVE", "SELF_COMPASSION", "POST_DISTRESS", "SENSORY_AWARE"],
+  "lines": [
+    {
+      "key": "companion_greeting_here",
+      "moment": "GREETING",
+      "tones": "all",
+      "ranking_hint": "quiet hello, simply present, no demand",
+      "review": { "en": "PROVISIONAL" }
+    },
+    {
+      "key": "companion_greeting_company",
+      "moment": "GREETING",
+      "tones": "all",
+      "ranking_hint": "gentle offer of company if wanted",
+      "review": { "en": "PROVISIONAL" }
+    },
+    {
+      "key": "companion_greeting_soft",
+      "moment": "GREETING",
+      "tones": ["SELF_COMPASSION", "POST_DISTRESS", "GENTLE_NEUTRAL"],
+      "ranking_hint": "soft warm acknowledgement of showing up today",
+      "review": { "en": "PROVISIONAL" }
+    },
+    {
+      "key": "companion_hard_sit_together",
+      "moment": "HARD_MOMENT_COMPANY",
+      "tones": "all",
+      "ranking_hint": "offer to sit together through a hard moment",
+      "review": { "en": "PROVISIONAL" }
+    },
+    {
+      "key": "companion_hard_no_fixing",
+      "moment": "HARD_MOMENT_COMPANY",
+      "tones": ["GENTLE_NEUTRAL", "SELF_COMPASSION", "RESTRICTION_SENSITIVE"],
+      "ranking_hint": "quiet validating presence without fixing or questions",
+      "review": { "en": "PROVISIONAL" }
+    },
+    {
+      "key": "companion_hard_reach_someone",
+      "moment": "HARD_MOMENT_COMPANY",
+      "tones": "all",
+      "ranking_hint": "offer the route to a real person right now",
+      "review": { "en": "PROVISIONAL" }
+    },
+    {
+      "key": "companion_hard_passing",
+      "moment": "HARD_MOMENT_COMPANY",
+      "tones": ["POST_DISTRESS", "SELF_COMPASSION"],
+      "ranking_hint": "hard moments pass like weather, staying nearby meanwhile",
+      "review": { "en": "PROVISIONAL" }
+    },
+    {
+      "key": "companion_ground_breathe",
+      "moment": "GROUNDING_INVITE",
+      "tones": "all",
+      "ranking_hint": "invite to one slow minute of breathing together",
+      "review": { "en": "PROVISIONAL" }
+    },
+    {
+      "key": "companion_ground_senses",
+      "moment": "GROUNDING_INVITE",
+      "tones": ["SENSORY_AWARE", "GENTLE_NEUTRAL"],
+      "ranking_hint": "invite to gently notice the room and senses",
+      "review": { "en": "PROVISIONAL" }
+    },
+    {
+      "key": "companion_ground_write",
+      "moment": "GROUNDING_INVITE",
+      "tones": ["GENTLE_NEUTRAL", "SELF_COMPASSION"],
+      "ranking_hint": "invite to put the feeling into words in the notebook",
+      "review": { "en": "PROVISIONAL" }
+    },
+    {
+      "key": "companion_ambient_here_if_needed",
+      "moment": "RETURN_TO_AMBIENT",
+      "tones": "all",
+      "ranking_hint": "returning to quiet, available anytime, no follow-up",
+      "review": { "en": "PROVISIONAL" }
+    },
+    {
+      "key": "companion_ambient_no_followup",
+      "moment": "RETURN_TO_AMBIENT",
+      "tones": "all",
+      "ranking_hint": "settling nearby without asking anything",
+      "review": { "en": "PROVISIONAL" }
+    },
+    {
+      "key": "companion_notify_gentle_checkin",
+      "moment": "NOTIFICATION_PHRASING",
+      "tones": "all",
+      "ranking_hint": "rare gentle optional check-in with zero pressure",
+      "review": { "en": "PROVISIONAL" }
+    },
+    {
+      "key": "companion_notify_tools_nearby",
+      "moment": "NOTIFICATION_PHRASING",
+      "tones": "all",
+      "ranking_hint": "calm reminder that the quiet tools exist, no urgency",
+      "review": { "en": "PROVISIONAL" }
+    }
+  ]
+}
