@@ -6,6 +6,10 @@ plugins {
     alias(libs.plugins.android.library) apply false
     alias(libs.plugins.android.kmp.library) apply false
     alias(libs.plugins.kotlin.multiplatform) apply false
+    // Root-level `apply false` is required for :server: Kotlin is already on the build classpath
+    // (multiplatform above), and a versioned nested `alias` would fail to resolve (same pattern
+    // as the Phase-5 com.android.library note).
+    alias(libs.plugins.kotlin.jvm) apply false
     alias(libs.plugins.compose) apply false
     alias(libs.plugins.compose.compiler) apply false
     alias(libs.plugins.kover) apply false

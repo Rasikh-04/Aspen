@@ -73,10 +73,8 @@ Aspen is a **free, text-first, Android-first (iOS to follow) between-session sup
 7. **Localization (NEW):** 7 languages from first release — **English (default/worldwide), Urdu, German, Mandarin, Hindi, Arabic, Spanish** — auto-selected by system default. First-class requirement, RTL from day one. (`docs/12`)
 8. **Crisis registry & questionnaire drafts (NEW):** initial research-grounded drafts produced (`docs/10`, `docs/11`) — numbers `⚠VERIFY`, questionnaire pending clinical sign-off; both to be localised + culturally adapted per region.
 9. **Phase order update (2026-07-03):** Phase 5.5 (companion refinement, incl. Phase-5 leftouts) **postponed until after Phase 6**; new **Phase 6.6 — UI design pass** (team's targeted fix list) added between Phase 6 and Phase 5.5/7. (`07` §2)
-
-## One open sub-decision
-
-- **E2E recovery mechanism** — recovery code vs. device-to-device key transfer vs. both (`08` §2). The only real UX consequence of choosing E2E; better decided before build.
+10. **E2E recovery mechanism (2026-07-03):** **recovery code** (once-shown, device-generated) for the data key, **plus email-based account recovery when an email is attached** — with the honest-copy rule that an email reset restores *login only*, never the data key. (`08` §2)
+11. **AI routing + provider-agnostic API (2026-07-03):** the app never calls a model vendor directly — all Tier-2 calls go through the **Aspen server's stateless relay**; provider/model/key/system-prompt are **server env config**, with two adapter shapes (Anthropic Messages + OpenAI-compatible) covering any model. The Phase-4 direct-from-device `ClaudeAiClient` is retired in the Phase-6 client slice. New **Phase 6.9 — account layering & cloud maturity** holds Google/Apple sign-in and the related deferrals. (`07` §2, `08` §1–2)
 
 ## Next: Phase 2 spec is ready
 
