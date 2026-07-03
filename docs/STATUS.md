@@ -2,10 +2,39 @@
 
 _Resume-cold notes. Update at the end of every working session (CLAUDE.md)._
 
-**Phase:** 5 **built + verified locally 2026-07-03** on three stacked branches:
-`feat/phase5-companion-core` → `feat/phase5-overlay-android` → `feat/phase5-notifications-reduced-motion`
-(merge/push pending review; commits authored by Tabeen-Bokhat-04). **`crisisGateStrict` still RED by
-design** until advisors verify content.
+**Phase:** 5 **merged to main 2026-07-03**. **Phase order changed 2026-07-03 (team decision,
+docs/00 decision #9, docs/07 §2):** Phase 5.5 (companion refinement + Phase-5 leftouts)
+**postponed until after Phase 6**; new **Phase 6.6 — UI design pass** added after Phase 6 (the
+team's specific fix list, to be written before it starts). **Phase 6 is next but NOT started.**
+**`crisisGateStrict` still RED by design** until advisors verify content.
+
+---
+
+## Done (interim, 2026-07-03 — i18n language setting, docs/12 §4) — `feat/i18n-language-setting`
+
+Between-phase task: the i18n plumbing existed (resolver, RTL, `values-ur` stub) but nothing fed
+`LocaleProvider(override=…)` — no Settings row, no persistence, and compose-resources strings
+followed only the device locale. Now:
+
+- **`LanguagePrefStore`** (domain/i18n port) + encrypted fail-safe **`PersistentLanguagePrefStore`**
+  (`language_pref` blob; unreadable/unknown code → null → follow the device — a storage fault can
+  never pin a wrong language). DI binding in `localStoreModule`; wired in `MainActivity`.
+- **Settings → "Language"** chips: **Match my device / English / اردو** (row absent when the store
+  isn't wired, e.g. iOS entry). Only languages that HAVE string resources are offered; the other
+  five join as their native-reviewed files land (CLAUDE.md #11).
+- **`applyLanguageOverride` expect/actual** (LocaleBridge): compose-resources' environment is not
+  app-overridable in CMP 1.11 (`ResourceEnvironment` ctor is internal — a
+  `LocalComposeEnvironment` attempt was abandoned), so the override sets the **process default
+  locale on Android/JVM**; the REAL device tag is captured first so "match my device" restores
+  truth. **iOS actual = documented no-op** (store not wired on the iOS entry yet; LocalAppLanguage
+  + RTL still follow the choice there).
+- **Strings:** `settings_language_label` has real Urdu (**زبان** — needs no clinical review);
+  language names are endonyms (identical across locale files). All other ur strings remain English
+  placeholders pending native ED-informed review (unchanged leftout).
+- **Verified:** domain/data/core-common jvmTest + ui host tests (6 new store tests, 3 locale-bridge
+  tests) · `copyLint` · `crisisGate` · `:androidApp:assembleDebug` · iosArm64 compiles (new actual).
+- **Leftout:** live in-app switch re-renders shared-UI strings; the Android overlay/notification
+  module's own `res/` strings still follow the OS locale (fine — they're OS-surface copy).
 
 ---
 
@@ -76,6 +105,8 @@ design** until advisors verify content.
 ### Phase 5.5 reserved — companion refinement (docs/07)
 - Placeholder phase added 2026-07-03; **scope TBD by the team** before it starts. The Phase-5
   deferrals below are listed there as candidates.
+- **Postponed 2026-07-03:** runs after Phase 6 and the new Phase 6.6 UI design pass (docs/07 §2,
+  docs/00 decision #9).
 
 ### ⚠ Deviations & leftouts (Phase 5 — explicit, per CLAUDE.md)
 - **DEVIATION (docs/05 §5 art):** procedural pixel-art instead of soft-round vector — approved

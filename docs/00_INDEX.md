@@ -72,6 +72,7 @@ Aspen is a **free, text-first, Android-first (iOS to follow) between-session sup
 6. **Clinical sign-off:** everything manually checked and signed off by advisors before shipping; questionnaire + logging tailored as carefully as possible.
 7. **Localization (NEW):** 7 languages from first release — **English (default/worldwide), Urdu, German, Mandarin, Hindi, Arabic, Spanish** — auto-selected by system default. First-class requirement, RTL from day one. (`docs/12`)
 8. **Crisis registry & questionnaire drafts (NEW):** initial research-grounded drafts produced (`docs/10`, `docs/11`) — numbers `⚠VERIFY`, questionnaire pending clinical sign-off; both to be localised + culturally adapted per region.
+9. **Phase order update (2026-07-03):** Phase 5.5 (companion refinement, incl. Phase-5 leftouts) **postponed until after Phase 6**; new **Phase 6.6 — UI design pass** (team's targeted fix list) added between Phase 6 and Phase 5.5/7. (`07` §2)
 
 ## One open sub-decision
 
