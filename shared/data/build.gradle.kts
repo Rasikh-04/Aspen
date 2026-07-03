@@ -22,6 +22,8 @@ kotlin {
         commonMain.dependencies {
             api(project(":shared:domain"))
             implementation(project(":shared:core-common"))
+            // Aspen server wire contract (Phase 6) — same DTO module the :server routes use.
+            implementation(project(":shared:server-api"))
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.koin.core)
             // Tier-2 cloud client transport (docs/04 ADR-003). Engine-less on purpose: no live

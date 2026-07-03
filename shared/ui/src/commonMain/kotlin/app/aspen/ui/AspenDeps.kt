@@ -45,4 +45,6 @@ data class AspenDeps(
     val isDebugBuild: Boolean = false,
     /** UI-language override store (docs/12 §4). Null → the Settings language row is absent. */
     val languagePrefStore: LanguagePrefStore? = null,
+    /** Phase 6: the optional Aspen-native account (docs/08 §1). Null → the Settings row is absent. */
+    val accountManager: app.aspen.domain.account.AccountManager? = null,
 )

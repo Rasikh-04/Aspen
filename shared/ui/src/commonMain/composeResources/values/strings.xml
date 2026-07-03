@@ -253,4 +253,30 @@
     <string name="settings_notify_subtitle_on">Once in a while, a gentle hello. Nothing is ever asked of you.</string>
     <string name="notify_channel_name">Gentle check-ins</string>
     <string name="notify_channel_description">A quiet hello from your companion, once in a while.</string>
+
+    <!-- Optional account (Phase 6, docs/08 §1, FR-9). Quiet, Settings-only, gates nothing. -->
+    <string name="settings_account_title">An account (optional)</string>
+    <string name="settings_account_subtitle_off">Everything works without one. An account only adds the choice to back up later.</string>
+    <string name="settings_account_subtitle_on">Signed in. Your writing still lives on this device.</string>
+    <string name="account_mode_create">Create</string>
+    <string name="account_mode_signin">Sign in</string>
+    <string name="account_email_optional">Email (optional, helps you recover sign-in)</string>
+    <string name="account_identifier">Email or account ID</string>
+    <string name="account_password">Password</string>
+    <string name="account_submit_create">Create account</string>
+    <string name="account_submit_signin">Sign in</string>
+    <string name="account_note_local">Your writing stays on this device either way.</string>
+    <string name="account_id_caption">Account ID (your way back in if no email is attached): %1$s</string>
+    <string name="account_error_denied">That didn\'t match. Take your time and try again whenever.</string>
+    <string name="account_error_email_taken">That email already has an account. You can sign in instead.</string>
+    <string name="account_error_weak_password">A longer password is needed here.</string>
+    <string name="account_error_unavailable">Aspen couldn\'t reach the server just now. Everything on this device is unaffected.</string>
+    <string name="account_signout">Sign out</string>
+    <string name="account_signout_subtitle">Ends the session on this device. Your writing stays.</string>
+    <string name="account_delete">Delete this account</string>
+    <string name="account_delete_subtitle">Removes the account and anything backed up. Writing on this device stays.</string>
+    <string name="account_delete_dialog_title">Delete this account?</string>
+    <string name="account_delete_dialog_body">The account and anything backed up to it will be permanently removed. Everything written on this device stays here, untouched.</string>
+    <string name="account_delete_confirm">Delete the account</string>
+    <string name="account_delete_cancel">Keep it</string>
 </resources>

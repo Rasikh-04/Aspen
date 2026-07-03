@@ -43,11 +43,43 @@ email-attached account recovery (login only, never the data key)** (docs/00 #10,
   domain/data jvmTest regression · `:shared:server-api` compiles JVM + iosArm64 · secret grep
   clean. Gradle gotcha: `kotlin-jvm` alias needs root `apply false`; KMP jvm() must pin
   `jvmTarget 17` or the server toolchain can't load its classes.
-- **Left for slice ② (`feat/phase6-app-clients`):** `AspenServerAiClient` + account/sync clients
-  in `:shared:data` (passphrase→key on device, encrypt-before-upload), retire `ClaudeAiClient`,
-  Settings account/sync UX + key-model disclosure + recovery-code once-shown copy (en + ur
-  fallback). Slice ③: a11y/privacy audit pass. Dev-only mailer logs recovery tokens to console
-  (real mail = Phase 6.9); server deployment/hosting deferred (Phase 6.9).
+- ~~Left for slice ②~~ **done below.** Slice ③: a11y/privacy audit pass. Dev-only mailer logs
+  recovery tokens to console (real mail = Phase 6.9); server deployment/hosting deferred (6.9).
+
+## Done (Phase 6 — slice ②: app clients + optional account UI) — `feat/phase6-app-clients` (2026-07-03)
+
+The app-side half: login/register is now REAL (Settings-only, per FR-9/#10 — deliberately NOT
+offered after onboarding; team may add a soft mention via the 6.6 fix list if wanted).
+
+- **`AccountManager`** (domain/account, port): current/register/signIn/signOut/deleteAccount;
+  total + calm (`AccountResult` incl. `Unavailable` for offline). **`ServerAccountManager`**
+  (data/account) over the slice-① endpoints; errors map by machine code only (copy stays in UI
+  resources, #11); password exists only in transit; **`PersistentSessionStore`** (encrypted
+  `account_session` blob, fail-safe: unreadable → signed OUT, never in). Delete-account keeps the
+  local session unless the server purge SUCCEEDED (user can retry; no orphaned ciphertext).
+- **`AspenServerAiClient`** replaces the retired `ClaudeAiClient` (+ app-side
+  `ReflectionSystemPrompt` deleted — server holds it now): speaks Aspen's own wire shape
+  (`:shared:server-api`), bearer = session token, **no vendor key/shape on the device**; no URL or
+  no session ⇒ `Disabled` with zero network (tested); 401/error/offline ⇒ calm `Unavailable`.
+  `DisabledAiClient` remains the DI default — Koin graph unchanged, cloud still off by default.
+  ReflectionCompanion pipeline untouched (consent → crisis → client → guard, #8).
+- **Settings → "An account (optional)"** (`AccountSection`): quiet card → Create (email optional)
+  / Sign in (email or account id) with warm single-line fields; signed-in shows the **account id**
+  (the way back in when no email is attached); Sign out; Delete account (confirm dialog, amber,
+  copy states on-device writing is untouched). Calm error lines; no feature gates on any of it.
+- **Wiring:** `MainActivity` — debug builds point at `http://10.0.2.2:8080` (emulator loopback;
+  debug-manifest `usesCleartextTraffic`), **release has NO URL ⇒ account row absent + AI Disabled
+  (release behaviour = exactly Phase 4)**. `INTERNET` permission added (manifest comment: no
+  analytics/background egress; nothing leaves without account/AI opt-in). One shared ktor CIO
+  client at the entry; `:shared:data` stays engine-less.
+- **Verified:** `:shared:data:jvmTest` (10 new: account manager register/persist-encrypted/
+  error-codes/offline/sign-out-clears/delete-only-on-success + AI client disabled-no-network/
+  wire-shape/degradations) · domain/ui suites · `assembleDebug` · data+ui `compileKotlinIosArm64` ·
+  `copyLint` (24 new strings) · `crisisGate` green.
+- **Leftouts (explicit):** **sync E2E client is slice ②b** (passphrase→KDF, encrypt-before-upload,
+  recovery-code once-shown UX, key-model disclosure copy — docs/08 §2); "forgot password" UI
+  (server endpoint exists, no app surface yet); iOS entry deps still null ⇒ row absent on iOS;
+  ur strings = English fallback (pattern unchanged); no Compose screen tests (tracked since P3).
 
 ---
 

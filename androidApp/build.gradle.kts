@@ -51,4 +51,8 @@ dependencies {
     implementation(compose.runtime)
     implementation(compose.foundation)
     implementation(compose.material3)
+    // Phase 6: transport for the optional account + server-routed AI (docs/00 #11). The entry
+    // constructs the HttpClient; :shared:data stays engine-less (tests inject MockEngine).
+    implementation(libs.ktor.client.core)
+    implementation(libs.ktor.client.cio)
 }

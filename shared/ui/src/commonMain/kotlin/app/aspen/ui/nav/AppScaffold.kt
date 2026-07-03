@@ -181,6 +181,7 @@ fun AppScaffold(
                         companion = if (deps.companionPrefsStore != null) companion else null,
                         overlayControl = deps.overlayControl,
                         notificationsControl = deps.notificationsControl,
+                        accountManager = deps.accountManager,
                         onOpenDebugCompanion = if (canPreview) {
                             { navController.navigate(Routes.DEBUG_COMPANION) }
                         } else {
