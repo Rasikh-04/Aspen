@@ -76,10 +76,42 @@ offered after onboarding; team may add a soft mention via the 6.6 fix list if wa
   error-codes/offline/sign-out-clears/delete-only-on-success + AI client disabled-no-network/
   wire-shape/degradations) · domain/ui suites · `assembleDebug` · data+ui `compileKotlinIosArm64` ·
   `copyLint` (24 new strings) · `crisisGate` green.
-- **Leftouts (explicit):** **sync E2E client is slice ②b** (passphrase→KDF, encrypt-before-upload,
-  recovery-code once-shown UX, key-model disclosure copy — docs/08 §2); "forgot password" UI
-  (server endpoint exists, no app surface yet); iOS entry deps still null ⇒ row absent on iOS;
-  ur strings = English fallback (pattern unchanged); no Compose screen tests (tracked since P3).
+- **Leftouts (explicit):** "forgot password" UI (server endpoint exists, no app surface yet);
+  iOS entry deps still null ⇒ row absent on iOS; ur strings = English fallback (pattern
+  unchanged); no Compose screen tests (tracked since P3).
+
+## Done (Phase 6 — slice ②b: E2E backup/restore) — `feat/phase6-app-clients` (2026-07-03)
+
+True-E2E backup per docs/08 §2, with both decided recovery paths (docs/00 #10).
+
+- **`BackupManager`** (domain/sync port): isConfigured / enable / backUpNow / restore / disable —
+  total, calm outcomes. **`ServerBackupManager`** (data/sync): random data key **K** seals the
+  payload; K travels only **wrapped twice** — under the passphrase-derived key AND under the
+  once-shown recovery-code-derived key (both PBKDF2-HMAC-SHA256 600k + AES-256-GCM) — so either
+  secret restores, neither is derivable from the blob, and the server holds ONLY the
+  `SyncEnvelope` ciphertext. K persists locally sealed by the DEVICE cipher ("back up now" needs
+  no retyping); local key is forgotten only after the server copy is confirmed gone (disable
+  mirrors delete-account semantics). Recovery code: ~100-bit Crockford-style
+  XXXXX-XXXXX-XXXXX-XXXXX, typo-forgiving normalization.
+- **`SyncCrypto` expect/actual** (NEW seam, distinct from LocalCipher because backup must open on
+  a DIFFERENT device): jvm+android = javax.crypto; **iOS actual = null ⇒ feature absent** (a
+  passthrough would upload plaintext — same placeholder policy as the cipher, PRE_SHIP §3).
+- **What syncs:** content only — `profile`, `logs`, `ai_messages` blobs via `LocalStoreBundle`
+  (decrypt with device key → bundle → seal with K; restore re-encrypts under the new device's
+  key). Consent grants, sessions, companion/language prefs stay device-scoped on purpose.
+- **UI (`BackupSection`, signed-in only):** enable with passphrase (key-model note: "locked before
+  it leaves your phone… we can never unlock it for you") → **recovery code shown ONCE** with
+  honest copy (email reset restores sign-in, never the backup); manual "Back up now" (no
+  background sync, docs/04 §6); restore field takes passphrase or code; turn-off deletes the
+  server copy (amber confirm; device writing untouched). 27 new en strings; ur falls back.
+- **Verified:** `:shared:data:jvmTest` (8 new: seal/open totality, code format+normalization,
+  ciphertext-only upload proof, cross-"device" restore via passphrase AND via sloppily-typed
+  code, wrong-secret/no-backup/offline, weak-passphrase, disable purge) · ui host tests ·
+  `assembleDebug` · data+ui iosArm64 compile · `copyLint` · `crisisGate`.
+- **Leftouts:** "forgot password" app surface; **iOS SyncCrypto + LocalCipher actuals** (one
+  CryptoKit task, PRE_SHIP §3); passphrase change = disable+re-enable for now (documented UX gap,
+  fine for v1); restore does not merge (it overwrites the three content blobs — acceptable v1,
+  revisit with multi-device in 6.9).
 
 ---
 

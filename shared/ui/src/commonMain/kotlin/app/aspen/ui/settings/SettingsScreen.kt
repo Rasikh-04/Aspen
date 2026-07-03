@@ -100,6 +100,7 @@ fun SettingsScreen(
     notificationsControl: CompanionNotificationsControl? = null,
     onOpenDebugCompanion: (() -> Unit)? = null,
     accountManager: app.aspen.domain.account.AccountManager? = null,
+    backupManager: app.aspen.domain.sync.BackupManager? = null,
 ) {
     var confirmDelete by remember { mutableStateOf(false) }
     var confirmAiEnable by remember { mutableStateOf(false) }
@@ -244,7 +245,7 @@ fun SettingsScreen(
         if (accountManager != null) {
             // Phase 6 (docs/08 §1, FR-9): the optional account lives ONLY here — quiet,
             // discovered rather than proposed, and gating nothing (CLAUDE.md #10).
-            AccountSection(accountManager)
+            AccountSection(accountManager, backupManager)
         }
         if (loggingService != null) {
             SettingRow(

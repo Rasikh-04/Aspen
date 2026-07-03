@@ -60,7 +60,7 @@ import org.jetbrains.compose.resources.stringResource
  * Deleting the account uses soft amber and never touches on-device writing (CLAUDE.md #5).
  */
 @Composable
-fun AccountSection(manager: AccountManager) {
+fun AccountSection(manager: AccountManager, backupManager: app.aspen.domain.sync.BackupManager? = null) {
     val scope = rememberCoroutineScope()
     var revision by remember { mutableStateOf(0) }
     val current = remember(revision) { manager.current() }
@@ -118,11 +118,11 @@ fun AccountSection(manager: AccountManager) {
                 )
             }
             if (createMode) {
-                AccountField(email, { email = it }, Res.string.account_email_optional)
+                AccountSectionField(email, { email = it }, Res.string.account_email_optional)
             } else {
-                AccountField(identifier, { identifier = it }, Res.string.account_identifier)
+                AccountSectionField(identifier, { identifier = it }, Res.string.account_identifier)
             }
-            AccountField(password, { password = it }, Res.string.account_password, isPassword = true)
+            AccountSectionField(password, { password = it }, Res.string.account_password, isPassword = true)
             error?.let {
                 Text(
                     stringResource(it),
@@ -212,6 +212,11 @@ fun AccountSection(manager: AccountManager) {
                 color = AspenTheme.colors.textSecondary,
             )
         }
+        if (backupManager != null) {
+            // E2E backup (docs/08 §2) — only meaningful once signed in; absent on iOS until its
+            // sync-crypto actual lands (a passthrough would upload readable content).
+            BackupSection(backupManager)
+        }
     }
 
     if (confirmDelete) {
@@ -245,7 +250,7 @@ fun AccountSection(manager: AccountManager) {
 
 /** Single-line sibling of the Reflect notebook field — same warm styling, never a stark form. */
 @Composable
-private fun AccountField(
+internal fun AccountSectionField(
     value: String,
     onValueChange: (String) -> Unit,
     placeholder: StringResource,

@@ -16,6 +16,9 @@ import androidx.compose.runtime.remember
 import app.aspen.data.account.PersistentSessionStore
 import app.aspen.data.account.ServerAccountManager
 import app.aspen.data.ai.PersistentAiMessageStore
+import app.aspen.data.sync.LocalStoreBundle
+import app.aspen.data.sync.ServerBackupManager
+import app.aspen.data.sync.platformSyncCrypto
 import app.aspen.data.ai.cloud.AspenServerAiClient
 import app.aspen.data.ai.cloud.DisabledAiClient
 import app.aspen.data.ai.local.LibraryCompanionVoice
@@ -173,6 +176,28 @@ class MainActivity : ComponentActivity() {
             DisabledAiClient // No server configured: cloud provably never touches the network.
         }
 
+        // E2E backup (docs/08 §2): key derived on-device; server sees ciphertext only. Same
+        // debug-only gating as the account itself; null crypto (never on Android) would hide it.
+        val backupManager = if (accountManager != null && serverBaseUrl != null) {
+            platformSyncCrypto()?.let { crypto ->
+                ServerBackupManager(
+                    baseUrl = serverBaseUrl,
+                    sessionToken = { accountManager.sessionToken() },
+                    http = http!!,
+                    crypto = crypto,
+                    localCipher = cipher,
+                    bundle = LocalStoreBundle(
+                        cipher,
+                        LocalStoreBundle.CONTENT_STORE_NAMES.associateWith { FileEncryptedBlobStore(it) },
+                    ),
+                    keyBlob = FileEncryptedBlobStore("sync_key"),
+                    metaBlob = FileEncryptedBlobStore("sync_meta"),
+                )
+            }
+        } else {
+            null
+        }
+
         val reflectionCompanion = ReflectionCompanion(
             consent = consentManager,
             client = aiClient,
@@ -198,6 +223,7 @@ class MainActivity : ComponentActivity() {
             isDebugBuild = isDebug,
             languagePrefStore = PersistentLanguagePrefStore(cipher, FileEncryptedBlobStore("language_pref")),
             accountManager = accountManager,
+            backupManager = backupManager,
         )
     }
 }

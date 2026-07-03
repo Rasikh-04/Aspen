@@ -47,4 +47,6 @@ data class AspenDeps(
     val languagePrefStore: LanguagePrefStore? = null,
     /** Phase 6: the optional Aspen-native account (docs/08 §1). Null → the Settings row is absent. */
     val accountManager: app.aspen.domain.account.AccountManager? = null,
+    /** Phase 6: E2E backup (docs/08 §2). Null → backup UI absent (e.g. iOS, or signed out). */
+    val backupManager: app.aspen.domain.sync.BackupManager? = null,
 )
