@@ -9,6 +9,7 @@ import app.aspen.data.consent.DurableConsentBlobStore
 import app.aspen.data.consent.PersistentConsentStore
 import app.aspen.data.consent.platformConsentCipher
 import app.aspen.data.crisis.CrisisRegistryRepo
+import app.aspen.data.i18n.PersistentLanguagePrefStore
 import app.aspen.data.local.FileEncryptedBlobStore
 import app.aspen.data.local.LocalCipher
 import app.aspen.data.local.platformLocalCipher
@@ -22,6 +23,7 @@ import app.aspen.domain.companion.CompanionPrefsStore
 import app.aspen.domain.consent.ConsentManager
 import app.aspen.domain.consent.ConsentStore
 import app.aspen.domain.consent.DefaultConsentManager
+import app.aspen.domain.i18n.LanguagePrefStore
 import app.aspen.domain.logging.LoggingService
 import app.aspen.domain.logging.LoggingStore
 import app.aspen.domain.onboarding.AppConfigProvider
@@ -89,6 +91,8 @@ val consentModule: Module = module {
 val localStoreModule: Module = module {
     single<LocalCipher> { platformLocalCipher() }
     single<ProfileStore> { PersistentProfileStore(get(), FileEncryptedBlobStore("profile")) }
+    // UI-language override (docs/12 §4). Language only — never a source for crisis region (docs/12 §6).
+    single<LanguagePrefStore> { PersistentLanguagePrefStore(get(), FileEncryptedBlobStore("language_pref")) }
     single { AppConfigProvider(get()) }
     single<LoggingStore> { PersistentLoggingStore(get(), FileEncryptedBlobStore("logs")) }
     single {

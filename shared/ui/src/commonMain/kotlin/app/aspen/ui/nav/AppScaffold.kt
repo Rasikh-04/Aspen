@@ -42,6 +42,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import app.aspen.core.i18n.SupportedLanguage
 import app.aspen.design.AspenTheme
 import app.aspen.design.LocalReducedMotion
 import app.aspen.design.components.AspenAmbientBackground
@@ -85,6 +86,8 @@ fun AppScaffold(
     startAtSafety: Boolean = false,
     onConsumedStart: () -> Unit = {},
     onRevisitQuestions: () -> Unit = {},
+    languageOverride: SupportedLanguage? = null,
+    onLanguageChange: ((SupportedLanguage?) -> Unit)? = null,
 ) {
     val navController = rememberNavController()
     val tabs = listOf(
@@ -170,6 +173,8 @@ fun AppScaffold(
                     val canPreview = deps.isDebugBuild && deps.companionVoice != null && deps.appConfigProvider != null
                     SettingsScreen(
                         onRevisitQuestions = onRevisitQuestions,
+                        languageOverride = languageOverride,
+                        onLanguageChange = onLanguageChange,
                         loggingService = deps.loggingService,
                         consentManager = deps.consentManager,
                         reflectionCompanion = deps.reflectionCompanion,

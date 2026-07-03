@@ -58,7 +58,9 @@ The two **[APPROVE]** gates that need a human (you) are: (1) this whole document
 - **[APPROVE]** companion spec before build; **user-validation gate** (`05` §8) before wide release.
 
 ### Phase 5.5 — Companion refinement *(placeholder — scope TBD by the team)*
-- **Status:** reserved 2026-07-03 at Phase-5 close; details to be filled in before it starts.
+- **Status:** reserved 2026-07-03 at Phase-5 close; **postponed 2026-07-03 (team decision):
+  runs after Phase 6 and the Phase-6.6 UI design pass**, not before. It still carries the
+  Phase-5 deferrals below; details to be filled in before it starts.
 - **Candidate items** (the deliberate Phase-5 deferrals, docs/STATUS.md — a menu, not a commitment):
   fling-to-edge dismiss + configurable double-tap gestures (docs/05 §4); optional floating summon
   button; hide-behind-icons z-order illusions; dog/owl/panda species (same pixel-map format);
@@ -71,6 +73,15 @@ The two **[APPROVE]** gates that need a human (you) are: (1) this whole document
 ### Phase 6 — Accounts, optional cloud sync, hardening, a11y, privacy
 - **Do:** app-native accounts + layerable auth (`08` §1); optional cloud sync with chosen key model (`08` §2); full a11y audit (**Android + iOS**); privacy review; performance gating; copy review.
 - **DoD:** anonymous still fully works; account/auth flows pass; key-model disclosed plainly; WCAG 2.2 AA-equivalent on both platforms; privacy review signed off.
+
+### Phase 6.6 — UI design pass *(added 2026-07-03)*
+- **Do:** targeted UI design fixes across the existing surfaces (the specific fix list is owned by
+  the team and to be written before start); visual polish only, inside the non-negotiables (calm
+  palette, soft amber never alarm red, presence not metrics, reduced-motion parity); **no new
+  feature surfaces** — anything feature-shaped belongs to its own phase.
+- **DoD:** TBD with the fix list; a11y and reduced-motion not regressed; copy-lint and all
+  verification gates stay green on both targets.
+- **[APPROVE]** the fix list before build.
 
 ### Phase 7 — Clinical review, closed beta, Android launch
 - **Do:** clinical/advisor review (US + PK) of all safety flows, questionnaire, logging rules, copy; closed beta **with people in recovery** (companion + questionnaire + logging validation); fix; Play Store listing (honest positioning); donation surface.
@@ -99,8 +110,9 @@ Since there's no fixed deadline, this is expressed as **relative effort bands** 
 | 3 — Onboarding + Grounding + Reflection/Logging | ~4–6 weeks | questionnaire + adaptive logging needs advisor gate |
 | 4 — AI tiers | ~2–3 weeks | mostly guard + library + red-team |
 | 5 — Companion (in-app + Android overlay) | ~3–5 weeks | deepest; OEM testing; in-app is shared |
-| 5.5 — Companion refinement | TBD | placeholder (reserved 2026-07-03); scope to be defined |
+| 5.5 — Companion refinement | TBD | postponed 2026-07-03: runs after 6.6; scope to be defined |
 | 6 — Accounts/sync + hardening/a11y/privacy | ~3–4 weeks | both-platform a11y; key-model UX |
+| 6.6 — UI design pass | TBD | added 2026-07-03; team's fix list to be written before start |
 | 7 — Clinical review + beta + Android launch | ~3–4 weeks + advisor/beta calendar | gated by external people |
 | 8 — iOS polish & launch | ~3–5 weeks | CMP iOS native-feel + a11y pass |
 

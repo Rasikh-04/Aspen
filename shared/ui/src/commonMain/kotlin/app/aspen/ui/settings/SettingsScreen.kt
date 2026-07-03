@@ -20,6 +20,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
+import app.aspen.core.i18n.SupportedLanguage
 import app.aspen.design.AspenTheme
 import app.aspen.design.components.AspenCard
 import app.aspen.design.components.AspenScreenHeader
@@ -69,6 +70,10 @@ import app.aspen.ui.generated.resources.settings_delete_cancel
 import app.aspen.ui.generated.resources.settings_delete_confirm
 import app.aspen.ui.generated.resources.settings_delete_dialog_body
 import app.aspen.ui.generated.resources.settings_delete_dialog_title
+import app.aspen.ui.generated.resources.language_en
+import app.aspen.ui.generated.resources.language_system
+import app.aspen.ui.generated.resources.language_ur
+import app.aspen.ui.generated.resources.settings_language_label
 import app.aspen.ui.generated.resources.settings_revisit_questions
 import app.aspen.ui.generated.resources.settings_revisit_subtitle
 import app.aspen.ui.generated.resources.settings_title
@@ -86,6 +91,8 @@ import app.aspen.ui.generated.resources.settings_title
 fun SettingsScreen(
     onRevisitQuestions: () -> Unit,
     loggingService: LoggingService?,
+    languageOverride: SupportedLanguage? = null,
+    onLanguageChange: ((SupportedLanguage?) -> Unit)? = null,
     consentManager: ConsentManager? = null,
     reflectionCompanion: ReflectionCompanion? = null,
     companion: CompanionController? = null,
@@ -114,6 +121,33 @@ fun SettingsScreen(
             subtitle = Res.string.settings_revisit_subtitle,
             onClick = onRevisitQuestions,
         )
+        if (onLanguageChange != null) {
+            // UI language (docs/12 §4): the explicit choice wins; "match my device" follows the OS.
+            // Only languages with string resources are offered (the other five join as their
+            // native-reviewed files land, CLAUDE.md #11). Language never implies a crisis region.
+            Text(
+                stringResource(Res.string.settings_language_label),
+                style = AspenTheme.typography.caption,
+                color = AspenTheme.colors.textMuted,
+            )
+            Row(horizontalArrangement = Arrangement.spacedBy(AspenTheme.spacing.s)) {
+                AspenChoiceChip(
+                    label = stringResource(Res.string.language_system),
+                    selected = languageOverride == null,
+                    onToggle = { onLanguageChange(null) },
+                )
+                AspenChoiceChip(
+                    label = stringResource(Res.string.language_en),
+                    selected = languageOverride == SupportedLanguage.EN,
+                    onToggle = { onLanguageChange(SupportedLanguage.EN) },
+                )
+                AspenChoiceChip(
+                    label = stringResource(Res.string.language_ur),
+                    selected = languageOverride == SupportedLanguage.UR,
+                    onToggle = { onLanguageChange(SupportedLanguage.UR) },
+                )
+            }
+        }
         if (consentManager != null) {
             val aiEnabled = remember(aiRevision) {
                 consentManager.canAccess(ReflectionCompanion.AI_RECIPIENT_ID, DataCategory.AI_MESSAGES)
