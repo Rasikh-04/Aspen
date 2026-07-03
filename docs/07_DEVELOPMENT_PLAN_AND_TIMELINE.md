@@ -83,6 +83,18 @@ The two **[APPROVE]** gates that need a human (you) are: (1) this whole document
   verification gates stay green on both targets.
 - **[APPROVE]** the fix list before build.
 
+### Phase 6.9 — Account layering & cloud maturity *(added 2026-07-03)*
+- **Do:** the deliberate Phase-6 deferrals, now that the account root exists (`08` §1 "auth methods
+  attach to the account"): **"Continue with Google" / "Continue with Apple"** as convenience auth
+  into the Aspen-native account (never a dependency); add-a-password-after-social-login;
+  **device-to-device key transfer** (multi-device without the server ever seeing the key, `08` §2);
+  multi-device sync polish; production database behind the existing `:server` repository ports;
+  hosting/deployment decision + real mail delivery for account recovery; server hardening beyond
+  v1 rate limits (audit logging of auth events — metadata only, never content).
+- **DoD:** federated login creates/attaches to an Aspen-native account and adds no third-party
+  dependency to core flows; anonymous use still untouched; key never server-visible in transfer.
+- **[APPROVE]** scope before build (per-feature loop applies as usual).
+
 ### Phase 7 — Clinical review, closed beta, Android launch
 - **Do:** clinical/advisor review (US + PK) of all safety flows, questionnaire, logging rules, copy; closed beta **with people in recovery** (companion + questionnaire + logging validation); fix; Play Store listing (honest positioning); donation surface.
 - **DoD:** advisor sign-off; beta feedback addressed; companion/logging validated or shipped conservative; public Android v1.
@@ -113,6 +125,7 @@ Since there's no fixed deadline, this is expressed as **relative effort bands** 
 | 5.5 — Companion refinement | TBD | postponed 2026-07-03: runs after 6.6; scope to be defined |
 | 6 — Accounts/sync + hardening/a11y/privacy | ~3–4 weeks | both-platform a11y; key-model UX |
 | 6.6 — UI design pass | TBD | added 2026-07-03; team's fix list to be written before start |
+| 6.9 — Account layering & cloud maturity | TBD | added 2026-07-03; federated auth + key transfer + prod DB/hosting |
 | 7 — Clinical review + beta + Android launch | ~3–4 weeks + advisor/beta calendar | gated by external people |
 | 8 — iOS polish & launch | ~3–5 weeks | CMP iOS native-feel + a11y pass |
 

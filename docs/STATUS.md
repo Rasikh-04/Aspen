@@ -2,11 +2,52 @@
 
 _Resume-cold notes. Update at the end of every working session (CLAUDE.md)._
 
-**Phase:** 5 **merged to main 2026-07-03**. **Phase order changed 2026-07-03 (team decision,
-docs/00 decision #9, docs/07 §2):** Phase 5.5 (companion refinement + Phase-5 leftouts)
-**postponed until after Phase 6**; new **Phase 6.6 — UI design pass** added after Phase 6 (the
-team's specific fix list, to be written before it starts). **Phase 6 is next but NOT started.**
+**Phase:** 6 **IN PROGRESS** (slice ① server done 2026-07-03, below). Phase order (docs/00
+decision #9, docs/07 §2): 6 → 6.6 (UI design pass) → 5.5 (companion refinement) → 7; new
+**Phase 6.9 — account layering & cloud maturity** added 2026-07-03 (docs/00 decision #11) for
+Google/Apple sign-in, device-to-device key transfer, prod DB/hosting/mail.
 **`crisisGateStrict` still RED by design** until advisors verify content.
+
+---
+
+## Done (Phase 6 — slice ①: the Aspen server) — `feat/phase6-server` (2026-07-03)
+
+New **`:server`** (Ktor JVM, runnable JAR) + **`:shared:server-api`** (KMP wire-DTO module both
+sides compile against — no app/server drift). Decisions folded in: recovery = **recovery code +
+email-attached account recovery (login only, never the data key)** (docs/00 #10, docs/08 §2 ✅);
+**AI routes through the server; provider-agnostic** (docs/00 #11).
+
+- **Auth (docs/08 §1):** register (email optional) / login (id or email) / logout / delete /
+  email recovery. PBKDF2-HMAC-SHA256 600k iters, per-password salt, constant-time verify,
+  self-describing hash format; opaque 32-byte session tokens, server-side + revocable; one
+  undifferentiated denial (no account enumeration); recovery tokens single-use + 30-min TTL,
+  outwardly always 202. Delete = purge (account, sessions, recovery tokens, blob — FR-11).
+- **E2E sync (docs/08 §2):** PUT/GET/DELETE `/v1/sync/blob` — opaque ciphertext verbatim, per
+  account, cross-account access structurally impossible (no parameter names another account),
+  5 MB cap. Client-side encryption lands in slice ②.
+- **AI relay (stateless BY CONSTRUCTION):** POST `/v1/ai/reflect` — no content store exists in
+  the server, proven by test (distinctive text never lands in the data dir). **`ModelProvider`
+  port + two adapters**: Anthropic Messages AND OpenAI-compatible Chat Completions (OpenAI,
+  Gemini, Mistral, Groq, Ollama/vLLM, …) — **any model behind either shape, env-selected**
+  (`ASPEN_AI_PROVIDER/BASE_URL/MODEL/KEY`); missing/partial config → **FakeModelProvider**
+  (deterministic, offline — the whole stack runs + tests with NO live API and no key anywhere).
+  `ReflectionSystemPrompt` relocated server-side (same `draft-2026-07-02` revision; app copy
+  retired in slice ②). On-device consent/crisis/guard pipeline unchanged (CLAUDE.md #8).
+- **Storage:** repository ports; in-memory (zero-config default) + file-backed (atomic writes,
+  fail-safe corrupt→empty, path-traversal-proof blob names). Sessions/recovery deliberately
+  never on disk. Rate limiting: hand-rolled sliding window (login per-identifier, relay
+  per-account). Malformed bodies → 400, never 500.
+- **Verified:** `:server:test` **54 green** (hasher totality, service, file stores, config
+  selection, both adapters over MockEngine, route round-trips incl. brute-force 429 +
+  statelessness proof) · copyLint · crisisGate · `:androidApp:assembleDebug` ·
+  domain/data jvmTest regression · `:shared:server-api` compiles JVM + iosArm64 · secret grep
+  clean. Gradle gotcha: `kotlin-jvm` alias needs root `apply false`; KMP jvm() must pin
+  `jvmTarget 17` or the server toolchain can't load its classes.
+- **Left for slice ② (`feat/phase6-app-clients`):** `AspenServerAiClient` + account/sync clients
+  in `:shared:data` (passphrase→key on device, encrypt-before-upload), retire `ClaudeAiClient`,
+  Settings account/sync UX + key-model disclosure + recovery-code once-shown copy (en + ur
+  fallback). Slice ③: a11y/privacy audit pass. Dev-only mailer logs recovery tokens to console
+  (real mail = Phase 6.9); server deployment/hosting deferred (Phase 6.9).
 
 ---
 

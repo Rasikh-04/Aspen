@@ -46,7 +46,7 @@ True E2E means **if the user loses their key/passphrase with no backup, their cl
 - Optional **device-to-device key transfer** for multi-device, without the server ever seeing the key.
 - Clear, repeated, honest messaging that recovery depends on the user keeping their key — never imply we can reset it.
 
-**[DECISION NEEDED]** Confirm the recovery mechanism (recovery code vs. device-transfer vs. both). This is the one real UX consequence of choosing E2E, and it's better decided now than after someone loses data.
+**✅ DECIDED (2026-07-03):** **recovery code + email-attached account recovery.** The data-key recovery code is generated ON-DEVICE, shown once ("write this down; it's the only way — we can't"), and never sent to the server. If an email is attached, it can additionally recover **account access** (password reset). The copy rule is non-negotiable honesty: an email reset restores *login only* — if the passphrase and the recovery code are both lost, synced data is unrecoverable by design. Device-to-device key transfer is deferred to Phase 6.9.
 
 ---
 
@@ -111,6 +111,6 @@ You described three tiers. They differ **enormously** in operational/legal weigh
 
 ## 6. [DECISIONS] — status
 
-1. **Cloud key model:** ✅ **Decided — true E2E** (server stores ciphertext it can't decrypt; verification is auth-only). One open sub-decision: **recovery mechanism** (recovery code vs. device-to-device transfer vs. both) — §2.
+1. **Cloud key model:** ✅ **Decided — true E2E** (server stores ciphertext it can't decrypt; verification is auth-only). Recovery sub-decision ✅ **decided 2026-07-03** — recovery code + email-attached account recovery (login only, never the data key) — §2.
 2. **Tier 2 (affiliated telehealth):** ✅ **Decided — explicitly-later, separately-governed phase**, started only after confirmation from your USA healthcare contacts.
 3. **Directory (Tier 1) regions at launch:** same as crisis regions (PK/DE/UK, US later) — assumed yes; flag if not.
