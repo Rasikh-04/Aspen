@@ -5,6 +5,10 @@
          Aspen never asks for notification access outside that user act. -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
+    <!-- Phase 6 (docs/08 §1-2): ONLY for the user-initiated optional account/AI calls. Aspen has
+         no analytics, no background network; with no account and no AI consent, nothing egresses. -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="false"
         android:label="@string/app_name_android"

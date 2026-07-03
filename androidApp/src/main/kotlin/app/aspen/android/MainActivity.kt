@@ -13,9 +13,17 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.remember
+import app.aspen.data.account.PersistentSessionStore
+import app.aspen.data.account.ServerAccountManager
 import app.aspen.data.ai.PersistentAiMessageStore
+import app.aspen.data.sync.LocalStoreBundle
+import app.aspen.data.sync.ServerBackupManager
+import app.aspen.data.sync.platformSyncCrypto
+import app.aspen.data.ai.cloud.AspenServerAiClient
 import app.aspen.data.ai.cloud.DisabledAiClient
 import app.aspen.data.ai.local.LibraryCompanionVoice
+import io.ktor.client.HttpClient
+import io.ktor.client.engine.cio.CIO
 import app.aspen.data.consent.DurableConsentBlobStore
 import app.aspen.data.consent.PersistentConsentStore
 import app.aspen.data.consent.platformConsentCipher
@@ -154,9 +162,45 @@ class MainActivity : ComponentActivity() {
         )
         val crisisSignals = CrisisSignals(DefaultCrisisSignalLexicon.lexicon)
 
+        // Phase 6: the OPTIONAL account + the server-routed AI tier (docs/00 decisions #10/#11).
+        // The server URL is dev-only loopback in debug builds (10.0.2.2 = emulator host) and ABSENT
+        // in release — no production endpoint exists yet (deployment = Phase 6.9). Absent URL ⇒
+        // account row hidden and AI client Disabled: release behaviour is exactly Phase 4's.
+        val serverBaseUrl = if (isDebug) "http://10.0.2.2:8080" else null
+        val sessionStore = PersistentSessionStore(cipher, FileEncryptedBlobStore("account_session"))
+        val http = serverBaseUrl?.let { HttpClient(CIO) }
+        val accountManager = serverBaseUrl?.let { ServerAccountManager(it, sessionStore, http!!) }
+        val aiClient = if (accountManager != null) {
+            AspenServerAiClient(serverBaseUrl, { accountManager.sessionToken() }, http!!)
+        } else {
+            DisabledAiClient // No server configured: cloud provably never touches the network.
+        }
+
+        // E2E backup (docs/08 §2): key derived on-device; server sees ciphertext only. Same
+        // debug-only gating as the account itself; null crypto (never on Android) would hide it.
+        val backupManager = if (accountManager != null && serverBaseUrl != null) {
+            platformSyncCrypto()?.let { crypto ->
+                ServerBackupManager(
+                    baseUrl = serverBaseUrl,
+                    sessionToken = { accountManager.sessionToken() },
+                    http = http!!,
+                    crypto = crypto,
+                    localCipher = cipher,
+                    bundle = LocalStoreBundle(
+                        cipher,
+                        LocalStoreBundle.CONTENT_STORE_NAMES.associateWith { FileEncryptedBlobStore(it) },
+                    ),
+                    keyBlob = FileEncryptedBlobStore("sync_key"),
+                    metaBlob = FileEncryptedBlobStore("sync_meta"),
+                )
+            }
+        } else {
+            null
+        }
+
         val reflectionCompanion = ReflectionCompanion(
             consent = consentManager,
-            client = DisabledAiClient, // Cloud stays not-live-wired (docs/PRE_SHIP_VERIFICATION.md).
+            client = aiClient,
             safetyEngine = safetyEngine,
             crisisSignals = crisisSignals,
             store = PersistentAiMessageStore(cipher, FileEncryptedBlobStore("ai_messages")),
@@ -178,6 +222,8 @@ class MainActivity : ComponentActivity() {
             notificationsControl = notificationsControl,
             isDebugBuild = isDebug,
             languagePrefStore = PersistentLanguagePrefStore(cipher, FileEncryptedBlobStore("language_pref")),
+            accountManager = accountManager,
+            backupManager = backupManager,
         )
     }
 }

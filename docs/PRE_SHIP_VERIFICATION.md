@@ -80,6 +80,53 @@ Before ship, for **each launch locale**:
 - [ ] Full app QA on Android (and iOS once wired): Flow C reachable ≤2 taps from every screen, calm (no alarm-red), reduced-motion respected.
 - [ ] Re-run the full non-negotiables review (CLAUDE.md ⛔ list) against shipping copy + UI.
 
+## 6. Server, account & sync privacy review (Phase 6 — docs/08 §1–2, docs/00 decisions #10/#11)
+
+### 6a. Server data inventory (re-verify against code before every server release)
+
+What the server **holds** — the complete list; anything appearing beyond it is a defect:
+
+| Data | Where | Notes |
+|---|---|---|
+| Account record | accounts store (file/dev) | `accountId`, **optional** email, PBKDF2-SHA256 password hash (600k, per-salt), createdAt |
+| Session tokens | **memory only** | opaque 32-byte random; revocable; never written to disk |
+| Recovery tokens | **memory only** | single-use, 30-min TTL; email path restores **login only, never the data key** |
+| Sync blob | blob store, 1 per account | **ciphertext only** — sealed on-device under a key the server never sees |
+
+What the server **can never see** (structural, each covered by a test):
+- Plaintext journal/log/AI content — no content repository exists in the codebase; the AI relay is
+  stateless by construction (`server statelessness` test proves marker text never lands in the data dir).
+- The backup data key, passphrase, or recovery code — only wrapped/derived material crosses the wire
+  (`ServerBackupManagerTest` proves the upload contains no readable content).
+- Vendor AI keys on the device / user identity at the vendor — the relay strips auth before forwarding;
+  the vendor sees Aspen's server, not the person.
+
+### 6b. Before any hosted deployment (Phase 6.9 — none exists today; release builds ship with **no server URL**)
+- [ ] Hosting decision recorded (region/jurisdiction, provider) + TLS termination; the debug-only
+      cleartext manifest **must not** exist in release (it lives in `androidApp/src/debug/` — re-verify).
+- [ ] Production store: file stores replaced behind the existing repository ports; verify sessions/recovery
+      tokens **remain memory-only** and blobs remain ciphertext-only after the swap.
+- [ ] Real mail delivery for email recovery (undifferentiated "if that address is known to us" copy —
+      no account enumeration); mail provider sees email + timestamp only, nothing else.
+- [ ] Rate limits re-tuned for production; verify denials stay calm/undifferentiated.
+- [ ] Server logs reviewed: no request bodies, no tokens, no emails at INFO; retention set.
+- [ ] Delete-means-delete verified end-to-end on the production store (FR-11): account row, blob, and
+      sessions all gone; a re-registered identical email starts empty.
+- [ ] AI provider env (`ASPEN_AI_PROVIDER/BASE_URL/MODEL/KEY`) set via secret manager — key appears in
+      no repo, image, or log; vendor DPA/zero-retention terms reviewed for the chosen provider.
+- [ ] Advisor review of the *account/backup* user copy (key model honesty: "we can't read or reset this").
+
+### 6c. Device QA for account + backup surfaces (manual, against `./gradlew :server:run`)
+- [ ] TalkBack pass: create/sign-in errors and backup outcomes are **announced** (live regions);
+      password/email fields present correct IME; recovery-code dialog readable + copyable.
+- [ ] Recovery-code dialog: shown exactly once; dismiss = acknowledged (no trap); code restores on a
+      second device/emulator, including sloppily-typed (case/dashes/spaces).
+- [ ] Passphrase restore on a fresh install; wrong secret gives the calm error, no lockout spiral.
+- [ ] Sign-out/offline: cloud reflection degrades to Unavailable quietly; nothing gates on the account.
+- [ ] Turn-off deletes the server copy (verify blob gone from server data dir) and leaves on-device
+      writing untouched.
+- [ ] Touch targets ≥48dp on the new rows (AspenCard defaults — re-measure once on-device).
+
 ---
 
 _When a locale/platform clears its section, flip 🟡 → ✅ here and in `docs/STATUS.md`._

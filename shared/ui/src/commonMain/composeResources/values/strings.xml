@@ -253,4 +253,59 @@
     <string name="settings_notify_subtitle_on">Once in a while, a gentle hello. Nothing is ever asked of you.</string>
     <string name="notify_channel_name">Gentle check-ins</string>
     <string name="notify_channel_description">A quiet hello from your companion, once in a while.</string>
+
+    <!-- Optional account (Phase 6, docs/08 §1, FR-9). Quiet, Settings-only, gates nothing. -->
+    <string name="settings_account_title">An account (optional)</string>
+    <string name="settings_account_subtitle_off">Everything works without one. An account only adds the choice to back up later.</string>
+    <string name="settings_account_subtitle_on">Signed in. Your writing still lives on this device.</string>
+    <string name="account_mode_create">Create</string>
+    <string name="account_mode_signin">Sign in</string>
+    <string name="account_email_optional">Email (optional, helps you recover sign-in)</string>
+    <string name="account_identifier">Email or account ID</string>
+    <string name="account_password">Password</string>
+    <string name="account_submit_create">Create account</string>
+    <string name="account_submit_signin">Sign in</string>
+    <string name="account_note_local">Your writing stays on this device either way.</string>
+    <string name="account_id_caption">Account ID (your way back in if no email is attached): %1$s</string>
+    <string name="account_error_denied">That didn\'t match. Take your time and try again whenever.</string>
+    <string name="account_error_email_taken">That email already has an account. You can sign in instead.</string>
+    <string name="account_error_weak_password">A longer password is needed here.</string>
+    <string name="account_error_unavailable">Aspen couldn\'t reach the server just now. Everything on this device is unaffected.</string>
+    <string name="account_signout">Sign out</string>
+    <string name="account_signout_subtitle">Ends the session on this device. Your writing stays.</string>
+    <string name="account_delete">Delete this account</string>
+    <string name="account_delete_subtitle">Removes the account and anything backed up. Writing on this device stays.</string>
+    <string name="account_delete_dialog_title">Delete this account?</string>
+    <string name="account_delete_dialog_body">The account and anything backed up to it will be permanently removed. Everything written on this device stays here, untouched.</string>
+    <string name="account_delete_confirm">Delete the account</string>
+    <string name="account_delete_cancel">Keep it</string>
+
+    <!-- E2E backup (Phase 6, docs/08 §2). Honest key-model copy: locked on-device, unrecoverable
+         without the passphrase or the once-shown recovery code; email reset never restores it. -->
+    <string name="backup_title">Back up (optional)</string>
+    <string name="backup_subtitle_off">Keep an encrypted copy with your account. It\'s locked before it leaves your phone.</string>
+    <string name="backup_subtitle_on">On. Backed up only when you choose.</string>
+    <string name="backup_passphrase">A passphrase for your backup</string>
+    <string name="backup_enable">Turn on and back up</string>
+    <string name="backup_note_keymodel">Your backup is locked with this passphrase before it leaves your phone. We store only what we cannot read, so we can never unlock it for you.</string>
+    <string name="backup_error_weak">A longer passphrase is needed here.</string>
+    <string name="backup_error_unavailable">Aspen couldn\'t reach the server just now. Nothing has changed.</string>
+    <string name="backup_code_title">Your recovery code</string>
+    <string name="backup_code_body">If the passphrase is ever forgotten, this code is the only other way into your backup. Keep it somewhere safe outside this phone. We cannot recover it for you — an email reset brings back your sign-in, never your backup.</string>
+    <string name="backup_code_confirm">I wrote it down</string>
+    <string name="backup_now">Back up now</string>
+    <string name="backup_now_subtitle">Replaces your last backup with what\'s written here now.</string>
+    <string name="backup_done">Backed up.</string>
+    <string name="backup_restore_title">Restore from a backup</string>
+    <string name="backup_restore_hint">Passphrase or recovery code</string>
+    <string name="backup_restore_action">Restore</string>
+    <string name="backup_restore_done">Restored. Your writing from the backup is here now.</string>
+    <string name="backup_error_wrong_secret">That didn\'t open the backup. The passphrase or the recovery code — either works here.</string>
+    <string name="backup_error_no_backup">There\'s no backup on this account yet.</string>
+    <string name="backup_off">Turn off backup</string>
+    <string name="backup_off_subtitle">Removes the backup from the server. Writing on this device stays.</string>
+    <string name="backup_off_dialog_title">Remove the backup?</string>
+    <string name="backup_off_dialog_body">The encrypted copy on the server will be deleted. Everything on this device stays as it is.</string>
+    <string name="backup_off_confirm">Remove it</string>
+    <string name="backup_off_cancel">Keep it</string>
 </resources>

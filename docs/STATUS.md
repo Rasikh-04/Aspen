@@ -43,11 +43,102 @@ email-attached account recovery (login only, never the data key)** (docs/00 #10,
   domain/data jvmTest regression · `:shared:server-api` compiles JVM + iosArm64 · secret grep
   clean. Gradle gotcha: `kotlin-jvm` alias needs root `apply false`; KMP jvm() must pin
   `jvmTarget 17` or the server toolchain can't load its classes.
-- **Left for slice ② (`feat/phase6-app-clients`):** `AspenServerAiClient` + account/sync clients
-  in `:shared:data` (passphrase→key on device, encrypt-before-upload), retire `ClaudeAiClient`,
-  Settings account/sync UX + key-model disclosure + recovery-code once-shown copy (en + ur
-  fallback). Slice ③: a11y/privacy audit pass. Dev-only mailer logs recovery tokens to console
-  (real mail = Phase 6.9); server deployment/hosting deferred (Phase 6.9).
+- ~~Left for slice ②~~ **done below.** Slice ③: a11y/privacy audit pass. Dev-only mailer logs
+  recovery tokens to console (real mail = Phase 6.9); server deployment/hosting deferred (6.9).
+
+## Done (Phase 6 — slice ②: app clients + optional account UI) — `feat/phase6-app-clients` (2026-07-03)
+
+The app-side half: login/register is now REAL (Settings-only, per FR-9/#10 — deliberately NOT
+offered after onboarding; team may add a soft mention via the 6.6 fix list if wanted).
+
+- **`AccountManager`** (domain/account, port): current/register/signIn/signOut/deleteAccount;
+  total + calm (`AccountResult` incl. `Unavailable` for offline). **`ServerAccountManager`**
+  (data/account) over the slice-① endpoints; errors map by machine code only (copy stays in UI
+  resources, #11); password exists only in transit; **`PersistentSessionStore`** (encrypted
+  `account_session` blob, fail-safe: unreadable → signed OUT, never in). Delete-account keeps the
+  local session unless the server purge SUCCEEDED (user can retry; no orphaned ciphertext).
+- **`AspenServerAiClient`** replaces the retired `ClaudeAiClient` (+ app-side
+  `ReflectionSystemPrompt` deleted — server holds it now): speaks Aspen's own wire shape
+  (`:shared:server-api`), bearer = session token, **no vendor key/shape on the device**; no URL or
+  no session ⇒ `Disabled` with zero network (tested); 401/error/offline ⇒ calm `Unavailable`.
+  `DisabledAiClient` remains the DI default — Koin graph unchanged, cloud still off by default.
+  ReflectionCompanion pipeline untouched (consent → crisis → client → guard, #8).
+- **Settings → "An account (optional)"** (`AccountSection`): quiet card → Create (email optional)
+  / Sign in (email or account id) with warm single-line fields; signed-in shows the **account id**
+  (the way back in when no email is attached); Sign out; Delete account (confirm dialog, amber,
+  copy states on-device writing is untouched). Calm error lines; no feature gates on any of it.
+- **Wiring:** `MainActivity` — debug builds point at `http://10.0.2.2:8080` (emulator loopback;
+  debug-manifest `usesCleartextTraffic`), **release has NO URL ⇒ account row absent + AI Disabled
+  (release behaviour = exactly Phase 4)**. `INTERNET` permission added (manifest comment: no
+  analytics/background egress; nothing leaves without account/AI opt-in). One shared ktor CIO
+  client at the entry; `:shared:data` stays engine-less.
+- **Verified:** `:shared:data:jvmTest` (10 new: account manager register/persist-encrypted/
+  error-codes/offline/sign-out-clears/delete-only-on-success + AI client disabled-no-network/
+  wire-shape/degradations) · domain/ui suites · `assembleDebug` · data+ui `compileKotlinIosArm64` ·
+  `copyLint` (24 new strings) · `crisisGate` green.
+- **Leftouts (explicit):** "forgot password" UI (server endpoint exists, no app surface yet);
+  iOS entry deps still null ⇒ row absent on iOS; ur strings = English fallback (pattern
+  unchanged); no Compose screen tests (tracked since P3).
+
+## Done (Phase 6 — slice ②b: E2E backup/restore) — `feat/phase6-app-clients` (2026-07-03)
+
+True-E2E backup per docs/08 §2, with both decided recovery paths (docs/00 #10).
+
+- **`BackupManager`** (domain/sync port): isConfigured / enable / backUpNow / restore / disable —
+  total, calm outcomes. **`ServerBackupManager`** (data/sync): random data key **K** seals the
+  payload; K travels only **wrapped twice** — under the passphrase-derived key AND under the
+  once-shown recovery-code-derived key (both PBKDF2-HMAC-SHA256 600k + AES-256-GCM) — so either
+  secret restores, neither is derivable from the blob, and the server holds ONLY the
+  `SyncEnvelope` ciphertext. K persists locally sealed by the DEVICE cipher ("back up now" needs
+  no retyping); local key is forgotten only after the server copy is confirmed gone (disable
+  mirrors delete-account semantics). Recovery code: ~100-bit Crockford-style
+  XXXXX-XXXXX-XXXXX-XXXXX, typo-forgiving normalization.
+- **`SyncCrypto` expect/actual** (NEW seam, distinct from LocalCipher because backup must open on
+  a DIFFERENT device): jvm+android = javax.crypto; **iOS actual = null ⇒ feature absent** (a
+  passthrough would upload plaintext — same placeholder policy as the cipher, PRE_SHIP §3).
+- **What syncs:** content only — `profile`, `logs`, `ai_messages` blobs via `LocalStoreBundle`
+  (decrypt with device key → bundle → seal with K; restore re-encrypts under the new device's
+  key). Consent grants, sessions, companion/language prefs stay device-scoped on purpose.
+- **UI (`BackupSection`, signed-in only):** enable with passphrase (key-model note: "locked before
+  it leaves your phone… we can never unlock it for you") → **recovery code shown ONCE** with
+  honest copy (email reset restores sign-in, never the backup); manual "Back up now" (no
+  background sync, docs/04 §6); restore field takes passphrase or code; turn-off deletes the
+  server copy (amber confirm; device writing untouched). 27 new en strings; ur falls back.
+- **Verified:** `:shared:data:jvmTest` (8 new: seal/open totality, code format+normalization,
+  ciphertext-only upload proof, cross-"device" restore via passphrase AND via sloppily-typed
+  code, wrong-secret/no-backup/offline, weak-passphrase, disable purge) · ui host tests ·
+  `assembleDebug` · data+ui iosArm64 compile · `copyLint` · `crisisGate`.
+- **Leftouts:** "forgot password" app surface; **iOS SyncCrypto + LocalCipher actuals** (one
+  CryptoKit task, PRE_SHIP §3); passphrase change = disable+re-enable for now (documented UX gap,
+  fine for v1); restore does not merge (it overwrites the three content blobs — acceptable v1,
+  revisit with multi-device in 6.9).
+
+---
+
+## Done (Phase 6 — slice ③: a11y + privacy audit pass) — `feat/phase6-app-clients` (2026-07-03)
+
+Audit of the Phase-6 surfaces (AccountSection/BackupSection) + the privacy-review checklist. No new
+feature surfaces — code deltas are a11y-only.
+
+- **A11y fixes:** error/status texts on both surfaces are now polite **live regions** (they were
+  visually quiet by design, which left screen-reader users in silence — WCAG 4.1.3); fields declare
+  **keyboard types** (Password/Email — right IME, and keyboards don't learn/suggest secrets); the
+  once-shown **recovery code is selectable** (copyable — hand-transcribing 24 chars was a
+  motor/vision burden; copying stays user-initiated).
+- **Audited, no change needed:** reduced-motion parity (only animation is the shared
+  `pressableScale`, already disabled under reduced motion); touch targets (AspenCard full-width
+  rows, padding `m`); contrast tokens (same textSecondary/caution pairs as the rest of Settings);
+  no alarm red anywhere (delete/turn-off confirms use `caution` amber); dialogs dismissible every
+  way (no trap).
+- **Privacy review:** new **PRE_SHIP §6** — server data inventory (holds: account record w/ optional
+  email + PBKDF2 hash, memory-only sessions/recovery tokens, one ciphertext blob; can never see:
+  content, keys, recovery codes — each structural claim tied to its proving test), §6b hosted-
+  deployment checklist (Phase 6.9 gate), §6c manual device-QA list (TalkBack pass, cross-device
+  restore, delete/turn-off verification).
+- **Verified:** ui host tests · `assembleDebug` · ui iosArm64 compile · `copyLint` · `crisisGate`.
+- **Leftouts (human):** everything in PRE_SHIP §6b/§6c is manual by nature; expanded/collapsed
+  state announcements on tappable disclosure cards (app-wide pattern, not Phase-6-specific —
+  fold into the Phase 6.6 UI design pass).
 
 ---
 
