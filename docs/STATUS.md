@@ -115,6 +115,33 @@ True-E2E backup per docs/08 §2, with both decided recovery paths (docs/00 #10).
 
 ---
 
+## Done (Phase 6 — slice ③: a11y + privacy audit pass) — `feat/phase6-app-clients` (2026-07-03)
+
+Audit of the Phase-6 surfaces (AccountSection/BackupSection) + the privacy-review checklist. No new
+feature surfaces — code deltas are a11y-only.
+
+- **A11y fixes:** error/status texts on both surfaces are now polite **live regions** (they were
+  visually quiet by design, which left screen-reader users in silence — WCAG 4.1.3); fields declare
+  **keyboard types** (Password/Email — right IME, and keyboards don't learn/suggest secrets); the
+  once-shown **recovery code is selectable** (copyable — hand-transcribing 24 chars was a
+  motor/vision burden; copying stays user-initiated).
+- **Audited, no change needed:** reduced-motion parity (only animation is the shared
+  `pressableScale`, already disabled under reduced motion); touch targets (AspenCard full-width
+  rows, padding `m`); contrast tokens (same textSecondary/caution pairs as the rest of Settings);
+  no alarm red anywhere (delete/turn-off confirms use `caution` amber); dialogs dismissible every
+  way (no trap).
+- **Privacy review:** new **PRE_SHIP §6** — server data inventory (holds: account record w/ optional
+  email + PBKDF2 hash, memory-only sessions/recovery tokens, one ciphertext blob; can never see:
+  content, keys, recovery codes — each structural claim tied to its proving test), §6b hosted-
+  deployment checklist (Phase 6.9 gate), §6c manual device-QA list (TalkBack pass, cross-device
+  restore, delete/turn-off verification).
+- **Verified:** ui host tests · `assembleDebug` · ui iosArm64 compile · `copyLint` · `crisisGate`.
+- **Leftouts (human):** everything in PRE_SHIP §6b/§6c is manual by nature; expanded/collapsed
+  state announcements on tappable disclosure cards (app-wide pattern, not Phase-6-specific —
+  fold into the Phase 6.6 UI design pass).
+
+---
+
 ## Done (interim, 2026-07-03 — i18n language setting, docs/12 §4) — `feat/i18n-language-setting`
 
 Between-phase task: the i18n plumbing existed (resolver, RTL, `values-ur` stub) but nothing fed

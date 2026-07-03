@@ -17,6 +17,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.LiveRegionMode
+import androidx.compose.ui.semantics.liveRegion
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import app.aspen.design.AspenTheme
 import app.aspen.design.components.AspenCard
@@ -118,7 +123,10 @@ fun AccountSection(manager: AccountManager, backupManager: app.aspen.domain.sync
                 )
             }
             if (createMode) {
-                AccountSectionField(email, { email = it }, Res.string.account_email_optional)
+                AccountSectionField(
+                    email, { email = it }, Res.string.account_email_optional,
+                    keyboardType = KeyboardType.Email,
+                )
             } else {
                 AccountSectionField(identifier, { identifier = it }, Res.string.account_identifier)
             }
@@ -128,6 +136,9 @@ fun AccountSection(manager: AccountManager, backupManager: app.aspen.domain.sync
                     stringResource(it),
                     style = AspenTheme.typography.caption,
                     color = AspenTheme.colors.textSecondary,
+                    // Announced (politely) when it appears — the visual cue alone is deliberately
+                    // quiet, so without this a screen-reader user gets silence (WCAG 4.1.3).
+                    modifier = Modifier.semantics { liveRegion = LiveRegionMode.Polite },
                 )
             }
             AspenPrimaryButton(
@@ -210,6 +221,7 @@ fun AccountSection(manager: AccountManager, backupManager: app.aspen.domain.sync
                 stringResource(it),
                 style = AspenTheme.typography.caption,
                 color = AspenTheme.colors.textSecondary,
+                modifier = Modifier.semantics { liveRegion = LiveRegionMode.Polite },
             )
         }
         if (backupManager != null) {
@@ -255,11 +267,17 @@ internal fun AccountSectionField(
     onValueChange: (String) -> Unit,
     placeholder: StringResource,
     isPassword: Boolean = false,
+    keyboardType: KeyboardType = KeyboardType.Text,
 ) {
     OutlinedTextField(
         value = value,
         onValueChange = onValueChange,
         singleLine = true,
+        // Declaring the type gets the right IME layout and keeps keyboards/autofill from
+        // suggesting or learning secrets (Password fields are excluded from personalisation).
+        keyboardOptions = KeyboardOptions(
+            keyboardType = if (isPassword) KeyboardType.Password else keyboardType,
+        ),
         visualTransformation = if (isPassword) PasswordVisualTransformation() else androidx.compose.ui.text.input.VisualTransformation.None,
         placeholder = {
             Text(
