@@ -155,6 +155,14 @@
     <string name="settings_title">Settings</string>
     <string name="settings_revisit_questions">Revisit the questions</string>
     <string name="settings_revisit_subtitle">Things change. You can answer again anytime.</string>
+
+    <!-- UI language (docs/12 §4): explicit choice wins, "match my device" follows the OS.
+         Language names are endonyms on purpose (a language's own name reads the same in every
+         UI language), so they are identical across locale files. -->
+    <string name="settings_language_label">Language</string>
+    <string name="language_system">Match my device</string>
+    <string name="language_en">English</string>
+    <string name="language_ur">اردو</string>
     <string name="settings_delete_all">Delete everything I\'ve written</string>
     <string name="settings_delete_all_subtitle">Permanently removes your reflections and notes from this device.</string>
     <string name="settings_delete_confirm">Delete permanently</string>

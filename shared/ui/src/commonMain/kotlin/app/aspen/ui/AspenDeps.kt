@@ -4,6 +4,7 @@ import app.aspen.domain.ai.CompanionVoice
 import app.aspen.domain.ai.ReflectionCompanion
 import app.aspen.domain.companion.CompanionPrefsStore
 import app.aspen.domain.consent.ConsentManager
+import app.aspen.domain.i18n.LanguagePrefStore
 import app.aspen.domain.logging.LoggingService
 import app.aspen.domain.onboarding.AppConfigProvider
 import app.aspen.domain.onboarding.ProfileStore
@@ -42,4 +43,6 @@ data class AspenDeps(
     /** Phase 5: check-in scheduling hook (FR-8, off by default); null → row absent. */
     val notificationsControl: app.aspen.ui.companion.CompanionNotificationsControl? = null,
     val isDebugBuild: Boolean = false,
+    /** UI-language override store (docs/12 §4). Null → the Settings language row is absent. */
+    val languagePrefStore: LanguagePrefStore? = null,
 )

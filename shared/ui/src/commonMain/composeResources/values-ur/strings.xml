@@ -1,7 +1,8 @@
 <!--
   Urdu (ur) — RTL stub.
-  Only home_greeting is real, verified Urdu (to exercise Nastaliq shaping + RTL). The rest are
-  English placeholders pending native-speaker translation.
+  Only home_greeting and settings_language_label are real Urdu (to exercise Nastaliq shaping + RTL;
+  "زبان" = "language" needs no clinical review). The rest are English placeholders pending
+  native-speaker translation.
 
   Phase-3 onboarding / grounding / reflection strings are intentionally NOT mirrored here: any key
   absent from this file falls back to values/strings.xml (English) at runtime, so RTL layout is still
@@ -16,6 +17,7 @@
     <string name="nav_calm">Calm</string>
     <string name="nav_settings">Settings</string>
     <string name="home_greeting">خوش آمدید</string>
+    <string name="settings_language_label">زبان</string>
     <string name="home_subtitle">Whatever today holds, you can be here for a moment.</string>
     <string name="home_hard_moment">I am having a hard moment</string>
     <string name="home_reach_person">Reach a person</string>

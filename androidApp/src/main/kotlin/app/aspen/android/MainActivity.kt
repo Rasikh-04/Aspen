@@ -23,6 +23,7 @@ import app.aspen.data.crisis.CrisisRegistryRepo
 import app.aspen.data.local.AspenLocalStorage
 import app.aspen.data.local.FileEncryptedBlobStore
 import app.aspen.data.local.platformLocalCipher
+import app.aspen.data.i18n.PersistentLanguagePrefStore
 import app.aspen.data.logging.PersistentLoggingStore
 import app.aspen.data.companion.PersistentCompanionPrefsStore
 import app.aspen.data.onboarding.PersistentProfileStore
@@ -176,6 +177,7 @@ class MainActivity : ComponentActivity() {
             overlayControl = overlayControl,
             notificationsControl = notificationsControl,
             isDebugBuild = isDebug,
+            languagePrefStore = PersistentLanguagePrefStore(cipher, FileEncryptedBlobStore("language_pref")),
         )
     }
 }

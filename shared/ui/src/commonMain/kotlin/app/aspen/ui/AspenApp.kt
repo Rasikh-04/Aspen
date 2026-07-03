@@ -5,6 +5,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import app.aspen.core.i18n.SupportedLanguage
 import app.aspen.design.AspenTheme
 import app.aspen.ui.i18n.LocalAppLanguage
 import app.aspen.ui.i18n.LocaleProvider
@@ -22,18 +23,35 @@ import app.aspen.ui.platform.systemReducedMotion
  */
 @Composable
 fun AspenApp(deps: AspenDeps = AspenDeps()) {
-    LocaleProvider {
+    // The user's explicit language choice (docs/12 §4): override wins, null follows the device.
+    // Fail-safe by construction — an unreadable store reads as null, never a wrong language.
+    val languageStore = deps.languagePrefStore
+    var languageOverride by remember { mutableStateOf(languageStore?.current()) }
+    val onLanguageChange: ((SupportedLanguage?) -> Unit)? = if (languageStore == null) {
+        null
+    } else {
+        { choice ->
+            languageOverride = choice
+            if (choice == null) languageStore.clear() else languageStore.save(choice)
+        }
+    }
+
+    LocaleProvider(override = languageOverride) {
         val language = LocalAppLanguage.current
         // OS-sourced reduced motion (SR-6): every animated surface honours LocalReducedMotion,
         // which AspenTheme provides from this value.
         AspenTheme(language = language, reducedMotion = remember { systemReducedMotion() }) {
-            AppRoot(deps)
+            AppRoot(deps, languageOverride, onLanguageChange)
         }
     }
 }
 
 @Composable
-private fun AppRoot(deps: AspenDeps) {
+private fun AppRoot(
+    deps: AspenDeps,
+    languageOverride: SupportedLanguage?,
+    onLanguageChange: ((SupportedLanguage?) -> Unit)?,
+) {
     val profileStore = deps.profileStore
 
     // First run = a profile store exists but nothing has been saved yet. With no store wired
@@ -53,6 +71,8 @@ private fun AppRoot(deps: AspenDeps) {
             startAtSafety = startAtSafety,
             onConsumedStart = { startAtSafety = false },
             onRevisitQuestions = { if (profileStore != null) showOnboarding = true },
+            languageOverride = languageOverride,
+            onLanguageChange = onLanguageChange,
         )
     }
 }
