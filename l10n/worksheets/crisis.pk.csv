@@ -1,0 +1,5 @@
+country,resource_id,name,purpose,contact_index,method,label,value,verifiedBy,verifiedOn,status,notes
+PK,pk-partner-clinicians,Partner clinicians,ED_SUPPORT,0,IN_APP,Aspen partner clinical contacts,TODO-VERIFY,PROVISIONAL-UNVERIFIED,2026-06-28,PENDING,
+PK,pk-umang,Umang Helpline,ACUTE_CRISIS,0,PHONE,Umang (emotional support),TODO-VERIFY,PROVISIONAL-UNVERIFIED,2026-06-28,PENDING,
+PK,pk-findahelpline,Find A Helpline — Pakistan,ED_SUPPORT,0,URL,Find a verified helpline,TODO-VERIFY,PROVISIONAL-UNVERIFIED,2026-06-28,PENDING,
+PK,pk-emergency,Emergency services,ACUTE_CRISIS,0,PHONE,Emergency (life-threatening only),TODO-VERIFY,PROVISIONAL-UNVERIFIED,2026-06-28,PENDING,

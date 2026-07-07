@@ -1,0 +1,7 @@
+country,resource_id,name,purpose,contact_index,method,label,value,verifiedBy,verifiedOn,status,notes
+DE,de-bzga,BZgA — Essstörungen,ED_SUPPORT,0,PHONE,Beratungstelefon,TODO-VERIFY,PROVISIONAL-UNVERIFIED,2026-06-28,PENDING,
+DE,de-bzga,BZgA — Essstörungen,ED_SUPPORT,1,URL,Beratung online,TODO-VERIFY,PROVISIONAL-UNVERIFIED,2026-06-28,PENDING,
+DE,de-anad,ANAD e.V.,ED_SUPPORT,0,PHONE,Beratung,TODO-VERIFY,PROVISIONAL-UNVERIFIED,2026-06-28,PENDING,
+DE,de-treatment-finder,Spezialisierte Behandlung finden,TREATMENT_FINDER,0,URL,Behandlungsverzeichnis,TODO-VERIFY,PROVISIONAL-UNVERIFIED,2026-06-28,PENDING,
+DE,de-telefonseelsorge,Telefonseelsorge,ACUTE_CRISIS,0,PHONE,Telefonseelsorge (24/7),TODO-VERIFY,PROVISIONAL-UNVERIFIED,2026-06-28,PENDING,
+DE,de-emergency,Notruf,ACUTE_CRISIS,0,PHONE,Notruf (nur bei Lebensgefahr),TODO-VERIFY,PROVISIONAL-UNVERIFIED,2026-06-28,PENDING,

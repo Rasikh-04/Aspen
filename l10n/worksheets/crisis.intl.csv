@@ -1,0 +1,3 @@
+country,resource_id,name,purpose,contact_index,method,label,value,verifiedBy,verifiedOn,status,notes
+INTL,intl-findahelpline,Find A Helpline,ED_SUPPORT,0,URL,Find a verified helpline near you,TODO-VERIFY,TODO-VERIFY,TODO-VERIFY,PENDING,
+INTL,intl-findahelpline-finder,Find local eating-disorder help,TREATMENT_FINDER,0,URL,Ways to find support near you,TODO-VERIFY,TODO-VERIFY,TODO-VERIFY,PENDING,

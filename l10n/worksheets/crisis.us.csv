@@ -1,0 +1,5 @@
+country,resource_id,name,purpose,contact_index,method,label,value,verifiedBy,verifiedOn,status,notes
+US,us-alliance,National Alliance for Eating Disorders,ED_SUPPORT,0,PHONE,Helpline (licensed clinicians),TODO-VERIFY,TODO-VERIFY,TODO-VERIFY,PENDING,
+US,us-anad,ANAD,ED_SUPPORT,0,PHONE,Helpline (peer support + referrals),TODO-VERIFY,TODO-VERIFY,TODO-VERIFY,PENDING,
+US,us-988,988 Suicide & Crisis Lifeline,ACUTE_CRISIS,0,PHONE,988 (call or text),TODO-VERIFY,TODO-VERIFY,TODO-VERIFY,PENDING,
+US,us-emergency,Emergency services,ACUTE_CRISIS,0,PHONE,Emergency (life-threatening only),TODO-VERIFY,TODO-VERIFY,TODO-VERIFY,PENDING,

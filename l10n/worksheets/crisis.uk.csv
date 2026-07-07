@@ -1,0 +1,7 @@
+country,resource_id,name,purpose,contact_index,method,label,value,verifiedBy,verifiedOn,status,notes
+UK,uk-beat,Beat (Beat Eating Disorders),ED_SUPPORT,0,PHONE,Helpline,TODO-VERIFY,PROVISIONAL-UNVERIFIED,2026-06-28,PENDING,
+UK,uk-beat,Beat (Beat Eating Disorders),ED_SUPPORT,1,URL,Online support,TODO-VERIFY,PROVISIONAL-UNVERIFIED,2026-06-28,PENDING,
+UK,uk-nhs-ed,NHS eating-disorder services,TREATMENT_FINDER,0,URL,NHS eating disorders,TODO-VERIFY,PROVISIONAL-UNVERIFIED,2026-06-28,PENDING,
+UK,uk-nhs-ed,NHS eating-disorder services,TREATMENT_FINDER,1,PHONE,"NHS 111 (urgent, non-emergency)",TODO-VERIFY,PROVISIONAL-UNVERIFIED,2026-06-28,PENDING,
+UK,uk-samaritans,Samaritans,ACUTE_CRISIS,0,PHONE,Samaritans (24/7),TODO-VERIFY,PROVISIONAL-UNVERIFIED,2026-06-28,PENDING,
+UK,uk-emergency,Emergency services,ACUTE_CRISIS,0,PHONE,Emergency (life-threatening only),TODO-VERIFY,PROVISIONAL-UNVERIFIED,2026-06-28,PENDING,

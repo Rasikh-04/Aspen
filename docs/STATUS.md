@@ -10,6 +10,26 @@ Google/Apple sign-in, device-to-device key transfer, prod DB/hosting/mail.
 
 ---
 
+## Advisor-review & translation harness — `l10n/` (2026-07-05)
+
+Consolidated **every user-facing string that needs advisor sign-off + translation** into one
+reviewable/round-trippable place (docs/12 §3–§4). Not shipped code; the review surface between
+the codebase and T&S/translators.
+- **`l10n/tools/l10n_review.py`** — dependency-free `generate` (canonical sources → CSV
+  worksheets + `catalog.md`, **merges** so reviewer edits/status/notes are never clobbered) and
+  `import` (approved worksheets → per-locale `strings.xml` / crisis JSON / lexicon JSON).
+  Enforces the sensitive-surface gate: SENSITIVE rows emit only when `APPROVED` (docs/12 §5).
+- **Worksheets** (`l10n/worksheets/`): `ui.<lang>.csv` (258 keys × 7 langs — all UI incl.
+  questionnaire, companion, notifications, AI consent, account/backup), `crisis.<country>.csv`
+  (5, verify real numbers), `safety-lexicon.<lang>.csv` (7), `ai-prompt/en.txt` (revision
+  `draft-2026-07-02`). Master inventory + coverage matrix in `l10n/catalog.md`.
+- Round-trip verified byte-faithful (apostrophes/`&`/`%1$s`/smart-quotes, 244 strings 0
+  mismatch, valid XML). `generate` run; **`import` deliberately NOT run** (nothing APPROVED yet
+  — no shipping resource touched). Import back is per-language and re-triggers `copyLint` /
+  `crisisGateStrict` as the safety net. Supersedes the scattered "Urdu placeholder" leftout.
+
+---
+
 ## Done (Phase 6 — slice ①: the Aspen server) — `feat/phase6-server` (2026-07-03)
 
 New **`:server`** (Ktor JVM, runnable JAR) + **`:shared:server-api`** (KMP wire-DTO module both
