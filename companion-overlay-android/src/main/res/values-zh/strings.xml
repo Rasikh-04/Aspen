@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Mandarin Chinese (zh). GENERATED from l10n/worksheets/ui.zh.csv by l10n_review.py import. Do not hand-edit; edit the
+     worksheet and re-import. Only reviewed strings are present; absent keys fall back
+     to English at runtime. SENSITIVE surfaces appear only when APPROVED (docs/12 §5). -->
+<resources>
+    <!-- Overlay notification -->
+    <string name="overlay_channel_name">伙伴</string>
+    <string name="overlay_channel_description">让小伙伴留在你的屏幕上。天生安静。</string>
+    <string name="overlay_notification_title">你的伙伴就在旁边</string>
+    <string name="overlay_notification_body">它安静地待在屏幕边缘。你随时可以在 Aspen 里让它休息。</string>
+</resources>

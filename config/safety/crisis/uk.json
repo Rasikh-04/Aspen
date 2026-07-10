@@ -8,54 +8,86 @@
       "name": "Beat (Beat Eating Disorders)",
       "purpose": "ED_SUPPORT",
       "contacts": [
-        { "method": "PHONE", "label": "Helpline", "value": "TODO-VERIFY" },
-        { "method": "URL", "label": "Online support", "value": "TODO-VERIFY" }
+        {
+          "method": "PHONE",
+          "label": "Helpline",
+          "value": "0808 801 0677"
+        },
+        {
+          "method": "URL",
+          "label": "Online support",
+          "value": "https://www.beateatingdisorders.org.uk/get-information-and-support/get-help-for-myself/i-need-support-now/"
+        }
       ],
       "hours": null,
-      "languages": ["en"],
+      "languages": [
+        "en"
+      ],
       "notes": "UK national eating-disorder charity; primary anchor.",
-      "verifiedOn": "2026-06-28",
-      "verifiedBy": "PROVISIONAL-UNVERIFIED"
+      "verifiedOn": "2026-07-07",
+      "verifiedBy": "PROVISIONAL — Claude research draft, DEBUG-ONLY, NOT advisor-verified"
     },
     {
       "id": "uk-nhs-ed",
       "name": "NHS eating-disorder services",
       "purpose": "TREATMENT_FINDER",
       "contacts": [
-        { "method": "URL", "label": "NHS eating disorders", "value": "TODO-VERIFY" },
-        { "method": "PHONE", "label": "NHS 111 (urgent, non-emergency)", "value": "TODO-VERIFY" }
+        {
+          "method": "URL",
+          "label": "NHS eating disorders",
+          "value": "https://www.nhs.uk/mental-health/feelings-symptoms-behaviours/behaviours/eating-disorders/overview/"
+        },
+        {
+          "method": "PHONE",
+          "label": "NHS 111 (urgent, non-emergency)",
+          "value": "111"
+        }
       ],
       "hours": null,
-      "languages": ["en"],
+      "languages": [
+        "en"
+      ],
       "notes": "Route into NHS specialist services.",
-      "verifiedOn": "2026-06-28",
-      "verifiedBy": "PROVISIONAL-UNVERIFIED"
+      "verifiedOn": "2026-07-07",
+      "verifiedBy": "PROVISIONAL — Claude research draft, DEBUG-ONLY, NOT advisor-verified"
     },
     {
       "id": "uk-samaritans",
       "name": "Samaritans",
       "purpose": "ACUTE_CRISIS",
       "contacts": [
-        { "method": "PHONE", "label": "Samaritans (24/7)", "value": "TODO-VERIFY" }
+        {
+          "method": "PHONE",
+          "label": "Samaritans (24/7)",
+          "value": "116 123"
+        }
       ],
       "hours": null,
-      "languages": ["en"],
+      "languages": [
+        "en"
+      ],
       "notes": "General distress / suicide support, 24/7.",
-      "verifiedOn": "2026-06-28",
-      "verifiedBy": "PROVISIONAL-UNVERIFIED"
+      "verifiedOn": "2026-07-07",
+      "verifiedBy": "PROVISIONAL — Claude research draft, DEBUG-ONLY, NOT advisor-verified"
     },
     {
       "id": "uk-emergency",
       "name": "Emergency services",
       "purpose": "ACUTE_CRISIS",
       "contacts": [
-        { "method": "PHONE", "label": "Emergency (life-threatening only)", "value": "TODO-VERIFY" }
+        {
+          "method": "PHONE",
+          "label": "Emergency (life-threatening only)",
+          "value": "999"
+        }
       ],
       "hours": null,
-      "languages": ["en"],
+      "languages": [
+        "en"
+      ],
       "notes": "Life-threatening situations only.",
-      "verifiedOn": "2026-06-28",
-      "verifiedBy": "PROVISIONAL-UNVERIFIED"
+      "verifiedOn": "2026-07-07",
+      "verifiedBy": "PROVISIONAL — Claude research draft, DEBUG-ONLY, NOT advisor-verified"
     }
   ]
 }

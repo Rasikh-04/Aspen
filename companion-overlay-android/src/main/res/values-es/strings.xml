@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Spanish (es). GENERATED from l10n/worksheets/ui.es.csv by l10n_review.py import. Do not hand-edit; edit the
+     worksheet and re-import. Only reviewed strings are present; absent keys fall back
+     to English at runtime. SENSITIVE surfaces appear only when APPROVED (docs/12 §5). -->
+<resources>
+    <!-- Overlay notification -->
+    <string name="overlay_channel_name">Compañero</string>
+    <string name="overlay_channel_description">Mantiene al pequeño compañero en tu pantalla. Silencioso por diseño.</string>
+    <string name="overlay_notification_title">Tu compañero está cerca</string>
+    <string name="overlay_notification_body">Se queda en silencio al borde de la pantalla. Puedes dejarlo descansar cuando quieras desde Aspen.</string>
+</resources>

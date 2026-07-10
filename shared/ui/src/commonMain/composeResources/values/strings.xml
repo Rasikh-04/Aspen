@@ -163,6 +163,11 @@
     <string name="language_system">Match my device</string>
     <string name="language_en">English</string>
     <string name="language_ur">اردو</string>
+    <string name="language_de">Deutsch</string>
+    <string name="language_zh">中文</string>
+    <string name="language_hi">हिन्दी</string>
+    <string name="language_ar">العربية</string>
+    <string name="language_es">Español</string>
     <string name="settings_delete_all">Delete everything I\'ve written</string>
     <string name="settings_delete_all_subtitle">Permanently removes your reflections and notes from this device.</string>
     <string name="settings_delete_confirm">Delete permanently</string>

@@ -8,52 +8,79 @@
       "name": "National Alliance for Eating Disorders",
       "purpose": "ED_SUPPORT",
       "contacts": [
-        { "method": "PHONE", "label": "Helpline (licensed clinicians)", "value": "TODO-VERIFY" }
+        {
+          "method": "PHONE",
+          "label": "Helpline (licensed clinicians)",
+          "value": "1-866-662-1235"
+        }
       ],
       "hours": null,
-      "languages": ["en"],
+      "languages": [
+        "en"
+      ],
       "notes": "Primary US ED line — staffed by licensed clinicians (the correct US ED line to use).",
-      "verifiedOn": "TODO-VERIFY",
-      "verifiedBy": "TODO-VERIFY"
+      "verifiedOn": "2026-07-07",
+      "verifiedBy": "PROVISIONAL — Claude research draft, DEBUG-ONLY, NOT advisor-verified"
     },
     {
       "id": "us-anad",
       "name": "ANAD",
       "purpose": "ED_SUPPORT",
       "contacts": [
-        { "method": "PHONE", "label": "Helpline (peer support + referrals)", "value": "TODO-VERIFY" }
+        {
+          "method": "PHONE",
+          "label": "Helpline (peer support + referrals)",
+          "value": "1-888-375-7767"
+        }
       ],
       "hours": null,
-      "languages": ["en", "es"],
+      "languages": [
+        "en",
+        "es"
+      ],
       "notes": "Peer support and referrals.",
-      "verifiedOn": "TODO-VERIFY",
-      "verifiedBy": "TODO-VERIFY"
+      "verifiedOn": "2026-07-07",
+      "verifiedBy": "PROVISIONAL — Claude research draft, DEBUG-ONLY, NOT advisor-verified"
     },
     {
       "id": "us-988",
       "name": "988 Suicide & Crisis Lifeline",
       "purpose": "ACUTE_CRISIS",
       "contacts": [
-        { "method": "PHONE", "label": "988 (call or text)", "value": "TODO-VERIFY" }
+        {
+          "method": "PHONE",
+          "label": "988 (call or text)",
+          "value": "988"
+        }
       ],
       "hours": null,
-      "languages": ["en", "es"],
+      "languages": [
+        "en",
+        "es"
+      ],
       "notes": "General acute crisis, 24/7.",
-      "verifiedOn": "TODO-VERIFY",
-      "verifiedBy": "TODO-VERIFY"
+      "verifiedOn": "2026-07-07",
+      "verifiedBy": "PROVISIONAL — Claude research draft, DEBUG-ONLY, NOT advisor-verified"
     },
     {
       "id": "us-emergency",
       "name": "Emergency services",
       "purpose": "ACUTE_CRISIS",
       "contacts": [
-        { "method": "PHONE", "label": "Emergency (life-threatening only)", "value": "TODO-VERIFY" }
+        {
+          "method": "PHONE",
+          "label": "Emergency (life-threatening only)",
+          "value": "911"
+        }
       ],
       "hours": null,
-      "languages": ["en", "es"],
+      "languages": [
+        "en",
+        "es"
+      ],
       "notes": "Life-threatening situations only.",
-      "verifiedOn": "TODO-VERIFY",
-      "verifiedBy": "TODO-VERIFY"
+      "verifiedOn": "2026-07-07",
+      "verifiedBy": "PROVISIONAL — Claude research draft, DEBUG-ONLY, NOT advisor-verified"
     }
   ]
 }

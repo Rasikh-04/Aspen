@@ -6,7 +6,6 @@ import androidx.compose.animation.core.snap
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -20,7 +19,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
-import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -32,10 +31,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
+import com.phosphor.icons.PhIcons
+import com.phosphor.icons.duotone.BookOpenDuotone
+import com.phosphor.icons.duotone.FlowerLotusDuotone
+import com.phosphor.icons.duotone.GearDuotone
+import com.phosphor.icons.duotone.HouseDuotone
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
 import androidx.navigation.compose.NavHost
@@ -67,11 +71,11 @@ import app.aspen.ui.screen.SafetyPlaceholderScreen
 import app.aspen.ui.screen.SafetyScreen
 import app.aspen.ui.settings.SettingsScreen
 
-private data class Tab(val route: String, val label: StringResource)
+private data class Tab(val route: String, val label: StringResource, val icon: ImageVector)
 
 /**
  * The shared navigation shell (docs/06 §4). A calm bottom presence (Home / Reflect / Calm / Settings)
- * with a soft dot indicator. Safety lives in the graph but NOT in the bar — it is reached as an
+ * with a Phosphor duotone icon per tab. Safety lives in the graph but NOT in the bar — it is reached as an
  * affordance from Home (CLAUDE.md #6). Grounding tools are full-screen routes with the bar hidden.
  *
  * Every route sits on the shared ambient background and routes cross-fade with the motion tokens
@@ -91,10 +95,10 @@ fun AppScaffold(
 ) {
     val navController = rememberNavController()
     val tabs = listOf(
-        Tab(Routes.HOME, Res.string.nav_home),
-        Tab(Routes.REFLECT, Res.string.nav_reflect),
-        Tab(Routes.CALM, Res.string.nav_calm),
-        Tab(Routes.SETTINGS, Res.string.nav_settings),
+        Tab(Routes.HOME, Res.string.nav_home, PhIcons.Duotone.HouseDuotone),
+        Tab(Routes.REFLECT, Res.string.nav_reflect, PhIcons.Duotone.BookOpenDuotone),
+        Tab(Routes.CALM, Res.string.nav_calm, PhIcons.Duotone.FlowerLotusDuotone),
+        Tab(Routes.SETTINGS, Res.string.nav_settings, PhIcons.Duotone.GearDuotone),
     )
 
     LaunchedEffect(startAtSafety) {
@@ -238,8 +242,8 @@ fun AppScaffold(
 }
 
 /**
- * The quiet tab bar: a soft raised surface (no hard top divider) whose items are a presence dot +
- * label. Selection settles in with the motion tokens; under reduced motion it snaps.
+ * The quiet tab bar: a soft raised surface (no hard top divider) whose items are a duotone icon +
+ * label. Selection settles in with the motion tokens; under reduced motion the icon-size step snaps.
  */
 @Composable
 private fun AspenBottomBar(
@@ -258,12 +262,12 @@ private fun AspenBottomBar(
         ) {
             tabs.forEach { tab ->
                 val selected = currentRoute == tab.route
-                val dotColor by animateColorAsState(
+                val iconColor by animateColorAsState(
                     targetValue = if (selected) AspenTheme.colors.primary else AspenTheme.colors.border,
                     animationSpec = tween(motion.mediumMs),
                 )
-                val dotSize by animateDpAsState(
-                    targetValue = if (selected) 8.dp else 6.dp,
+                val iconSize by animateDpAsState(
+                    targetValue = if (selected) 26.dp else 22.dp,
                     animationSpec = if (reducedMotion) snap() else tween(motion.mediumMs),
                 )
                 val labelColor by animateColorAsState(
@@ -278,7 +282,12 @@ private fun AspenBottomBar(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center,
                 ) {
-                    Box(Modifier.size(dotSize).clip(CircleShape).background(dotColor))
+                    Icon(
+                        imageVector = tab.icon,
+                        contentDescription = null,
+                        tint = iconColor,
+                        modifier = Modifier.size(iconSize),
+                    )
                     Spacer(Modifier.height(AspenTheme.spacing.s))
                     Text(stringResource(tab.label), style = AspenTheme.typography.caption, color = labelColor)
                 }

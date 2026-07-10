@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Arabic (ar). GENERATED from l10n/worksheets/ui.ar.csv by l10n_review.py import. Do not hand-edit; edit the
+     worksheet and re-import. Only reviewed strings are present; absent keys fall back
+     to English at runtime. SENSITIVE surfaces appear only when APPROVED (docs/12 §5). -->
+<resources>
+    <!-- Overlay notification -->
+    <string name="overlay_channel_name">الرفيق</string>
+    <string name="overlay_channel_description">يُبقي الرفيق الصغير على شاشتك. هادئ بطبعه.</string>
+    <string name="overlay_notification_title">رفيقك قريب</string>
+    <string name="overlay_notification_body">يجلس بهدوء عند حافة الشاشة. يمكنك تركه يرتاح في أي وقت من داخل Aspen.</string>
+</resources>

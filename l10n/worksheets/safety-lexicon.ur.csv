@@ -1,0 +1,8 @@
+list,category,term,status,notes
+forbidden_tokens,numbers_food_body,وزن,APPROVED,
+forbidden_tokens,numbers_food_body,کیلو,APPROVED,
+forbidden_tokens,numbers_food_body,کیلوری,APPROVED,
+crisis_signals,,خودکشی,APPROVED,
+crisis_signals,,مرنا چاہتا,APPROVED,
+crisis_signals,,مرنا چاہتی,APPROVED,
+crisis_signals,,خود کو نقصان,APPROVED,

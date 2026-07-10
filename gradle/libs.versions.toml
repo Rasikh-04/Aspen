@@ -21,8 +21,10 @@ junit = "4.13.2"
 robolectric = "4.14.1"
 kover = "0.9.1"
 ktlint = "12.1.1"
+phosphorIcon = "1.0.5"
 
 [libraries]
+phosphor-icon-compose = { module = "io.github.dev778g-me:phosphoricon-compose", version.ref = "phosphorIcon" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
 androidx-lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidx-lifecycleRuntime" }
 androidx-savedstate = { module = "androidx.savedstate:savedstate-ktx", version.ref = "androidx-savedstate" }

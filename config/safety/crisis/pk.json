@@ -8,10 +8,17 @@
       "name": "Partner clinicians",
       "purpose": "ED_SUPPORT",
       "contacts": [
-        { "method": "IN_APP", "label": "Aspen partner clinical contacts", "value": "TODO-VERIFY" }
+        {
+          "method": "IN_APP",
+          "label": "Aspen partner clinical contacts",
+          "value": "TODO-VERIFY"
+        }
       ],
       "hours": null,
-      "languages": ["ur", "en"],
+      "languages": [
+        "ur",
+        "en"
+      ],
       "notes": "Most reliable ED-specific route locally; supplied by the advisor network.",
       "verifiedOn": "2026-06-28",
       "verifiedBy": "PROVISIONAL-UNVERIFIED"
@@ -21,39 +28,60 @@
       "name": "Umang Helpline",
       "purpose": "ACUTE_CRISIS",
       "contacts": [
-        { "method": "PHONE", "label": "Umang (emotional support)", "value": "TODO-VERIFY" }
+        {
+          "method": "PHONE",
+          "label": "Umang (emotional support)",
+          "value": "0311 7786264"
+        }
       ],
       "hours": null,
-      "languages": ["ur", "en"],
+      "languages": [
+        "ur",
+        "en"
+      ],
       "notes": "General emotional / mental-health support; advisor to confirm currently operating.",
-      "verifiedOn": "2026-06-28",
-      "verifiedBy": "PROVISIONAL-UNVERIFIED"
+      "verifiedOn": "2026-07-07",
+      "verifiedBy": "PROVISIONAL — Claude research draft, DEBUG-ONLY, NOT advisor-verified"
     },
     {
       "id": "pk-findahelpline",
       "name": "Find A Helpline — Pakistan",
       "purpose": "ED_SUPPORT",
       "contacts": [
-        { "method": "URL", "label": "Find a verified helpline", "value": "TODO-VERIFY" }
+        {
+          "method": "URL",
+          "label": "Find a verified helpline",
+          "value": "https://findahelpline.com/countries/pk"
+        }
       ],
       "hours": null,
-      "languages": ["ur", "en"],
+      "languages": [
+        "ur",
+        "en"
+      ],
       "notes": "Verified cross-check / fallback while the local registry is thin.",
-      "verifiedOn": "2026-06-28",
-      "verifiedBy": "PROVISIONAL-UNVERIFIED"
+      "verifiedOn": "2026-07-07",
+      "verifiedBy": "PROVISIONAL — Claude research draft, DEBUG-ONLY, NOT advisor-verified"
     },
     {
       "id": "pk-emergency",
       "name": "Emergency services",
       "purpose": "ACUTE_CRISIS",
       "contacts": [
-        { "method": "PHONE", "label": "Emergency (life-threatening only)", "value": "TODO-VERIFY" }
+        {
+          "method": "PHONE",
+          "label": "Emergency (life-threatening only)",
+          "value": "1122"
+        }
       ],
       "hours": null,
-      "languages": ["ur", "en"],
+      "languages": [
+        "ur",
+        "en"
+      ],
       "notes": "Life-threatening situations only.",
-      "verifiedOn": "2026-06-28",
-      "verifiedBy": "PROVISIONAL-UNVERIFIED"
+      "verifiedOn": "2026-07-07",
+      "verifiedBy": "PROVISIONAL — Claude research draft, DEBUG-ONLY, NOT advisor-verified"
     }
   ]
 }

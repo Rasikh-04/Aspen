@@ -8,66 +8,100 @@
       "name": "BZgA — Essstörungen",
       "purpose": "ED_SUPPORT",
       "contacts": [
-        { "method": "PHONE", "label": "Beratungstelefon", "value": "TODO-VERIFY" },
-        { "method": "URL", "label": "Beratung online", "value": "TODO-VERIFY" }
+        {
+          "method": "PHONE",
+          "label": "Beratungstelefon",
+          "value": "0221 892031"
+        },
+        {
+          "method": "URL",
+          "label": "Beratung online",
+          "value": "https://www.bzga-essstoerungen.de/"
+        }
       ],
       "hours": null,
-      "languages": ["de"],
+      "languages": [
+        "de"
+      ],
       "notes": "Federal anchor; maintains the national counselling-centre directory.",
-      "verifiedOn": "2026-06-28",
-      "verifiedBy": "PROVISIONAL-UNVERIFIED"
+      "verifiedOn": "2026-07-07",
+      "verifiedBy": "PROVISIONAL — Claude research draft, DEBUG-ONLY, NOT advisor-verified"
     },
     {
       "id": "de-anad",
       "name": "ANAD e.V.",
       "purpose": "ED_SUPPORT",
       "contacts": [
-        { "method": "PHONE", "label": "Beratung", "value": "TODO-VERIFY" }
+        {
+          "method": "PHONE",
+          "label": "Beratung",
+          "value": "089 21997399"
+        }
       ],
       "hours": null,
-      "languages": ["de"],
+      "languages": [
+        "de"
+      ],
       "notes": "Munich specialist ED organisation (distinct from the US 'ANAD').",
-      "verifiedOn": "2026-06-28",
-      "verifiedBy": "PROVISIONAL-UNVERIFIED"
+      "verifiedOn": "2026-07-07",
+      "verifiedBy": "PROVISIONAL — Claude research draft, DEBUG-ONLY, NOT advisor-verified"
     },
     {
       "id": "de-treatment-finder",
       "name": "Spezialisierte Behandlung finden",
       "purpose": "TREATMENT_FINDER",
       "contacts": [
-        { "method": "URL", "label": "Behandlungsverzeichnis", "value": "TODO-VERIFY" }
+        {
+          "method": "URL",
+          "label": "Behandlungsverzeichnis",
+          "value": "https://www.bzga-essstoerungen.de/hilfe-finden/wie-finde-ich-beratungsstellen/suche-in-der-datenbank/"
+        }
       ],
       "hours": null,
-      "languages": ["de"],
+      "languages": [
+        "de"
+      ],
       "notes": "Provider directories (DGESS / BFE) for finding specialist clinicians.",
-      "verifiedOn": "2026-06-28",
-      "verifiedBy": "PROVISIONAL-UNVERIFIED"
+      "verifiedOn": "2026-07-07",
+      "verifiedBy": "PROVISIONAL — Claude research draft, DEBUG-ONLY, NOT advisor-verified"
     },
     {
       "id": "de-telefonseelsorge",
       "name": "Telefonseelsorge",
       "purpose": "ACUTE_CRISIS",
       "contacts": [
-        { "method": "PHONE", "label": "Telefonseelsorge (24/7)", "value": "TODO-VERIFY" }
+        {
+          "method": "PHONE",
+          "label": "Telefonseelsorge (24/7)",
+          "value": "0800 111 0 111"
+        }
       ],
       "hours": null,
-      "languages": ["de"],
+      "languages": [
+        "de"
+      ],
       "notes": "General 24/7 crisis support.",
-      "verifiedOn": "2026-06-28",
-      "verifiedBy": "PROVISIONAL-UNVERIFIED"
+      "verifiedOn": "2026-07-07",
+      "verifiedBy": "PROVISIONAL — Claude research draft, DEBUG-ONLY, NOT advisor-verified"
     },
     {
       "id": "de-emergency",
       "name": "Notruf",
       "purpose": "ACUTE_CRISIS",
       "contacts": [
-        { "method": "PHONE", "label": "Notruf (nur bei Lebensgefahr)", "value": "TODO-VERIFY" }
+        {
+          "method": "PHONE",
+          "label": "Notruf (nur bei Lebensgefahr)",
+          "value": "112"
+        }
       ],
       "hours": null,
-      "languages": ["de"],
+      "languages": [
+        "de"
+      ],
       "notes": "Life-threatening situations only.",
-      "verifiedOn": "2026-06-28",
-      "verifiedBy": "PROVISIONAL-UNVERIFIED"
+      "verifiedOn": "2026-07-07",
+      "verifiedBy": "PROVISIONAL — Claude research draft, DEBUG-ONLY, NOT advisor-verified"
     }
   ]
 }

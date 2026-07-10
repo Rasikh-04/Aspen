@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Urdu (ur). GENERATED from l10n/worksheets/ui.ur.csv by l10n_review.py import. Do not hand-edit; edit the
+     worksheet and re-import. Only reviewed strings are present; absent keys fall back
+     to English at runtime. SENSITIVE surfaces appear only when APPROVED (docs/12 §5). -->
+<resources>
+    <!-- Overlay notification -->
+    <string name="overlay_channel_name">ساتھی</string>
+    <string name="overlay_channel_description">ننھے ساتھی کو آپ کی اسکرین پر رکھتا ہے۔ خاموش رہنا اس کا انداز ہے۔</string>
+    <string name="overlay_notification_title">آپ کا ساتھی قریب ہے</string>
+    <string name="overlay_notification_body">یہ اسکرین کے کنارے خاموشی سے بیٹھا رہتا ہے۔ آپ اسے Aspen سے کبھی بھی آرام کروا سکتے ہیں۔</string>
+</resources>
