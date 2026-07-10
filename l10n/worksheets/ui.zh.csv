@@ -1,176 +1,176 @@
 source,key,surface,sensitivity,en_source,translation,status,reviewer,date,notes
 shared-ui,app_name,Brand,DO_NOT_TRANSLATE,Aspen,,SKIP,,,
-shared-ui,nav_home,Navigation,STANDARD,Home,,PENDING,,,
-shared-ui,nav_reflect,Navigation,STANDARD,Reflect,,PENDING,,,
-shared-ui,nav_calm,Navigation,STANDARD,Calm,,PENDING,,,
-shared-ui,nav_settings,Navigation,STANDARD,Settings,,PENDING,,,
-shared-ui,home_greeting,Home,STANDARD,A quiet place to be.,,PENDING,,,
-shared-ui,home_subtitle,Home,STANDARD,"Whatever today holds, you can be here for a moment.",,PENDING,,,
-shared-ui,home_hard_moment,Home,STANDARD,I am having a hard moment,,PENDING,,,
-shared-ui,home_reach_person,Home,STANDARD,Reach a person,,PENDING,,,
-shared-ui,safety_title,Crisis / safety screen,SENSITIVE,Reaching a person,,PENDING,,,
+shared-ui,nav_home,Navigation,STANDARD,Home,首页,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07)"
+shared-ui,nav_reflect,Navigation,STANDARD,Reflect,反思,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07)"
+shared-ui,nav_calm,Navigation,STANDARD,Calm,平静,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07)"
+shared-ui,nav_settings,Navigation,STANDARD,Settings,设置,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07)"
+shared-ui,home_greeting,Home,STANDARD,A quiet place to be.,一个安静的角落。,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07)"
+shared-ui,home_subtitle,Home,STANDARD,"Whatever today holds, you can be here for a moment.",无论今天如何，你都可以在这里停留片刻。,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07)"
+shared-ui,home_hard_moment,Home,STANDARD,I am having a hard moment,我此刻很难受,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07)"
+shared-ui,home_reach_person,Home,STANDARD,Reach a person,联系一个人,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07)"
+shared-ui,safety_title,Crisis / safety screen,SENSITIVE,Reaching a person,联系真实的人,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
 shared-ui,safety_body,Crisis / safety screen,SENSITIVE,"A calm route to real human support, a trusted contact or a region-correct line, will live here.",,PENDING,,,
-shared-ui,back,Common,STANDARD,Back,,PENDING,,,
-shared-ui,safety_intro,Crisis / safety screen,SENSITIVE,You deserve real support. These are calm ways to reach a person.,,PENDING,,,
-shared-ui,safety_region_label,Crisis / safety screen,SENSITIVE,Show help for,,PENDING,,,
-shared-ui,safety_region_pk,Crisis / safety screen,SENSITIVE,Pakistan,,PENDING,,,
-shared-ui,safety_region_de,Crisis / safety screen,SENSITIVE,Germany,,PENDING,,,
-shared-ui,safety_region_uk,Crisis / safety screen,SENSITIVE,United Kingdom,,PENDING,,,
-shared-ui,safety_region_intl,Crisis / safety screen,SENSITIVE,International,,PENDING,,,
-shared-ui,safety_trusted_person,Crisis / safety screen,SENSITIVE,Reach your trusted person,,PENDING,,,
-shared-ui,safety_heading_acute,Crisis / safety screen,SENSITIVE,If you need someone right now,,PENDING,,,
-shared-ui,safety_heading_support,Crisis / safety screen,SENSITIVE,Eating-disorder support,,PENDING,,,
-shared-ui,safety_heading_finder,Crisis / safety screen,SENSITIVE,Find ongoing treatment,,PENDING,,,
-shared-ui,safety_fallback_note,Crisis / safety screen,SENSITIVE,We don't have verified local services for this region yet. These trusted options can help you find support near you.,,PENDING,,,
-shared-ui,safety_unverified,Crisis / safety screen,SENSITIVE,Details are being verified,,PENDING,,,
-shared-ui,onb_intro_title,Onboarding questionnaire,SENSITIVE,A few gentle questions,,PENDING,,,
-shared-ui,onb_intro_body,Onboarding questionnaire,SENSITIVE,"So Aspen can fit you a little better. There are no right answers, nothing here is a test or a diagnosis, and you can skip anything. Take your time.",,PENDING,,,
-shared-ui,onb_begin,Onboarding questionnaire,SENSITIVE,Begin,,PENDING,,,
-shared-ui,onb_skip_all,Onboarding questionnaire,SENSITIVE,Skip these for now,,PENDING,,,
-shared-ui,onb_skip_question,Onboarding questionnaire,SENSITIVE,Skip this one,,PENDING,,,
-shared-ui,onb_next,Onboarding questionnaire,SENSITIVE,Continue,,PENDING,,,
-shared-ui,onb_back,Onboarding questionnaire,SENSITIVE,Back,,PENDING,,,
-shared-ui,onb_prefer_not,Onboarding questionnaire,SENSITIVE,I'd rather not say,,PENDING,,,
-shared-ui,onb_q1_title,Onboarding questionnaire,SENSITIVE,What would feel most helpful from Aspen right now?,,PENDING,,,
-shared-ui,onb_q1_calmer,Onboarding questionnaire,SENSITIVE,A calmer moment in hard times,,PENDING,,,
-shared-ui,onb_q1_private,Onboarding questionnaire,SENSITIVE,Somewhere private to put my thoughts,,PENDING,,,
-shared-ui,onb_q1_company,Onboarding questionnaire,SENSITIVE,Company that doesn't ask much of me,,PENDING,,,
-shared-ui,onb_q1_reach_help,Onboarding questionnaire,SENSITIVE,A way to reach real help,,PENDING,,,
-shared-ui,onb_q1_not_sure,Onboarding questionnaire,SENSITIVE,I'm not sure yet,,PENDING,,,
-shared-ui,onb_q2_title,Onboarding questionnaire,SENSITIVE,How would you describe your relationship with eating lately?,,PENDING,,,
-shared-ui,onb_q2_tense_rules,Onboarding questionnaire,SENSITIVE,"Tense, or full of rules",,PENDING,,,
-shared-ui,onb_q2_out_of_control,Onboarding questionnaire,SENSITIVE,Out of my control at times,,PENDING,,,
-shared-ui,onb_q2_undo_after,Onboarding questionnaire,SENSITIVE,Something I try to undo afterwards,,PENDING,,,
-shared-ui,onb_q2_sensory_hard,Onboarding questionnaire,SENSITIVE,"Hard because of how foods feel, taste, or seem",,PENDING,,,
-shared-ui,onb_q2_body_focused,Onboarding questionnaire,SENSITIVE,Mostly about how I feel in my body,,PENDING,,,
-shared-ui,onb_q2_varies,Onboarding questionnaire,SENSITIVE,It varies,,PENDING,,,
-shared-ui,onb_likert_not_really,Onboarding questionnaire,SENSITIVE,Not really,,PENDING,,,
-shared-ui,onb_likert_sometimes,Onboarding questionnaire,SENSITIVE,Sometimes,,PENDING,,,
-shared-ui,onb_likert_often,Onboarding questionnaire,SENSITIVE,Often,,PENDING,,,
-shared-ui,onb_q3_title,Onboarding questionnaire,SENSITIVE,"Do you find yourself holding back from eating, even when part of you wants or needs to?",,PENDING,,,
-shared-ui,onb_q4_title,Onboarding questionnaire,SENSITIVE,"Do you ever feel that once you start eating, it's hard to feel in control?",,PENDING,,,
-shared-ui,onb_q5_title,Onboarding questionnaire,SENSITIVE,"After eating, do you often feel a strong urge to make up for it somehow?",,PENDING,,,
-shared-ui,onb_q6_title,Onboarding questionnaire,SENSITIVE,"Is eating hard mainly because of how foods feel, taste, or smell, or worry about what eating might do, rather than worry about your body or shape?",,PENDING,,,
-shared-ui,onb_q6_yes,Onboarding questionnaire,SENSITIVE,Yes,,PENDING,,,
-shared-ui,onb_q6_somewhat,Onboarding questionnaire,SENSITIVE,Somewhat,,PENDING,,,
-shared-ui,onb_q6_no,Onboarding questionnaire,SENSITIVE,No,,PENDING,,,
-shared-ui,onb_q7_title,Onboarding questionnaire,SENSITIVE,How much do thoughts about your body or shape affect your day?,,PENDING,,,
-shared-ui,onb_q7_not_much,Onboarding questionnaire,SENSITIVE,Not much,,PENDING,,,
-shared-ui,onb_q7_sometimes,Onboarding questionnaire,SENSITIVE,Sometimes,,PENDING,,,
-shared-ui,onb_q7_a_lot,Onboarding questionnaire,SENSITIVE,A lot,,PENDING,,,
-shared-ui,onb_q8_title,Onboarding questionnaire,SENSITIVE,How much is this getting in the way of your everyday life right now?,,PENDING,,,
-shared-ui,onb_q8_a_little,Onboarding questionnaire,SENSITIVE,A little,,PENDING,,,
-shared-ui,onb_q8_some,Onboarding questionnaire,SENSITIVE,Some,,PENDING,,,
-shared-ui,onb_q8_a_lot,Onboarding questionnaire,SENSITIVE,A lot,,PENDING,,,
-shared-ui,onb_q9_title,Onboarding questionnaire,SENSITIVE,"Do you have anyone, a professional or someone you trust, supporting you with this?",,PENDING,,,
-shared-ui,onb_q9_professional,Onboarding questionnaire,SENSITIVE,"Yes, a professional",,PENDING,,,
-shared-ui,onb_q9_trusted,Onboarding questionnaire,SENSITIVE,"Yes, someone I trust",,PENDING,,,
-shared-ui,onb_q9_none,Onboarding questionnaire,SENSITIVE,Not right now,,PENDING,,,
-shared-ui,onb_q10_title,Onboarding questionnaire,SENSITIVE,"On the hardest days, would it help to have a quick way to reach a person?",,PENDING,,,
-shared-ui,onb_q10_set_up,Onboarding questionnaire,SENSITIVE,"Yes, set that up",,PENDING,,,
-shared-ui,onb_q10_maybe_later,Onboarding questionnaire,SENSITIVE,Maybe later,,PENDING,,,
-shared-ui,onb_q10_no,Onboarding questionnaire,SENSITIVE,No,,PENDING,,,
-shared-ui,onb_closing_title,Onboarding questionnaire,SENSITIVE,Thank you for sharing,,PENDING,,,
-shared-ui,onb_closing_body,Onboarding questionnaire,SENSITIVE,"Aspen will gently shape itself around what you've said, and you can change any of this anytime. One thing worth saying clearly: this isn't a diagnosis or an assessment. If you'd like to find real, specialist support, here's where to start.",,PENDING,,,
-shared-ui,onb_closing_find_help,Onboarding questionnaire,SENSITIVE,Find real support,,PENDING,,,
-shared-ui,onb_closing_continue,Onboarding questionnaire,SENSITIVE,Go to Aspen,,PENDING,,,
-shared-ui,grounding_title,Grounding tools,SENSITIVE,A hard moment,,PENDING,,,
-shared-ui,grounding_subtitle,Grounding tools,SENSITIVE,Here are a few quiet things that can help. There's no wrong choice.,,PENDING,,,
-shared-ui,grounding_breathe,Grounding tools,SENSITIVE,Breathe,,PENDING,,,
-shared-ui,grounding_54321,Grounding tools,SENSITIVE,Ground (5-4-3-2-1),,PENDING,,,
-shared-ui,grounding_ride_urge,Grounding tools,SENSITIVE,Ride the urge,,PENDING,,,
-shared-ui,grounding_talk,Grounding tools,SENSITIVE,Write it down,,PENDING,,,
-shared-ui,grounding_reach_someone,Grounding tools,SENSITIVE,Reach someone,,PENDING,,,
-shared-ui,grounding_close,Grounding tools,SENSITIVE,Close,,PENDING,,,
-shared-ui,grounding_gentle_close,Grounding tools,SENSITIVE,Glad you took a moment.,,PENDING,,,
-shared-ui,grounding_done,Grounding tools,SENSITIVE,I'm okay for now,,PENDING,,,
-shared-ui,breathe_title,Grounding tools,SENSITIVE,Let's breathe together,,PENDING,,,
-shared-ui,breathe_in,Grounding tools,SENSITIVE,Breathe in,,PENDING,,,
-shared-ui,breathe_hold,Grounding tools,SENSITIVE,Hold,,PENDING,,,
-shared-ui,breathe_out,Grounding tools,SENSITIVE,Breathe out,,PENDING,,,
-shared-ui,breathe_reduced_note,Grounding tools,SENSITIVE,Follow the words at your own pace.,,PENDING,,,
-shared-ui,ground_54321_title,Grounding tools,SENSITIVE,Notice where you are,,PENDING,,,
-shared-ui,ground_54321_intro,Grounding tools,SENSITIVE,"Slowly, gently, take each one in. There's no rush.",,PENDING,,,
-shared-ui,ground_54321_see,Grounding tools,SENSITIVE,Five things you can see,,PENDING,,,
-shared-ui,ground_54321_hear,Grounding tools,SENSITIVE,Four things you can hear,,PENDING,,,
-shared-ui,ground_54321_touch,Grounding tools,SENSITIVE,Three things you can touch,,PENDING,,,
-shared-ui,ground_54321_smell,Grounding tools,SENSITIVE,Two things you can smell,,PENDING,,,
-shared-ui,ground_54321_taste,Grounding tools,SENSITIVE,One thing you can taste,,PENDING,,,
-shared-ui,ground_54321_next,Grounding tools,SENSITIVE,Next,,PENDING,,,
-shared-ui,ride_urge_title,Grounding tools,SENSITIVE,Ride the urge,,PENDING,,,
-shared-ui,ride_urge_body,Grounding tools,SENSITIVE,"Urges rise, crest, and pass, like a wave. You don't have to act on it. Stay here a moment and let it move through.",,PENDING,,,
-shared-ui,reflect_title,Reflection & logging,STANDARD,Your space,,PENDING,,,
-shared-ui,reflect_subtitle,Reflection & logging,STANDARD,A private place for your thoughts. Only you can see this.,,PENDING,,,
-shared-ui,reflect_empty,Reflection & logging,STANDARD,"Nothing here yet, and that's completely okay. This space is here whenever you'd like it.",,PENDING,,,
-shared-ui,reflect_new_reflection,Reflection & logging,STANDARD,Write something down,,PENDING,,,
-shared-ui,reflect_new_feeling_log,Reflection & logging,STANDARD,Note how you're feeling,,PENDING,,,
-shared-ui,reflect_new_food_log,Reflection & logging,STANDARD,Note a moment around eating,,PENDING,,,
-shared-ui,reflect_section_reflections,Reflection & logging,STANDARD,Reflections,,PENDING,,,
-shared-ui,reflect_section_feelings,Reflection & logging,STANDARD,Feelings,,PENDING,,,
-shared-ui,reflect_section_food,Reflection & logging,STANDARD,Around eating,,PENDING,,,
-shared-ui,reflect_save,Reflection & logging,STANDARD,Save,,PENDING,,,
-shared-ui,reflect_cancel,Reflection & logging,STANDARD,Cancel,,PENDING,,,
-shared-ui,reflect_delete,Reflection & logging,STANDARD,Delete,,PENDING,,,
-shared-ui,reflect_text_hint,Reflection & logging,STANDARD,Whatever's on your mind…,,PENDING,,,
-shared-ui,reflect_note_hint,Reflection & logging,STANDARD,"A few words, if you'd like…",,PENDING,,,
-shared-ui,reflect_feelings_label,Reflection & logging,STANDARD,"If it helps, what are you feeling?",,PENDING,,,
-shared-ui,feeling_calm,Feeling tags,STANDARD,Calm,,PENDING,,,
-shared-ui,feeling_content,Feeling tags,STANDARD,Content,,PENDING,,,
-shared-ui,feeling_relieved,Feeling tags,STANDARD,Relieved,,PENDING,,,
-shared-ui,feeling_hopeful,Feeling tags,STANDARD,Hopeful,,PENDING,,,
-shared-ui,feeling_tired,Feeling tags,STANDARD,Tired,,PENDING,,,
-shared-ui,feeling_numb,Feeling tags,STANDARD,Numb,,PENDING,,,
-shared-ui,feeling_anxious,Feeling tags,STANDARD,Anxious,,PENDING,,,
-shared-ui,feeling_overwhelmed,Feeling tags,STANDARD,Overwhelmed,,PENDING,,,
-shared-ui,feeling_sad,Feeling tags,STANDARD,Sad,,PENDING,,,
-shared-ui,feeling_frustrated,Feeling tags,STANDARD,Frustrated,,PENDING,,,
-shared-ui,feeling_guilty,Feeling tags,STANDARD,Guilty,,PENDING,,,
-shared-ui,feeling_alone,Feeling tags,STANDARD,Alone,,PENDING,,,
-shared-ui,settings_title,Settings,STANDARD,Settings,,PENDING,,,
-shared-ui,settings_revisit_questions,Settings,STANDARD,Revisit the questions,,PENDING,,,
-shared-ui,settings_revisit_subtitle,Settings,STANDARD,Things change. You can answer again anytime.,,PENDING,,,
-shared-ui,settings_language_label,Language settings,STANDARD,Language,,PENDING,,,
-shared-ui,language_system,Language settings,STANDARD,Match my device,,PENDING,,,
-shared-ui,language_en,Language settings,STANDARD,English,,PENDING,,,
-shared-ui,language_ur,Language settings,STANDARD,اردو,,PENDING,,,
-shared-ui,settings_delete_all,Settings,STANDARD,Delete everything I've written,,PENDING,,,
-shared-ui,settings_delete_all_subtitle,Settings,STANDARD,Permanently removes your reflections and notes from this device.,,PENDING,,,
-shared-ui,settings_delete_confirm,Settings,STANDARD,Delete permanently,,PENDING,,,
-shared-ui,settings_delete_cancel,Settings,STANDARD,Keep my writing,,PENDING,,,
-shared-ui,settings_delete_dialog_title,Settings,STANDARD,Delete everything?,,PENDING,,,
-shared-ui,settings_delete_dialog_body,Settings,STANDARD,This permanently removes everything you've written on this device. It can't be undone.,,PENDING,,,
-shared-ui,companion_greeting_here,Companion messages,SENSITIVE,Hi. Just here with you.,,PENDING,,,
-shared-ui,companion_greeting_company,Companion messages,SENSITIVE,Want some company for a bit?,,PENDING,,,
-shared-ui,companion_greeting_soft,Companion messages,SENSITIVE,It's good that you're here.,,PENDING,,,
-shared-ui,companion_hard_sit_together,Companion messages,SENSITIVE,Want to sit together for a minute?,,PENDING,,,
-shared-ui,companion_hard_no_fixing,Companion messages,SENSITIVE,I'm not going anywhere. We can just be here.,,PENDING,,,
-shared-ui,companion_hard_reach_someone,Companion messages,SENSITIVE,"Rough moment? I can get you to your calm tools, or to someone.",,PENDING,,,
-shared-ui,companion_hard_passing,Companion messages,SENSITIVE,This feeling is like weather. It moves. I'll stay while it does.,,PENDING,,,
-shared-ui,companion_ground_breathe,Companion messages,SENSITIVE,Want to breathe with me for a minute?,,PENDING,,,
-shared-ui,companion_ground_senses,Companion messages,SENSITIVE,"Let's notice the room together, slowly.",,PENDING,,,
-shared-ui,companion_ground_write,Companion messages,SENSITIVE,Want to put it into words? I'll hold onto them.,,PENDING,,,
-shared-ui,companion_ambient_here_if_needed,Companion messages,SENSITIVE,Just here if you want company.,,PENDING,,,
-shared-ui,companion_ambient_no_followup,Companion messages,SENSITIVE,I'll be nearby.,,PENDING,,,
-shared-ui,companion_notify_gentle_checkin,Companion messages,SENSITIVE,Just a hello. Nothing needed.,,PENDING,,,
-shared-ui,companion_notify_tools_nearby,Companion messages,SENSITIVE,Your quiet tools are right here if today needs them.,,PENDING,,,
-shared-ui,settings_ai_title,AI consent (deeper reflection),SENSITIVE,Deeper reflection,,PENDING,,,
-shared-ui,settings_ai_subtitle_off,AI consent (deeper reflection),SENSITIVE,Off. Your words never leave this device.,,PENDING,,,
-shared-ui,settings_ai_subtitle_on,AI consent (deeper reflection),SENSITIVE,On. You can turn this off anytime.,,PENDING,,,
-shared-ui,settings_ai_dialog_title,AI consent (deeper reflection),SENSITIVE,Turn on deeper reflection?,,PENDING,,,
-shared-ui,settings_ai_dialog_body,AI consent (deeper reflection),SENSITIVE,"Turning this on means what you write in the reflection space is sent securely to an AI service to give better responses. You can turn it off anytime, and everything it holds can be deleted.",,PENDING,,,
-shared-ui,settings_ai_dialog_confirm,AI consent (deeper reflection),SENSITIVE,Turn it on,,PENDING,,,
-shared-ui,settings_ai_dialog_cancel,AI consent (deeper reflection),SENSITIVE,Not now,,PENDING,,,
-shared-ui,settings_ai_local_note,AI consent (deeper reflection),SENSITIVE,"Everything else in Aspen works fully on this device, with no AI service involved.",,PENDING,,,
+shared-ui,back,Common,STANDARD,Back,返回,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07)"
+shared-ui,safety_intro,Crisis / safety screen,SENSITIVE,You deserve real support. These are calm ways to reach a person.,你值得获得真正的支持。这里有一些平静的方式，可以联系到真实的人。,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,safety_region_label,Crisis / safety screen,SENSITIVE,Show help for,显示以下地区的帮助,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,safety_region_pk,Crisis / safety screen,SENSITIVE,Pakistan,巴基斯坦,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,safety_region_de,Crisis / safety screen,SENSITIVE,Germany,德国,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,safety_region_uk,Crisis / safety screen,SENSITIVE,United Kingdom,英国,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,safety_region_intl,Crisis / safety screen,SENSITIVE,International,国际,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,safety_trusted_person,Crisis / safety screen,SENSITIVE,Reach your trusted person,联系你信任的人,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,safety_heading_acute,Crisis / safety screen,SENSITIVE,If you need someone right now,如果你现在就需要有人陪伴,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,safety_heading_support,Crisis / safety screen,SENSITIVE,Eating-disorder support,进食障碍支持,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,safety_heading_finder,Crisis / safety screen,SENSITIVE,Find ongoing treatment,寻找持续治疗,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,safety_fallback_note,Crisis / safety screen,SENSITIVE,We don't have verified local services for this region yet. These trusted options can help you find support near you.,我们尚未收录该地区经过核实的本地服务。以下可信资源可以帮助你找到身边的支持。,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,safety_unverified,Crisis / safety screen,SENSITIVE,Details are being verified,详细信息正在核实中,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,onb_intro_title,Onboarding questionnaire,SENSITIVE,A few gentle questions,几个温和的问题,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,onb_intro_body,Onboarding questionnaire,SENSITIVE,"So Aspen can fit you a little better. There are no right answers, nothing here is a test or a diagnosis, and you can skip anything. Take your time.",这样 Aspen 能更贴合你一些。这里没有对错答案，这不是测试，也不是诊断，任何问题都可以跳过。慢慢来。,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,onb_begin,Onboarding questionnaire,SENSITIVE,Begin,开始,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,onb_skip_all,Onboarding questionnaire,SENSITIVE,Skip these for now,暂时跳过这些,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,onb_skip_question,Onboarding questionnaire,SENSITIVE,Skip this one,跳过这一题,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,onb_next,Onboarding questionnaire,SENSITIVE,Continue,继续,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,onb_back,Onboarding questionnaire,SENSITIVE,Back,返回,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,onb_prefer_not,Onboarding questionnaire,SENSITIVE,I'd rather not say,我不想说,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,onb_q1_title,Onboarding questionnaire,SENSITIVE,What would feel most helpful from Aspen right now?,现在，Aspen 能为你做的哪件事最有帮助？,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,onb_q1_calmer,Onboarding questionnaire,SENSITIVE,A calmer moment in hard times,在难熬的时刻多一份平静,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,onb_q1_private,Onboarding questionnaire,SENSITIVE,Somewhere private to put my thoughts,一个存放心事的私密角落,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,onb_q1_company,Onboarding questionnaire,SENSITIVE,Company that doesn't ask much of me,一种不对我提要求的陪伴,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,onb_q1_reach_help,Onboarding questionnaire,SENSITIVE,A way to reach real help,一条通向真实帮助的路,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,onb_q1_not_sure,Onboarding questionnaire,SENSITIVE,I'm not sure yet,我还不确定,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,onb_q2_title,Onboarding questionnaire,SENSITIVE,How would you describe your relationship with eating lately?,最近，你和吃饭的关系怎么样？,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,onb_q2_tense_rules,Onboarding questionnaire,SENSITIVE,"Tense, or full of rules",紧绷，或被规则束缚,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,onb_q2_out_of_control,Onboarding questionnaire,SENSITIVE,Out of my control at times,有时不受我控制,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,onb_q2_undo_after,Onboarding questionnaire,SENSITIVE,Something I try to undo afterwards,一种事后想要抵消的事,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED — Same euphemism constraint as q5 — keep behaviours implicit"
+shared-ui,onb_q2_sensory_hard,Onboarding questionnaire,SENSITIVE,"Hard because of how foods feel, taste, or seem",困难，因为食物的口感、味道或样子,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,onb_q2_body_focused,Onboarding questionnaire,SENSITIVE,Mostly about how I feel in my body,主要与我身体里的感受有关,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,onb_q2_varies,Onboarding questionnaire,SENSITIVE,It varies,时好时坏,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,onb_likert_not_really,Onboarding questionnaire,SENSITIVE,Not really,不太会,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,onb_likert_sometimes,Onboarding questionnaire,SENSITIVE,Sometimes,有时,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,onb_likert_often,Onboarding questionnaire,SENSITIVE,Often,经常,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,onb_q3_title,Onboarding questionnaire,SENSITIVE,"Do you find yourself holding back from eating, even when part of you wants or needs to?",你会不会克制自己不吃，即使心里有一部分想吃或需要吃？,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,onb_q4_title,Onboarding questionnaire,SENSITIVE,"Do you ever feel that once you start eating, it's hard to feel in control?",你是否觉得一旦开始吃，就很难感到自己能控制？,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,onb_q5_title,Onboarding questionnaire,SENSITIVE,"After eating, do you often feel a strong urge to make up for it somehow?",吃完之后，你是否常常有强烈的冲动，想以某种方式弥补？,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED — English is deliberately euphemistic ('make up for it') — reviewer must keep compensatory behaviours implicit, never name them (anti-shame lint)"
+shared-ui,onb_q6_title,Onboarding questionnaire,SENSITIVE,"Is eating hard mainly because of how foods feel, taste, or smell, or worry about what eating might do, rather than worry about your body or shape?",吃饭之所以困难，主要是因为食物的口感、味道或气味，或担心吃了会怎样，而不是担心自己的身体或体形吗？,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED — ARFID-screening item — reviewer confirm the sensory/consequence framing survives translation distinctly from body/shape concern"
+shared-ui,onb_q6_yes,Onboarding questionnaire,SENSITIVE,Yes,是,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,onb_q6_somewhat,Onboarding questionnaire,SENSITIVE,Somewhat,有一点,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,onb_q6_no,Onboarding questionnaire,SENSITIVE,No,不是,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,onb_q7_title,Onboarding questionnaire,SENSITIVE,How much do thoughts about your body or shape affect your day?,关于身体或体形的想法，对你的一天影响有多大？,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,onb_q7_not_much,Onboarding questionnaire,SENSITIVE,Not much,不太大,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,onb_q7_sometimes,Onboarding questionnaire,SENSITIVE,Sometimes,有时,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,onb_q7_a_lot,Onboarding questionnaire,SENSITIVE,A lot,很大,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,onb_q8_title,Onboarding questionnaire,SENSITIVE,How much is this getting in the way of your everyday life right now?,现在，这些事对你的日常生活妨碍有多大？,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,onb_q8_a_little,Onboarding questionnaire,SENSITIVE,A little,一点点,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,onb_q8_some,Onboarding questionnaire,SENSITIVE,Some,有一些,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,onb_q8_a_lot,Onboarding questionnaire,SENSITIVE,A lot,很大,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,onb_q9_title,Onboarding questionnaire,SENSITIVE,"Do you have anyone, a professional or someone you trust, supporting you with this?",有没有人——专业人士或你信任的人——在这件事上支持你？,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,onb_q9_professional,Onboarding questionnaire,SENSITIVE,"Yes, a professional",有，一位专业人士,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,onb_q9_trusted,Onboarding questionnaire,SENSITIVE,"Yes, someone I trust",有，一个我信任的人,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,onb_q9_none,Onboarding questionnaire,SENSITIVE,Not right now,目前没有,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,onb_q10_title,Onboarding questionnaire,SENSITIVE,"On the hardest days, would it help to have a quick way to reach a person?",在最难熬的日子里，如果有一条能立刻联系到某个人的快捷方式，会有帮助吗？,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,onb_q10_set_up,Onboarding questionnaire,SENSITIVE,"Yes, set that up",好，帮我设置,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,onb_q10_maybe_later,Onboarding questionnaire,SENSITIVE,Maybe later,以后再说,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,onb_q10_no,Onboarding questionnaire,SENSITIVE,No,不用,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,onb_closing_title,Onboarding questionnaire,SENSITIVE,Thank you for sharing,谢谢你的分享,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,onb_closing_body,Onboarding questionnaire,SENSITIVE,"Aspen will gently shape itself around what you've said, and you can change any of this anytime. One thing worth saying clearly: this isn't a diagnosis or an assessment. If you'd like to find real, specialist support, here's where to start.",Aspen 会根据你所说的，轻轻地调整自己，而这些你随时都可以更改。有一点要说清楚：这不是诊断，也不是评估。如果你想寻找真正的专业支持，可以从这里开始。,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,onb_closing_find_help,Onboarding questionnaire,SENSITIVE,Find real support,寻找真正的支持,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,onb_closing_continue,Onboarding questionnaire,SENSITIVE,Go to Aspen,进入 Aspen,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,grounding_title,Grounding tools,SENSITIVE,A hard moment,难熬的时刻,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,grounding_subtitle,Grounding tools,SENSITIVE,Here are a few quiet things that can help. There's no wrong choice.,这里有几件安静的小事，也许能帮上忙。怎么选都不会错。,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,grounding_breathe,Grounding tools,SENSITIVE,Breathe,呼吸,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,grounding_54321,Grounding tools,SENSITIVE,Ground (5-4-3-2-1),回到当下（5-4-3-2-1）,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED — Digits 5-4-3-2-1 are the technique name — keep as digits; cross-check against the per-language forbidden-token lexicon once advisors supply it"
+shared-ui,grounding_ride_urge,Grounding tools,SENSITIVE,Ride the urge,让冲动过去,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED — 'Ride the urge' is the urge-surfing technique — draft uses a 'let it pass' wave metaphor rather than literal 'riding'; reviewer confirm it reads as the technique and matches ride_urge_body"
+shared-ui,grounding_talk,Grounding tools,SENSITIVE,Write it down,写下来,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,grounding_reach_someone,Grounding tools,SENSITIVE,Reach someone,联系一个人,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,grounding_close,Grounding tools,SENSITIVE,Close,关闭,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,grounding_gentle_close,Grounding tools,SENSITIVE,Glad you took a moment.,很高兴你给了自己片刻。,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,grounding_done,Grounding tools,SENSITIVE,I'm okay for now,我现在还好,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,breathe_title,Grounding tools,SENSITIVE,Let's breathe together,我们一起呼吸,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,breathe_in,Grounding tools,SENSITIVE,Breathe in,吸气,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED — Pacer word — keep short for animation sync"
+shared-ui,breathe_hold,Grounding tools,SENSITIVE,Hold,屏住,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED — Pacer word — must be one short word matching the breathing animation timing"
+shared-ui,breathe_out,Grounding tools,SENSITIVE,Breathe out,呼气,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED — Pacer word — keep short for animation sync"
+shared-ui,breathe_reduced_note,Grounding tools,SENSITIVE,Follow the words at your own pace.,跟着文字，按自己的节奏来。,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,ground_54321_title,Grounding tools,SENSITIVE,Notice where you are,留意你所在的地方,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,ground_54321_intro,Grounding tools,SENSITIVE,"Slowly, gently, take each one in. There's no rush.",慢慢地、轻轻地，逐一去感受。不用着急。,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,ground_54321_see,Grounding tools,SENSITIVE,Five things you can see,五样你能看到的东西,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,ground_54321_hear,Grounding tools,SENSITIVE,Four things you can hear,四种你能听到的声音,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,ground_54321_touch,Grounding tools,SENSITIVE,Three things you can touch,三样你能触摸到的东西,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,ground_54321_smell,Grounding tools,SENSITIVE,Two things you can smell,两种你能闻到的气味,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,ground_54321_taste,Grounding tools,SENSITIVE,One thing you can taste,一种你能尝到的味道,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,ground_54321_next,Grounding tools,SENSITIVE,Next,下一步,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,ride_urge_title,Grounding tools,SENSITIVE,Ride the urge,让冲动过去,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED — Must stay identical to grounding_ride_urge (same feature, menu label vs screen title)"
+shared-ui,ride_urge_body,Grounding tools,SENSITIVE,"Urges rise, crest, and pass, like a wave. You don't have to act on it. Stay here a moment and let it move through.",冲动会像海浪一样升起、到达顶点，然后退去。你不必照它行动。在这里停留片刻，让它慢慢过去。,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED — Wave metaphor must stay non-instructive and non-shaming; 'act on it' kept behaviour-neutral"
+shared-ui,reflect_title,Reflection & logging,STANDARD,Your space,你的空间,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,reflect_subtitle,Reflection & logging,STANDARD,A private place for your thoughts. Only you can see this.,一个只属于你想法的私密地方。只有你能看到。,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,reflect_empty,Reflection & logging,STANDARD,"Nothing here yet, and that's completely okay. This space is here whenever you'd like it.",这里还什么都没有，这完全没关系。这个空间随时为你敞开。,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,reflect_new_reflection,Reflection & logging,STANDARD,Write something down,写点什么,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,reflect_new_feeling_log,Reflection & logging,STANDARD,Note how you're feeling,记一下现在的感受,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,reflect_new_food_log,Reflection & logging,STANDARD,Note a moment around eating,记一个与吃有关的时刻,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass — Anti-shame framing: 'a moment around eating' is deliberately NOT 'food diary/meal log' — keep the gentle indirection"
+shared-ui,reflect_section_reflections,Reflection & logging,STANDARD,Reflections,反思,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,reflect_section_feelings,Reflection & logging,STANDARD,Feelings,感受,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,reflect_section_food,Reflection & logging,STANDARD,Around eating,与吃有关,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass — Anti-shame framing: 'Around eating', not 'Food log' — keep indirection"
+shared-ui,reflect_save,Reflection & logging,STANDARD,Save,保存,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,reflect_cancel,Reflection & logging,STANDARD,Cancel,取消,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,reflect_delete,Reflection & logging,STANDARD,Delete,删除,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,reflect_text_hint,Reflection & logging,STANDARD,Whatever's on your mind…,想到什么都可以……,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,reflect_note_hint,Reflection & logging,STANDARD,"A few words, if you'd like…",几句话就好，如果你愿意……,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,reflect_feelings_label,Reflection & logging,STANDARD,"If it helps, what are you feeling?",如果有帮助的话，你现在感觉如何？,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,feeling_calm,Feeling tags,STANDARD,Calm,平静,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,feeling_content,Feeling tags,STANDARD,Content,满足,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,feeling_relieved,Feeling tags,STANDARD,Relieved,松了口气,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,feeling_hopeful,Feeling tags,STANDARD,Hopeful,有希望,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,feeling_tired,Feeling tags,STANDARD,Tired,疲惫,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,feeling_numb,Feeling tags,STANDARD,Numb,麻木,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,feeling_anxious,Feeling tags,STANDARD,Anxious,焦虑,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,feeling_overwhelmed,Feeling tags,STANDARD,Overwhelmed,不堪重负,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,feeling_sad,Feeling tags,STANDARD,Sad,难过,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,feeling_frustrated,Feeling tags,STANDARD,Frustrated,烦躁,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,feeling_guilty,Feeling tags,STANDARD,Guilty,内疚,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass — ED-adjacent tag — keep as plain emotion word, no moralising"
+shared-ui,feeling_alone,Feeling tags,STANDARD,Alone,孤单,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,settings_title,Settings,STANDARD,Settings,设置,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,settings_revisit_questions,Settings,STANDARD,Revisit the questions,重新看看那些问题,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,settings_revisit_subtitle,Settings,STANDARD,Things change. You can answer again anytime.,事情会变。你随时可以重新回答。,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,settings_language_label,Language settings,STANDARD,Language,语言,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,language_system,Language settings,STANDARD,Match my device,跟随设备,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,language_en,Language settings,STANDARD,English,English,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass — Endonym — stays 'English' in every language (do not translate)"
+shared-ui,language_ur,Language settings,STANDARD,اردو,اردو,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass — Endonym — stays 'اردو' in every language (do not translate)"
+shared-ui,settings_delete_all,Settings,STANDARD,Delete everything I've written,删除我写下的一切,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,settings_delete_all_subtitle,Settings,STANDARD,Permanently removes your reflections and notes from this device.,从这台设备上永久移除你的反思和笔记。,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,settings_delete_confirm,Settings,STANDARD,Delete permanently,永久删除,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,settings_delete_cancel,Settings,STANDARD,Keep my writing,保留我写的,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,settings_delete_dialog_title,Settings,STANDARD,Delete everything?,删除全部？,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,settings_delete_dialog_body,Settings,STANDARD,This permanently removes everything you've written on this device. It can't be undone.,这将永久移除你在这台设备上写下的一切，无法撤销。,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,companion_greeting_here,Companion messages,SENSITIVE,Hi. Just here with you.,嗨。就在这里陪着你。,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,companion_greeting_company,Companion messages,SENSITIVE,Want some company for a bit?,想要人陪一会儿吗？,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,companion_greeting_soft,Companion messages,SENSITIVE,It's good that you're here.,你来了，真好。,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,companion_hard_sit_together,Companion messages,SENSITIVE,Want to sit together for a minute?,想一起坐一会儿吗？,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,companion_hard_no_fixing,Companion messages,SENSITIVE,I'm not going anywhere. We can just be here.,我哪儿也不去。我们可以就这样待着。,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,companion_hard_reach_someone,Companion messages,SENSITIVE,"Rough moment? I can get you to your calm tools, or to someone.",难熬的时刻？我可以带你去你的平静小工具，或者联系一个人。,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,companion_hard_passing,Companion messages,SENSITIVE,This feeling is like weather. It moves. I'll stay while it does.,这种感觉像天气，会移动、会过去。在它过去之前，我会一直陪着。,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED — Weather metaphor for transience — keep non-instructive; do not turn into advice"
+shared-ui,companion_ground_breathe,Companion messages,SENSITIVE,Want to breathe with me for a minute?,想和我一起呼吸一分钟吗？,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,companion_ground_senses,Companion messages,SENSITIVE,"Let's notice the room together, slowly.",我们一起，慢慢地留意这个房间。,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,companion_ground_write,Companion messages,SENSITIVE,Want to put it into words? I'll hold onto them.,想把它写成文字吗？我会好好收着。,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,companion_ambient_here_if_needed,Companion messages,SENSITIVE,Just here if you want company.,就在这里，需要陪伴的话。,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,companion_ambient_no_followup,Companion messages,SENSITIVE,I'll be nearby.,我就在附近。,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,companion_notify_gentle_checkin,Companion messages,SENSITIVE,Just a hello. Nothing needed.,只是打个招呼，不需要做什么。,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,companion_notify_tools_nearby,Companion messages,SENSITIVE,Your quiet tools are right here if today needs them.,你的安静小工具就在这里，如果今天需要的话。,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,settings_ai_title,AI consent (deeper reflection),SENSITIVE,Deeper reflection,更深的反思,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED — 'Reflection' term matched to nav_reflect from batch 1 per language — keep consistent"
+shared-ui,settings_ai_subtitle_off,AI consent (deeper reflection),SENSITIVE,Off. Your words never leave this device.,已关闭。你写的内容不会离开这台设备。,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED — Privacy claim ('never leave this device') — must stay literally accurate"
+shared-ui,settings_ai_subtitle_on,AI consent (deeper reflection),SENSITIVE,On. You can turn this off anytime.,已开启。你随时可以关闭。,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,settings_ai_dialog_title,AI consent (deeper reflection),SENSITIVE,Turn on deeper reflection?,开启更深的反思？,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,settings_ai_dialog_body,AI consent (deeper reflection),SENSITIVE,"Turning this on means what you write in the reflection space is sent securely to an AI service to give better responses. You can turn it off anytime, and everything it holds can be deleted.",开启后，你在反思空间写下的内容会通过安全方式发送给一个 AI 服务，以便给出更好的回应。你随时可以关闭，它保存的一切也都可以删除。,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED — CONSENT COPY: factual accuracy about data flow is mandatory — 'sent securely to an AI service' and 'can be deleted' must survive translation; privacy reviewer should see this row too, not only the ED reviewer"
+shared-ui,settings_ai_dialog_confirm,AI consent (deeper reflection),SENSITIVE,Turn it on,开启,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,settings_ai_dialog_cancel,AI consent (deeper reflection),SENSITIVE,Not now,暂时不用,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,settings_ai_local_note,AI consent (deeper reflection),SENSITIVE,"Everything else in Aspen works fully on this device, with no AI service involved.",Aspen 的其他所有功能都完全在这台设备上运行，不涉及任何 AI 服务。,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED — Privacy claim (on-device) — must stay literally accurate"
 shared-ui,settings_debug_companion,Debug (not shipped),DEV_ONLY,Companion preview (debug),,SKIP,,,
 shared-ui,settings_debug_companion_subtitle,Debug (not shipped),DEV_ONLY,Developer-only view of the companion voice and safety guard.,,SKIP,,,
-shared-ui,reflect_companion_title,AI reflection companion,SENSITIVE,Reflect together,,PENDING,,,
-shared-ui,reflect_companion_hint,AI reflection companion,SENSITIVE,"If you want, tell me how it felt…",,PENDING,,,
-shared-ui,reflect_companion_send,AI reflection companion,SENSITIVE,Share,,PENDING,,,
-shared-ui,reflect_companion_thinking,AI reflection companion,SENSITIVE,…,,PENDING,,,
-shared-ui,reflect_companion_unavailable,AI reflection companion,SENSITIVE,"Not available right now. Your notebook still works, always.",,PENDING,,,
-shared-ui,reflect_companion_handoff,AI reflection companion,SENSITIVE,"That sounds like a lot to carry. You deserve real support right now, from a real person.",,PENDING,,,
-shared-ui,reflect_companion_handoff_button,AI reflection companion,SENSITIVE,Reach someone now,,PENDING,,,
-shared-ui,safety_ai_fallback,AI safety fallback,SENSITIVE,"I can't respond the way I'd want to here. What you're feeling matters, and a real person can be there for it.",,PENDING,,,
+shared-ui,reflect_companion_title,AI reflection companion,SENSITIVE,Reflect together,一起反思,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED — 'Reflection' term matched to nav_reflect from batch 1 per language — keep consistent"
+shared-ui,reflect_companion_hint,AI reflection companion,SENSITIVE,"If you want, tell me how it felt…",如果你愿意，说说那是什么感觉……,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,reflect_companion_send,AI reflection companion,SENSITIVE,Share,分享,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,reflect_companion_thinking,AI reflection companion,SENSITIVE,…,……,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED — Kept as ellipsis in every language (fullwidth …… in zh)"
+shared-ui,reflect_companion_unavailable,AI reflection companion,SENSITIVE,"Not available right now. Your notebook still works, always.",现在暂时用不了。你的笔记本一直都在。,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED"
+shared-ui,reflect_companion_handoff,AI reflection companion,SENSITIVE,"That sounds like a lot to carry. You deserve real support right now, from a real person.",听起来你承受了很多。你现在值得真正的支持，来自一个真实的人。,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED — CRISIS-HANDOFF STRING: must stay warm, non-dismissive, and route firmly to a human — top review priority"
+shared-ui,reflect_companion_handoff_button,AI reflection companion,SENSITIVE,Reach someone now,立刻联系一个人,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED — Crisis-handoff CTA — pairs with the handoff line; keep urgent but calm"
+shared-ui,safety_ai_fallback,AI safety fallback,SENSITIVE,"I can't respond the way I'd want to here. What you're feeling matters, and a real person can be there for it.",在这里，我没法给出我想给的回应。你的感受很重要，一个真实的人可以陪你面对。,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE: requires ED-informed native-speaker review before APPROVED — CRISIS-HANDOFF STRING (crisisGateStrict surface): the AI 'I' must not promise ongoing presence, must validate feeling, must point to a real person"
 shared-ui,debug_companion_title,Debug (not shipped),DEV_ONLY,Companion preview,,SKIP,,,
 shared-ui,debug_companion_moment,Debug (not shipped),DEV_ONLY,Moment,,SKIP,,,
 shared-ui,debug_companion_tone,Debug (not shipped),DEV_ONLY,Tone,,SKIP,,,
@@ -182,78 +182,78 @@ shared-ui,debug_guard_pass,Debug (not shipped),DEV_ONLY,Guard: pass,,SKIP,,,
 shared-ui,debug_guard_rewrite,Debug (not shipped),DEV_ONLY,Guard: withheld and replaced,,SKIP,,,
 shared-ui,debug_guard_crisis,Debug (not shipped),DEV_ONLY,Crisis signals: would hand off,,SKIP,,,
 shared-ui,debug_guard_no_crisis,Debug (not shipped),DEV_ONLY,Crisis signals: no hand-off,,SKIP,,,
-shared-ui,settings_companion_title,Companion presence settings,STANDARD,A small companion,,PENDING,,,
-shared-ui,settings_companion_subtitle_off,Companion presence settings,STANDARD,"Off. A tiny pixel friend can sit quietly in the corner, only if you want.",,PENDING,,,
-shared-ui,settings_companion_subtitle_on,Companion presence settings,STANDARD,Keeping you company. Tap to let it rest.,,PENDING,,,
-shared-ui,settings_companion_species_label,Companion presence settings,STANDARD,Who keeps you company,,PENDING,,,
-shared-ui,companion_species_aspen,Companion messages,SENSITIVE,Aspen sprite,,PENDING,,,
-shared-ui,companion_species_cat,Companion messages,SENSITIVE,Cat,,PENDING,,,
-shared-ui,companion_species_bunny,Companion messages,SENSITIVE,Bunny,,PENDING,,,
-shared-ui,companion_a11y_label,Companion messages,SENSITIVE,Your companion. Tap to play together.,,PENDING,,,
-shared-ui,companion_rest_action,Companion messages,SENSITIVE,Rest now,,PENDING,,,
-shared-ui,settings_overlay_title,Overlay settings,STANDARD,Across your screen,,PENDING,,,
-shared-ui,settings_overlay_subtitle_off,Overlay settings,STANDARD,The companion stays inside Aspen.,,PENDING,,,
-shared-ui,settings_overlay_subtitle_on,Overlay settings,STANDARD,"The companion can sit at the edge of your screen, outside Aspen too.",,PENDING,,,
-shared-ui,settings_overlay_dialog_title,Overlay settings,STANDARD,Let it sit outside Aspen?,,PENDING,,,
-shared-ui,settings_overlay_dialog_body,Overlay settings,STANDARD,"Android will ask you to allow Aspen to “display over other apps”. That only lets the companion sit on your screen — Aspen cannot see, read, or record anything you do there. It hides on its own during videos and games, and you can let it rest anytime.",,PENDING,,,
-shared-ui,settings_overlay_dialog_confirm,Overlay settings,STANDARD,"Okay, continue",,PENDING,,,
-shared-ui,settings_overlay_dialog_cancel,Overlay settings,STANDARD,Not now,,PENDING,,,
-shared-ui,settings_notify_title,Notifications,STANDARD,A rare hello,,PENDING,,,
-shared-ui,settings_notify_subtitle_off,Notifications,STANDARD,Off. Aspen stays completely silent.,,PENDING,,,
-shared-ui,settings_notify_subtitle_on,Notifications,STANDARD,"Once in a while, a gentle hello. Nothing is ever asked of you.",,PENDING,,,
-shared-ui,notify_channel_name,Notifications,STANDARD,Gentle check-ins,,PENDING,,,
-shared-ui,notify_channel_description,Notifications,STANDARD,"A quiet hello from your companion, once in a while.",,PENDING,,,
-shared-ui,settings_account_title,Account,STANDARD,An account (optional),,PENDING,,,
-shared-ui,settings_account_subtitle_off,Account,STANDARD,Everything works without one. An account only adds the choice to back up later.,,PENDING,,,
-shared-ui,settings_account_subtitle_on,Account,STANDARD,Signed in. Your writing still lives on this device.,,PENDING,,,
-shared-ui,account_mode_create,Account,STANDARD,Create,,PENDING,,,
-shared-ui,account_mode_signin,Account,STANDARD,Sign in,,PENDING,,,
-shared-ui,account_email_optional,Account,STANDARD,"Email (optional, helps you recover sign-in)",,PENDING,,,
-shared-ui,account_identifier,Account,STANDARD,Email or account ID,,PENDING,,,
-shared-ui,account_password,Account,STANDARD,Password,,PENDING,,,
-shared-ui,account_submit_create,Account,STANDARD,Create account,,PENDING,,,
-shared-ui,account_submit_signin,Account,STANDARD,Sign in,,PENDING,,,
-shared-ui,account_note_local,Account,STANDARD,Your writing stays on this device either way.,,PENDING,,,
-shared-ui,account_id_caption,Account,STANDARD,Account ID (your way back in if no email is attached): %1$s,,PENDING,,,
-shared-ui,account_error_denied,Account,STANDARD,That didn't match. Take your time and try again whenever.,,PENDING,,,
-shared-ui,account_error_email_taken,Account,STANDARD,That email already has an account. You can sign in instead.,,PENDING,,,
-shared-ui,account_error_weak_password,Account,STANDARD,A longer password is needed here.,,PENDING,,,
-shared-ui,account_error_unavailable,Account,STANDARD,Aspen couldn't reach the server just now. Everything on this device is unaffected.,,PENDING,,,
-shared-ui,account_signout,Account,STANDARD,Sign out,,PENDING,,,
-shared-ui,account_signout_subtitle,Account,STANDARD,Ends the session on this device. Your writing stays.,,PENDING,,,
-shared-ui,account_delete,Account,STANDARD,Delete this account,,PENDING,,,
-shared-ui,account_delete_subtitle,Account,STANDARD,Removes the account and anything backed up. Writing on this device stays.,,PENDING,,,
-shared-ui,account_delete_dialog_title,Account,STANDARD,Delete this account?,,PENDING,,,
-shared-ui,account_delete_dialog_body,Account,STANDARD,"The account and anything backed up to it will be permanently removed. Everything written on this device stays here, untouched.",,PENDING,,,
-shared-ui,account_delete_confirm,Account,STANDARD,Delete the account,,PENDING,,,
-shared-ui,account_delete_cancel,Account,STANDARD,Keep it,,PENDING,,,
-shared-ui,backup_title,Backup,STANDARD,Back up (optional),,PENDING,,,
-shared-ui,backup_subtitle_off,Backup,STANDARD,Keep an encrypted copy with your account. It's locked before it leaves your phone.,,PENDING,,,
-shared-ui,backup_subtitle_on,Backup,STANDARD,On. Backed up only when you choose.,,PENDING,,,
-shared-ui,backup_passphrase,Backup,STANDARD,A passphrase for your backup,,PENDING,,,
-shared-ui,backup_enable,Backup,STANDARD,Turn on and back up,,PENDING,,,
-shared-ui,backup_note_keymodel,Backup,STANDARD,"Your backup is locked with this passphrase before it leaves your phone. We store only what we cannot read, so we can never unlock it for you.",,PENDING,,,
-shared-ui,backup_error_weak,Backup,STANDARD,A longer passphrase is needed here.,,PENDING,,,
-shared-ui,backup_error_unavailable,Backup,STANDARD,Aspen couldn't reach the server just now. Nothing has changed.,,PENDING,,,
-shared-ui,backup_code_title,Backup,STANDARD,Your recovery code,,PENDING,,,
-shared-ui,backup_code_body,Backup,STANDARD,"If the passphrase is ever forgotten, this code is the only other way into your backup. Keep it somewhere safe outside this phone. We cannot recover it for you — an email reset brings back your sign-in, never your backup.",,PENDING,,,
-shared-ui,backup_code_confirm,Backup,STANDARD,I wrote it down,,PENDING,,,
-shared-ui,backup_now,Backup,STANDARD,Back up now,,PENDING,,,
-shared-ui,backup_now_subtitle,Backup,STANDARD,Replaces your last backup with what's written here now.,,PENDING,,,
-shared-ui,backup_done,Backup,STANDARD,Backed up.,,PENDING,,,
-shared-ui,backup_restore_title,Backup,STANDARD,Restore from a backup,,PENDING,,,
-shared-ui,backup_restore_hint,Backup,STANDARD,Passphrase or recovery code,,PENDING,,,
-shared-ui,backup_restore_action,Backup,STANDARD,Restore,,PENDING,,,
-shared-ui,backup_restore_done,Backup,STANDARD,Restored. Your writing from the backup is here now.,,PENDING,,,
-shared-ui,backup_error_wrong_secret,Backup,STANDARD,That didn't open the backup. The passphrase or the recovery code — either works here.,,PENDING,,,
-shared-ui,backup_error_no_backup,Backup,STANDARD,There's no backup on this account yet.,,PENDING,,,
-shared-ui,backup_off,Backup,STANDARD,Turn off backup,,PENDING,,,
-shared-ui,backup_off_subtitle,Backup,STANDARD,Removes the backup from the server. Writing on this device stays.,,PENDING,,,
-shared-ui,backup_off_dialog_title,Backup,STANDARD,Remove the backup?,,PENDING,,,
-shared-ui,backup_off_dialog_body,Backup,STANDARD,The encrypted copy on the server will be deleted. Everything on this device stays as it is.,,PENDING,,,
-shared-ui,backup_off_confirm,Backup,STANDARD,Remove it,,PENDING,,,
-shared-ui,backup_off_cancel,Backup,STANDARD,Keep it,,PENDING,,,
-overlay,overlay_channel_name,Overlay notification,STANDARD,Companion,,PENDING,,,
-overlay,overlay_channel_description,Overlay notification,STANDARD,Keeps the little companion on your screen. Quiet by design.,,PENDING,,,
-overlay,overlay_notification_title,Overlay notification,STANDARD,Your companion is nearby,,PENDING,,,
-overlay,overlay_notification_body,Overlay notification,STANDARD,It sits quietly at the edge of the screen. You can let it rest anytime from Aspen.,,PENDING,,,
+shared-ui,settings_companion_title,Companion presence settings,STANDARD,A small companion,一个小小的伙伴,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,settings_companion_subtitle_off,Companion presence settings,STANDARD,"Off. A tiny pixel friend can sit quietly in the corner, only if you want.",已关闭。一个小小的像素朋友可以安静地待在角落，只在你想要的时候。,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,settings_companion_subtitle_on,Companion presence settings,STANDARD,Keeping you company. Tap to let it rest.,正在陪着你。点一下让它休息。,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,settings_companion_species_label,Companion presence settings,STANDARD,Who keeps you company,谁来陪你,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,companion_species_aspen,Companion messages,SENSITIVE,Aspen sprite,Aspen 精灵,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE per pipeline: needs ED-informed native review — 'Aspen' brand word untranslated; 'sprite' rendered per language — reviewer confirm it reads playful, not ghostly — PIPELINE NOTE: this key matches prefix 'companion_' before 'companion_species_' in CLASSIFY, so the generator treats it as SENSITIVE/Companion messages even though the intent was STANDARD — either accept SENSITIVE or reorder CLASSIFY (most-specific first)"
+shared-ui,companion_species_cat,Companion messages,SENSITIVE,Cat,猫,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE per pipeline: needs ED-informed native review — PIPELINE NOTE: this key matches prefix 'companion_' before 'companion_species_' in CLASSIFY, so the generator treats it as SENSITIVE/Companion messages even though the intent was STANDARD — either accept SENSITIVE or reorder CLASSIFY (most-specific first)"
+shared-ui,companion_species_bunny,Companion messages,SENSITIVE,Bunny,兔子,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE per pipeline: needs ED-informed native review — PIPELINE NOTE: this key matches prefix 'companion_' before 'companion_species_' in CLASSIFY, so the generator treats it as SENSITIVE/Companion messages even though the intent was STANDARD — either accept SENSITIVE or reorder CLASSIFY (most-specific first)"
+shared-ui,companion_a11y_label,Companion messages,SENSITIVE,Your companion. Tap to play together.,你的伙伴。点一下一起玩。,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE per pipeline: needs ED-informed native review — PIPELINE NOTE: this key matches prefix 'companion_' before 'companion_species_' in CLASSIFY, so the generator treats it as SENSITIVE/Companion messages even though the intent was STANDARD — either accept SENSITIVE or reorder CLASSIFY (most-specific first)"
+shared-ui,companion_rest_action,Companion messages,SENSITIVE,Rest now,休息吧,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — SENSITIVE per pipeline: needs ED-informed native review — PIPELINE NOTE: this key matches prefix 'companion_' before 'companion_species_' in CLASSIFY, so the generator treats it as SENSITIVE/Companion messages even though the intent was STANDARD — either accept SENSITIVE or reorder CLASSIFY (most-specific first)"
+shared-ui,settings_overlay_title,Overlay settings,STANDARD,Across your screen,在整个屏幕上,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,settings_overlay_subtitle_off,Overlay settings,STANDARD,The companion stays inside Aspen.,伙伴只待在 Aspen 里。,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,settings_overlay_subtitle_on,Overlay settings,STANDARD,"The companion can sit at the edge of your screen, outside Aspen too.",伙伴也可以待在屏幕边缘，在 Aspen 之外。,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,settings_overlay_dialog_title,Overlay settings,STANDARD,Let it sit outside Aspen?,让它待在 Aspen 外面？,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,settings_overlay_dialog_body,Overlay settings,STANDARD,"Android will ask you to allow Aspen to “display over other apps”. That only lets the companion sit on your screen — Aspen cannot see, read, or record anything you do there. It hides on its own during videos and games, and you can let it rest anytime.",Android 会请求允许 Aspen“显示在其他应用上层”。这只是让伙伴待在你的屏幕上——Aspen 无法看到、读取或记录你在那里做的任何事。看视频和玩游戏时它会自己躲起来，你也随时可以让它休息。,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass — Quoted permission name should match the OS's own localized string for 'display over other apps' — reviewer verify against Android system UI in this language"
+shared-ui,settings_overlay_dialog_confirm,Overlay settings,STANDARD,"Okay, continue",好的，继续,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,settings_overlay_dialog_cancel,Overlay settings,STANDARD,Not now,暂时不用,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,settings_notify_title,Notifications,STANDARD,A rare hello,偶尔的问候,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,settings_notify_subtitle_off,Notifications,STANDARD,Off. Aspen stays completely silent.,已关闭。Aspen 会保持完全安静。,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,settings_notify_subtitle_on,Notifications,STANDARD,"Once in a while, a gentle hello. Nothing is ever asked of you.",偶尔一声轻轻的问候。从不要求你做任何事。,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,notify_channel_name,Notifications,STANDARD,Gentle check-ins,轻轻的问候,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,notify_channel_description,Notifications,STANDARD,"A quiet hello from your companion, once in a while.",你的伙伴偶尔发来的一声安静问候。,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,settings_account_title,Account,STANDARD,An account (optional),账户（可选）,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,settings_account_subtitle_off,Account,STANDARD,Everything works without one. An account only adds the choice to back up later.,没有账户一切也照常运作。账户只是让你以后可以选择备份。,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,settings_account_subtitle_on,Account,STANDARD,Signed in. Your writing still lives on this device.,已登录。你写的内容仍然保存在这台设备上。,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,account_mode_create,Account,STANDARD,Create,创建,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,account_mode_signin,Account,STANDARD,Sign in,登录,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,account_email_optional,Account,STANDARD,"Email (optional, helps you recover sign-in)",邮箱（可选，方便找回登录）,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,account_identifier,Account,STANDARD,Email or account ID,邮箱或账户 ID,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,account_password,Account,STANDARD,Password,密码,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,account_submit_create,Account,STANDARD,Create account,创建账户,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,account_submit_signin,Account,STANDARD,Sign in,登录,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,account_note_local,Account,STANDARD,Your writing stays on this device either way.,无论如何，你写的内容都留在这台设备上。,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,account_id_caption,Account,STANDARD,Account ID (your way back in if no email is attached): %1$s,账户 ID（未绑定邮箱时的找回方式）：%1$s,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass — Contains Android placeholder %1$s — must be preserved verbatim"
+shared-ui,account_error_denied,Account,STANDARD,That didn't match. Take your time and try again whenever.,没有匹配上。别着急，随时再试。,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,account_error_email_taken,Account,STANDARD,That email already has an account. You can sign in instead.,这个邮箱已有账户。你可以直接登录。,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,account_error_weak_password,Account,STANDARD,A longer password is needed here.,这里需要更长一点的密码。,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,account_error_unavailable,Account,STANDARD,Aspen couldn't reach the server just now. Everything on this device is unaffected.,Aspen 暂时连不上服务器。这台设备上的一切都不受影响。,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,account_signout,Account,STANDARD,Sign out,退出登录,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,account_signout_subtitle,Account,STANDARD,Ends the session on this device. Your writing stays.,结束这台设备上的会话。你写的内容会保留。,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,account_delete,Account,STANDARD,Delete this account,删除此账户,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,account_delete_subtitle,Account,STANDARD,Removes the account and anything backed up. Writing on this device stays.,移除账户和所有备份。这台设备上写的内容会保留。,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,account_delete_dialog_title,Account,STANDARD,Delete this account?,删除此账户？,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,account_delete_dialog_body,Account,STANDARD,"The account and anything backed up to it will be permanently removed. Everything written on this device stays here, untouched.",账户及其备份的一切都会被永久移除。这台设备上写下的所有内容会原样保留在这里。,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,account_delete_confirm,Account,STANDARD,Delete the account,删除账户,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,account_delete_cancel,Account,STANDARD,Keep it,保留,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,backup_title,Backup,STANDARD,Back up (optional),备份（可选）,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,backup_subtitle_off,Backup,STANDARD,Keep an encrypted copy with your account. It's locked before it leaves your phone.,在你的账户中保留一份加密副本。它在离开手机之前就已上锁。,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,backup_subtitle_on,Backup,STANDARD,On. Backed up only when you choose.,已开启。只在你选择时才备份。,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,backup_passphrase,Backup,STANDARD,A passphrase for your backup,为备份设置一个口令,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,backup_enable,Backup,STANDARD,Turn on and back up,开启并备份,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,backup_note_keymodel,Backup,STANDARD,"Your backup is locked with this passphrase before it leaves your phone. We store only what we cannot read, so we can never unlock it for you.",你的备份在离开手机之前就用这个口令上了锁。我们只保存我们无法读取的内容，所以我们永远无法替你解锁。,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass — SECURITY CLAIM (zero-knowledge model): 'we store only what we cannot read' must survive translation literally"
+shared-ui,backup_error_weak,Backup,STANDARD,A longer passphrase is needed here.,这里需要更长一点的口令。,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,backup_error_unavailable,Backup,STANDARD,Aspen couldn't reach the server just now. Nothing has changed.,Aspen 暂时连不上服务器。什么都没有改变。,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,backup_code_title,Backup,STANDARD,Your recovery code,你的恢复码,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,backup_code_body,Backup,STANDARD,"If the passphrase is ever forgotten, this code is the only other way into your backup. Keep it somewhere safe outside this phone. We cannot recover it for you — an email reset brings back your sign-in, never your backup.",如果哪天忘了口令，这个恢复码是进入备份的唯一另一条路。请把它保存在这部手机之外的安全地方。我们无法为你找回——邮箱重置只能找回登录，永远找不回备份。,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass — SECURITY CLAIM: 'email reset brings back sign-in, never your backup' must stay unambiguous"
+shared-ui,backup_code_confirm,Backup,STANDARD,I wrote it down,我已经记下了,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,backup_now,Backup,STANDARD,Back up now,立即备份,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,backup_now_subtitle,Backup,STANDARD,Replaces your last backup with what's written here now.,用现在写下的内容替换你上一次的备份。,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,backup_done,Backup,STANDARD,Backed up.,已备份。,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,backup_restore_title,Backup,STANDARD,Restore from a backup,从备份恢复,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,backup_restore_hint,Backup,STANDARD,Passphrase or recovery code,口令或恢复码,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,backup_restore_action,Backup,STANDARD,Restore,恢复,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,backup_restore_done,Backup,STANDARD,Restored. Your writing from the backup is here now.,已恢复。备份中的内容现在都在这里了。,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,backup_error_wrong_secret,Backup,STANDARD,That didn't open the backup. The passphrase or the recovery code — either works here.,没能打开备份。口令或恢复码——这里两个都可以。,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,backup_error_no_backup,Backup,STANDARD,There's no backup on this account yet.,这个账户还没有备份。,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,backup_off,Backup,STANDARD,Turn off backup,关闭备份,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,backup_off_subtitle,Backup,STANDARD,Removes the backup from the server. Writing on this device stays.,从服务器移除备份。这台设备上写的内容会保留。,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,backup_off_dialog_title,Backup,STANDARD,Remove the backup?,移除备份？,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,backup_off_dialog_body,Backup,STANDARD,The encrypted copy on the server will be deleted. Everything on this device stays as it is.,服务器上的加密副本将被删除。这台设备上的一切保持原样。,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,backup_off_confirm,Backup,STANDARD,Remove it,移除,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+shared-ui,backup_off_cancel,Backup,STANDARD,Keep it,保留,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+overlay,overlay_channel_name,Overlay notification,STANDARD,Companion,伙伴,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+overlay,overlay_channel_description,Overlay notification,STANDARD,Keeps the little companion on your screen. Quiet by design.,让小伙伴留在你的屏幕上。天生安静。,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+overlay,overlay_notification_title,Overlay notification,STANDARD,Your companion is nearby,你的伙伴就在旁边,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"
+overlay,overlay_notification_body,Overlay notification,STANDARD,It sits quietly at the edge of the screen. You can let it rest anytime from Aspen.,它安静地待在屏幕边缘。你随时可以在 Aspen 里让它休息。,APPROVED,DEBUG-ONLY-UNREVIEWED,2026-07-08,"AI draft (Claude, 2026-07-07) — STANDARD: native review pass"

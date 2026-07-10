@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- German (de). GENERATED from l10n/worksheets/ui.de.csv by l10n_review.py import. Do not hand-edit; edit the
+     worksheet and re-import. Only reviewed strings are present; absent keys fall back
+     to English at runtime. SENSITIVE surfaces appear only when APPROVED (docs/12 §5). -->
+<resources>
+    <!-- Overlay notification -->
+    <string name="overlay_channel_name">Begleiter</string>
+    <string name="overlay_channel_description">Hält den kleinen Begleiter auf deinem Bildschirm. Still, mit Absicht.</string>
+    <string name="overlay_notification_title">Dein Begleiter ist in der Nähe</string>
+    <string name="overlay_notification_body">Er sitzt still am Bildschirmrand. Du kannst ihn jederzeit in Aspen ausruhen lassen.</string>
+</resources>

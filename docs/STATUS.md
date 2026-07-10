@@ -102,9 +102,27 @@ the codebase and T&S/translators.
   (5, verify real numbers), `safety-lexicon.<lang>.csv` (7), `ai-prompt/en.txt` (revision
   `draft-2026-07-02`). Master inventory + coverage matrix in `l10n/catalog.md`.
 - Round-trip verified byte-faithful (apostrophes/`&`/`%1$s`/smart-quotes, 244 strings 0
-  mismatch, valid XML). `generate` run; **`import` deliberately NOT run** (nothing APPROVED yet
-  — no shipping resource touched). Import back is per-language and re-triggers `copyLint` /
+  mismatch, valid XML). `generate` run; import back is per-language and re-triggers `copyLint` /
   `crisisGateStrict` as the safety net. Supersedes the scattered "Urdu placeholder" leftout.
+
+### ⚠️ DEBUG-ONLY unreviewed import — `feat/l10n-review-harness` (2026-07-08)
+
+To exercise all 7 languages on-device **before advisors sign off**, the `l10n/` research
+package (AI-draft UI translations + researched crisis numbers) was merged into the worksheets,
+bulk-approved with a **synthetic tag**, and imported into the shipping resource paths. This
+deliberately flips the sensitive-surface gate **for debug only** — it is NOT a release state.
+- **UI:** `ui-drafts` batches 1–5 merged into `l10n/worksheets/ui.<lang>.csv` (239 keys × 6
+  target langs; `safety_body` has no draft → English fallback; `fr` out of scope). Bulk-approved
+  with `reviewer=DEBUG-ONLY-UNREVIEWED`, then `import ui` → `values-<lang>/strings.xml` for
+  ur/de/zh/hi/ar/es (+ overlay res). `copyLint` **passes** (15 files, 0 forbidden tokens).
+- **Crisis:** researched `crisis.*.csv` swapped in, marked `verifiedBy=PROVISIONAL — …DEBUG-ONLY,
+  NOT advisor-verified`, `import crisis` → real numbers in `config/safety/crisis/*.json`.
+  `crisisGate` (dev) **passes**; **`crisisGateStrict` stays RED** (PROVISIONAL rejected) — the
+  release backstop is intact (CLAUDE.md #7). Numbers are researched, **not call-tested**.
+- **Revert before any shippable branch:** `git checkout config/safety/crisis` + delete generated
+  `values-<lang>/strings.xml` (only `values-ur` pre-existed) + re-run the real advisor pipeline.
+  Tripwires: the `DEBUG-ONLY-UNREVIEWED` reviewer tag + failing `crisisGateStrict`.
+- **Next:** debug device QA (RTL/fonts/expansion per language) → **Phase 6.6**.
 
 ---
 

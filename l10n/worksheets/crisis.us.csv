@@ -1,5 +1,5 @@
 country,resource_id,name,purpose,contact_index,method,label,value,verifiedBy,verifiedOn,status,notes
-US,us-alliance,National Alliance for Eating Disorders,ED_SUPPORT,0,PHONE,Helpline (licensed clinicians),TODO-VERIFY,TODO-VERIFY,TODO-VERIFY,PENDING,
-US,us-anad,ANAD,ED_SUPPORT,0,PHONE,Helpline (peer support + referrals),TODO-VERIFY,TODO-VERIFY,TODO-VERIFY,PENDING,
-US,us-988,988 Suicide & Crisis Lifeline,ACUTE_CRISIS,0,PHONE,988 (call or text),TODO-VERIFY,TODO-VERIFY,TODO-VERIFY,PENDING,
-US,us-emergency,Emergency services,ACUTE_CRISIS,0,PHONE,Emergency (life-threatening only),TODO-VERIFY,TODO-VERIFY,TODO-VERIFY,PENDING,
+US,us-alliance,National Alliance for Eating Disorders,ED_SUPPORT,0,PHONE,Helpline (licensed clinicians),1-866-662-1235,"PROVISIONAL — Claude research draft, DEBUG-ONLY, NOT advisor-verified",2026-07-07,APPROVED,"web-checked 2026-07-07 (Claude research draft); source: allianceforeatingdisorders.com/contact + findedhelp.com. Hours Mon-Fri 9:00-19:00 ET; NOT a 24/7 crisis line. Advisor: call-test, confirm hours."
+US,us-anad,ANAD,ED_SUPPORT,0,PHONE,Helpline (peer support + referrals),1-888-375-7767,"PROVISIONAL — Claude research draft, DEBUG-ONLY, NOT advisor-verified",2026-07-07,APPROVED,web-checked 2026-07-07 (Claude research draft); source: secondary directory (eatingdisorderhope.com) citing ANAD; listed 8:00-20:00 ET. Advisor: confirm on anad.org directly + call-test.
+US,us-988,988 Suicide & Crisis Lifeline,ACUTE_CRISIS,0,PHONE,988 (call or text),988,"PROVISIONAL — Claude research draft, DEBUG-ONLY, NOT advisor-verified",2026-07-07,APPROVED,"web-checked 2026-07-07 (Claude research draft); national number, call or text, 24/7. Advisor: confirm text option wording."
+US,us-emergency,Emergency services,ACUTE_CRISIS,0,PHONE,Emergency (life-threatening only),911,"PROVISIONAL — Claude research draft, DEBUG-ONLY, NOT advisor-verified",2026-07-07,APPROVED,Standard US emergency number.
