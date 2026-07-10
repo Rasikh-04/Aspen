@@ -10,6 +10,84 @@ Google/Apple sign-in, device-to-device key transfer, prod DB/hosting/mail.
 
 ---
 
+## Phase 3 — icon pack (2026-07-10, `feat/l10n-review-harness`)
+
+Per `docs/ASPEN_DESIGN_ROADMAP.md` §3 Phase 3 (roadmap's own numbering, not this file's KMP-build
+phase count above). Closes the "icon system — genuinely empty" gap logged in Phase 0 below.
+
+- **Library:** `io.github.dev778g-me:phosphoricon-compose:1.0.5` (Maven Central, MIT), picked over
+  `com.adamglin:phosphor-icon:1.0.0` after due diligence — last pushed 2026-05-09 vs. 14 months
+  stale, 0 open issues vs. 1, and a **confirmed** `Duotone` weight (`PhIcons.Duotone.*`, verified
+  by decompiling the downloaded `.aar`) where the adamglin package's Duotone coverage couldn't be
+  confirmed at all. Publishes `iosArm64`/`iosSimulatorArm64` matching `:shared:ui`'s existing iOS
+  targets. Built against Kotlin 2.3.20/CMP 1.10.3; compiles clean against Aspen's 2.4.0/1.11.0 —
+  no compatibility issue in practice. It's a small (6-star), single-maintainer package — flagged
+  as a normal small-dependency risk, not a blocker; may revisit if a more mainstream/official
+  Phosphor pack for Compose Multiplatform emerges later.
+- **Wired (14 of the requested 16 icons — see deferral below):** nav bar (`AppScaffold.kt` —
+  `AspenBottomBar`'s dot indicator replaced by the tab icon itself, tinted/sized on selection,
+  reduced-motion-aware); hard-moment chooser (`GroundingChooser.kt` — all 5 tools); Settings —
+  the 5 groups that already have code to attach an icon to (`SettingsScreen.kt`'s revisit-questions/
+  AI/companion rows + language label, `AccountSection.kt`'s account card).
+- **Deliberately not wired — Safety & Support and About:** neither exists as Settings content yet
+  (no crisis-region/trusted-contact row or version/credits/feedback screen in `SettingsScreen.kt`).
+  Roadmap §5/§6 already scopes that IA work into **Phase 6** (screen-by-screen migration), after
+  this icon phase. Per explicit direction: no placeholder cards invented to hang an icon on —
+  those 2 groups get their icon when Phase 6 builds the actual content.
+- **Alarm-red guard (CLAUDE.md #5):** every icon tint added is an existing `AspenTheme.colors.*`
+  token (`primary`/`textMuted`), already covered by `ContrastTest.kt`'s `noTokenIsAlarmRed()` — no
+  new explicit/raw tint was introduced, so no new test was needed. Re-ran `ContrastTest` to confirm
+  no regression.
+- **Verified:** `:shared:ui:compileAndroidMain` + `:shared:ui:compileKotlinMetadata` +
+  `:androidApp:compileDebugKotlin` all green; `:shared:ui:testAndroidHostTest` +
+  `:shared:core-common:jvmTest` pass. Repo-wide grep confirms zero `painterResource`/
+  `Icons.(Filled|Outlined|Rounded|TwoTone|Sharp|AutoMirrored|Default).*` anywhere in `shared`,
+  `androidApp`, `companion-overlay-android`. No raw widgets introduced.
+- iOS `iosArm64`/`iosSimulatorArm64` compile not verified locally (Linux dev machine, same
+  standing limitation as the rest of this file) — covered by the `macos-14` CI job.
+
+---
+
+## Phase 0 — design-system audit (2026-07-10, `feat/l10n-review-harness`)
+
+Per `docs/ASPEN_DESIGN_ROADMAP.md` §0/Phase 0 (a general design-pass doc, not KMP-specific —
+referenced here for Phase 6.6, not further updated). Inventoried the "incomplete design-system
+attempt" before Phase 6.6 UI work starts. Screenshots are the user's own task, not covered here.
+
+- **No separate abandoned repo/branch found** — checked all branches, stashes, root dir. The
+  untracked `redundant/` dir is old superseded l10n export material (pre-`l10n/` harness),
+  unrelated to design. The roadmap's "abandoned attempt" premise doesn't apply here — what
+  exists is `:shared:core-design`, built in Phase 3 (`1e347a5`), further along than the roadmap
+  assumed.
+- **Tokens (docs/06 §2) — done, functional, provisional-only in name:** `AspenColors`/`Palette`,
+  typography, 4–48dp spacing, 8/16/24+pill radii, 200/300/400ms motion all match spec, unit-tested
+  (contrast + no-alarm-red). Real bundled OFL fonts (Fraunces/Plus Jakarta Sans/Noto Nastaliq
+  Urdu), per-language in `AspenTypography`. Gaps: no formal designer sign-off pass; 22sp scale
+  step (docs/06 §2) defined by no role has ever used it.
+- **Component layer (docs/06 §2.1) — all 8 primitives exist AND are adopted**, not just built:
+  usage-grepped across `:shared:ui` — `AspenCard`/`AspenTextAction` (9 files each),
+  `AspenPrimaryButton` (8), `AspenAmbientBackground` (wraps the whole `AppScaffold` shell),
+  `AspenPresenceDots`, `AspenChoiceChip`, `AspenScreenHeader`, `AspenTagPill`, `AspenQuietButton`
+  all in real use.
+- **Raw-widget gap is narrow, not a full re-migration:** repo-wide scan found zero raw
+  `Button`/`OutlinedButton`/`FilterChip`/`NavigationBar`/`Switch`. Remaining: raw `AlertDialog` +
+  `TextButton` (7 dialogs across `SettingsScreen`/`AccountSection`/`BackupSection` — no
+  `AspenDialog` was ever scoped) and raw `OutlinedTextField` (4 files, each hand-copying the same
+  color wiring — no `AspenTextField` was ever scoped). Two minor `Surface(` uses (bottom nav bar
+  in `AppScaffold`, onboarding answer rows in `OnboardingComponents`) are already tokened, just
+  outside the formal layer.
+- **Icon system — genuinely empty** (roadmap Phase 3, unstarted): zero `Icon(`/`Icons.*`/
+  `painterResource` calls anywhere in the app; the only drawable in the repo is the Android
+  overlay-notification icon. This is the roadmap's "text blocks with no icons" gap, confirmed —
+  and the largest real one.
+- **Mascot/companion sprites (roadmap Phase 4) — already mostly done** from earlier companion
+  work (procedural pixel-art, 3-species lineup); not starting from zero as the roadmap assumed.
+- **Phase 0 done-criteria call: keep everything, no rebuild.** Next: `AspenDialog` +
+  `AspenTextField` (fill the two scoped-but-missing primitives), then icons (roadmap Phase 3 —
+  the only true blank slate) → Phase 6.6.
+
+---
+
 ## Advisor-review & translation harness — `l10n/` (2026-07-05)
 
 Consolidated **every user-facing string that needs advisor sign-off + translation** into one

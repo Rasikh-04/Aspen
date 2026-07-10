@@ -7,9 +7,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -17,7 +19,16 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.dp
+import com.phosphor.icons.PhIcons
+import com.phosphor.icons.duotone.GlobeDuotone
+import com.phosphor.icons.duotone.PawPrintDuotone
+import com.phosphor.icons.duotone.ShieldCheckDuotone
+import com.phosphor.icons.duotone.SparkleDuotone
+import com.phosphor.icons.duotone.UserDuotone
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
 import app.aspen.core.i18n.SupportedLanguage
@@ -71,8 +82,13 @@ import app.aspen.ui.generated.resources.settings_delete_confirm
 import app.aspen.ui.generated.resources.settings_delete_dialog_body
 import app.aspen.ui.generated.resources.settings_delete_dialog_title
 import app.aspen.ui.generated.resources.language_en
-import app.aspen.ui.generated.resources.language_system
 import app.aspen.ui.generated.resources.language_ur
+import app.aspen.ui.generated.resources.language_de
+import app.aspen.ui.generated.resources.language_zh
+import app.aspen.ui.generated.resources.language_hi
+import app.aspen.ui.generated.resources.language_ar
+import app.aspen.ui.generated.resources.language_es
+import app.aspen.ui.generated.resources.language_system
 import app.aspen.ui.generated.resources.settings_language_label
 import app.aspen.ui.generated.resources.settings_revisit_questions
 import app.aspen.ui.generated.resources.settings_revisit_subtitle
@@ -121,33 +137,75 @@ fun SettingsScreen(
         SettingRow(
             title = Res.string.settings_revisit_questions,
             subtitle = Res.string.settings_revisit_subtitle,
+            icon = PhIcons.Duotone.UserDuotone,
             onClick = onRevisitQuestions,
         )
         if (onLanguageChange != null) {
             // UI language (docs/12 §4): the explicit choice wins; "match my device" follows the OS.
-            // Only languages with string resources are offered (the other five join as their
-            // native-reviewed files land, CLAUDE.md #11). Language never implies a crisis region.
-            Text(
-                stringResource(Res.string.settings_language_label),
-                style = AspenTheme.typography.caption,
-                color = AspenTheme.colors.textMuted,
-            )
-            Row(horizontalArrangement = Arrangement.spacedBy(AspenTheme.spacing.s)) {
-                AspenChoiceChip(
-                    label = stringResource(Res.string.language_system),
-                    selected = languageOverride == null,
-                    onToggle = { onLanguageChange(null) },
+            // All 7 supported languages available. Language never implies a crisis region.
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(AspenTheme.spacing.xs),
+            ) {
+                Icon(
+                    imageVector = PhIcons.Duotone.GlobeDuotone,
+                    contentDescription = null,
+                    tint = AspenTheme.colors.textMuted,
+                    modifier = Modifier.size(16.dp),
                 )
-                AspenChoiceChip(
-                    label = stringResource(Res.string.language_en),
-                    selected = languageOverride == SupportedLanguage.EN,
-                    onToggle = { onLanguageChange(SupportedLanguage.EN) },
+                Text(
+                    stringResource(Res.string.settings_language_label),
+                    style = AspenTheme.typography.caption,
+                    color = AspenTheme.colors.textMuted,
                 )
-                AspenChoiceChip(
-                    label = stringResource(Res.string.language_ur),
-                    selected = languageOverride == SupportedLanguage.UR,
-                    onToggle = { onLanguageChange(SupportedLanguage.UR) },
-                )
+            }
+            Column(verticalArrangement = Arrangement.spacedBy(AspenTheme.spacing.s)) {
+                Row(horizontalArrangement = Arrangement.spacedBy(AspenTheme.spacing.s)) {
+                    AspenChoiceChip(
+                        label = stringResource(Res.string.language_system),
+                        selected = languageOverride == null,
+                        onToggle = { onLanguageChange(null) },
+                    )
+                    AspenChoiceChip(
+                        label = stringResource(Res.string.language_en),
+                        selected = languageOverride == SupportedLanguage.EN,
+                        onToggle = { onLanguageChange(SupportedLanguage.EN) },
+                    )
+                    AspenChoiceChip(
+                        label = stringResource(Res.string.language_ur),
+                        selected = languageOverride == SupportedLanguage.UR,
+                        onToggle = { onLanguageChange(SupportedLanguage.UR) },
+                    )
+                }
+                Row(horizontalArrangement = Arrangement.spacedBy(AspenTheme.spacing.s)) {
+                    AspenChoiceChip(
+                        label = stringResource(Res.string.language_de),
+                        selected = languageOverride == SupportedLanguage.DE,
+                        onToggle = { onLanguageChange(SupportedLanguage.DE) },
+                    )
+                    AspenChoiceChip(
+                        label = stringResource(Res.string.language_zh),
+                        selected = languageOverride == SupportedLanguage.ZH,
+                        onToggle = { onLanguageChange(SupportedLanguage.ZH) },
+                    )
+                    AspenChoiceChip(
+                        label = stringResource(Res.string.language_hi),
+                        selected = languageOverride == SupportedLanguage.HI,
+                        onToggle = { onLanguageChange(SupportedLanguage.HI) },
+                    )
+                }
+                Row(horizontalArrangement = Arrangement.spacedBy(AspenTheme.spacing.s)) {
+                    AspenChoiceChip(
+                        label = stringResource(Res.string.language_ar),
+                        selected = languageOverride == SupportedLanguage.AR,
+                        onToggle = { onLanguageChange(SupportedLanguage.AR) },
+                    )
+                    AspenChoiceChip(
+                        label = stringResource(Res.string.language_es),
+                        selected = languageOverride == SupportedLanguage.ES,
+                        onToggle = { onLanguageChange(SupportedLanguage.ES) },
+                    )
+                }
             }
         }
         if (consentManager != null) {
@@ -157,6 +215,7 @@ fun SettingsScreen(
             SettingRow(
                 title = Res.string.settings_ai_title,
                 subtitle = if (aiEnabled) Res.string.settings_ai_subtitle_on else Res.string.settings_ai_subtitle_off,
+                icon = PhIcons.Duotone.SparkleDuotone,
                 onClick = {
                     if (aiEnabled) {
                         // Revoke is immediate and needs no confirmation friction (docs/08 §3).
@@ -185,6 +244,7 @@ fun SettingsScreen(
                 } else {
                     Res.string.settings_companion_subtitle_off
                 },
+                icon = PhIcons.Duotone.PawPrintDuotone,
                 onClick = {
                     val turningOff = companion.prefs.enabled
                     companion.setEnabled(!turningOff)
@@ -368,11 +428,37 @@ private fun SpeciesChip(companion: CompanionController, species: CompanionSpecie
     )
 }
 
+/**
+ * [icon] marks a row as the representative card for one of the 7 Settings groups (docs/
+ * ASPEN_DESIGN_ROADMAP.md §5) — left null for sub-settings nested under an already-iconed group
+ * (e.g. companion notifications/overlay) so the group reads as one visual unit, not a repeated icon.
+ */
 @Composable
-private fun SettingRow(title: StringResource, subtitle: StringResource, onClick: () -> Unit) {
+private fun SettingRow(
+    title: StringResource,
+    subtitle: StringResource,
+    icon: ImageVector? = null,
+    onClick: () -> Unit,
+) {
     AspenCard(onClick = onClick, modifier = Modifier.fillMaxWidth()) {
-        Text(stringResource(title), style = AspenTheme.typography.body, color = AspenTheme.colors.textPrimary)
-        Spacer(Modifier.height(AspenTheme.spacing.xs))
-        Text(stringResource(subtitle), style = AspenTheme.typography.caption, color = AspenTheme.colors.textSecondary)
+        Row(horizontalArrangement = Arrangement.spacedBy(AspenTheme.spacing.s)) {
+            if (icon != null) {
+                Icon(
+                    imageVector = icon,
+                    contentDescription = null,
+                    tint = AspenTheme.colors.primary,
+                    modifier = Modifier.size(24.dp),
+                )
+            }
+            Column {
+                Text(stringResource(title), style = AspenTheme.typography.body, color = AspenTheme.colors.textPrimary)
+                Spacer(Modifier.height(AspenTheme.spacing.xs))
+                Text(
+                    stringResource(subtitle),
+                    style = AspenTheme.typography.caption,
+                    color = AspenTheme.colors.textSecondary,
+                )
+            }
+        }
     }
 }

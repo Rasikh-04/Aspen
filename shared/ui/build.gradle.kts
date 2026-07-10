@@ -42,6 +42,7 @@ kotlin {
             implementation(project(":shared:domain"))
             implementation(compose.components.resources)
             implementation(libs.jetbrains.navigation.compose)
+            implementation(libs.phosphor.icon.compose)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

@@ -5,7 +5,9 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
@@ -16,6 +18,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.liveRegion
@@ -23,6 +26,9 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.unit.dp
+import com.phosphor.icons.PhIcons
+import com.phosphor.icons.duotone.ShieldCheckDuotone
 import app.aspen.design.AspenTheme
 import app.aspen.design.components.AspenCard
 import app.aspen.design.components.AspenChoiceChip
@@ -97,11 +103,7 @@ fun AccountSection(manager: AccountManager, backupManager: app.aspen.domain.sync
 
     if (current == null) {
         AspenCard(onClick = { expanded = !expanded }, modifier = Modifier.fillMaxWidth()) {
-            Text(
-                stringResource(Res.string.settings_account_title),
-                style = AspenTheme.typography.body,
-                color = AspenTheme.colors.textPrimary,
-            )
+            AccountGroupHeader()
             Spacer(Modifier.height(AspenTheme.spacing.xs))
             Text(
                 stringResource(Res.string.settings_account_subtitle_off),
@@ -168,11 +170,7 @@ fun AccountSection(manager: AccountManager, backupManager: app.aspen.domain.sync
         }
     } else {
         AspenCard(modifier = Modifier.fillMaxWidth()) {
-            Text(
-                stringResource(Res.string.settings_account_title),
-                style = AspenTheme.typography.body,
-                color = AspenTheme.colors.textPrimary,
-            )
+            AccountGroupHeader()
             Spacer(Modifier.height(AspenTheme.spacing.xs))
             Text(
                 stringResource(Res.string.settings_account_subtitle_on),
@@ -256,6 +254,27 @@ fun AccountSection(manager: AccountManager, backupManager: app.aspen.domain.sync
                     Text(stringResource(Res.string.account_delete_cancel), color = AspenTheme.colors.textPrimary)
                 }
             },
+        )
+    }
+}
+
+/** Leading icon + title for the Account & Data group's representative card (docs/ASPEN_DESIGN_ROADMAP.md §5). */
+@Composable
+private fun AccountGroupHeader() {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(AspenTheme.spacing.s),
+    ) {
+        Icon(
+            imageVector = PhIcons.Duotone.ShieldCheckDuotone,
+            contentDescription = null,
+            tint = AspenTheme.colors.primary,
+            modifier = Modifier.size(24.dp),
+        )
+        Text(
+            stringResource(Res.string.settings_account_title),
+            style = AspenTheme.typography.body,
+            color = AspenTheme.colors.textPrimary,
         )
     }
 }
